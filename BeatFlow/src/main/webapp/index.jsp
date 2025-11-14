@@ -3,75 +3,125 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>BeatFlow | Khám phá & Nghe nhạc trực tuyến</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeatFlow | Khám phá & Nghe nhạc</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Thanh tiêu đề -->
-    <header class="header">
-        <div class="logo">BeatFlow</div>
-        <div class="nav-buttons">
-            <button class="btn-outline">Đăng nhập</button>
-            <button class="btn-primary">Tạo tài khoản</button>
-            <a href="#" class="link">Dành cho Nghệ sĩ</a>
+    <!-- Thanh header -->
+    <header class="bf-header">
+        <div class="bf-header-inner">
+            <div class="bf-logo">BeatFlow</div>
+            <nav class="bf-nav">
+                <button class="btn btn-ghost">Đăng nhập</button>
+                <button class="btn btn-primary">Tạo tài khoản</button>
+                <a class="bf-link" href="#">Dành cho Nghệ sĩ</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Khu vực giới thiệu -->
-    <section class="hero">
-        <div class="hero-content">
+    <!-- Hero / Slider -->
+ 	<section class="bf-hero">
+        <div class="bf-hero-bg"></div>
+
+        <div class="bf-hero-content">
             <h1>Khám phá.<br>Được khám phá.</h1>
-            <p>Tìm bản nhạc yêu thích tiếp theo của bạn, hoặc trở thành nghệ sĩ được mọi người biết đến. BeatFlow là nơi kết nối người yêu nhạc và các nghệ sĩ với nhau.</p>
-            <button class="btn-primary">Bắt đầu ngay</button>
-        </div>
-        <div class="hero-bg"></div>
-    </section>
+            <p>
+                Tìm bản nhạc tiếp theo mà bạn mê, hoặc trở thành nghệ sĩ được cộng đồng biết đến.
+                BeatFlow là nơi để người nghe và nghệ sĩ kết nối với nhau.
+            </p>
 
-    <!-- Thanh tìm kiếm -->
-    <section class="search-section">
-        <input type="text" placeholder="Tìm kiếm nghệ sĩ, bài hát, podcast...">
-        <button class="btn-primary">Tải nhạc của bạn lên</button>
-    </section>
-
-    <!-- Phần xu hướng -->
-    <section class="trending">
-        <h3>Khám phá những gì đang thịnh hành trên cộng đồng BeatFlow</h3>
-        <button class="btn-outline">Nghe danh sách phát nổi bật</button>
-    </section>
-
-    <!-- Phần ứng dụng di động -->
-    <section class="apps">
-        <div class="app-text">
-            <h2>Âm nhạc mọi lúc mọi nơi</h2>
-            <p>BeatFlow có mặt trên Web, iOS, Android, Chromecast và nhiều nền tảng khác.</p>
-            <div class="app-buttons">
-                <img src="assets/img/appstore.png" alt="App Store">
-                <img src="assets/img/googleplay.png" alt="Google Play">
+            <div class="bf-hero-btns">
+                <button class="btn btn-primary">Bắt đầu</button>
+                <button class="btn btn-outline-light">Tìm hiểu thêm</button>
             </div>
         </div>
-        <div class="app-images">
-            <img src="assets/img/app-preview.png" alt="Xem trước ứng dụng">
+
+        <div class="bf-hero-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+   	</section>
+
+    <!-- Search bar area -->
+    <section class="bf-search-wrap">
+        <div class="bf-search-inner">
+            <input class="bf-search-input" type="search" placeholder="Tìm nghệ sĩ, ban nhạc, bài hát, podcast...">
+            <span class="bf-or">hoặc</span>
+            <button class="btn btn-primary">Tải nhạc lên</button>
         </div>
     </section>
 
-    <!-- Kêu gọi nghệ sĩ -->
-    <section class="creators">
-        <div class="creator-text">
+    <!-- Trending -->
+    <section class="bf-trending">
+        <div class="bf-trending-inner">
+            <p class="bf-trending-title">Nghe những gì đang thịnh hành miễn phí trên cộng đồng BeatFlow</p>
+            <button class="btn btn-outline">Khám phá danh sách phát nổi bật</button>
+        </div>
+    </section>
+
+    <!-- Apps / Preview -->
+    <section class="bf-apps">
+        <div class="bf-apps-left">
+            <h2>Không bao giờ ngừng nghe</h2>
+            <p>BeatFlow có mặt trên Web, iOS, Android, Chromecast và nhiều nền tảng khác.</p>
+            <div class="bf-store-buttons">
+                <img src="assets/img/appstore.png" alt="App Store" class="store-badge">
+                <img src="assets/img/googleplay.png" alt="Google Play" class="store-badge">
+            </div>
+        </div>
+        <div class="bf-apps-right">
+            <img src="assets/img/app-preview.png" alt="App preview" class="app-preview">
+        </div>
+    </section>
+
+    <!-- Creators -->
+    <section class="bf-creators">
+        <div class="bf-creators-left">
             <h2>Kêu gọi tất cả nghệ sĩ</h2>
-            <p>Tham gia BeatFlow để chia sẻ âm nhạc của bạn, kết nối với người hâm mộ và phát triển cộng đồng của riêng bạn. Bạn còn chờ gì nữa?</p>
-            <button class="btn-outline">Tìm hiểu thêm</button>
+            <p>Tham gia BeatFlow để kết nối với người hâm mộ, chia sẻ âm nhạc và mở rộng cộng đồng của bạn. Bạn còn chờ gì?</p>
+            <button class="btn btn-outline">Tìm hiểu thêm</button>
         </div>
-        <div class="creator-img">
-            <img src="assets/img/artist.png" alt="Nghệ sĩ">
+        <div class="bf-creators-right">
+            <img src="assets/img/artist.png" alt="Artist" class="artist-image">
         </div>
     </section>
 
-    <!-- Chân trang -->
-    <footer class="footer">
-        <h3>Cảm ơn bạn đã lắng nghe. Hãy tham gia ngay hôm nay.</h3>
-        <p>Lưu bài hát, theo dõi nghệ sĩ và tạo danh sách phát của riêng bạn. Miễn phí hoàn toàn.</p>
-        <button class="btn-primary">Tạo tài khoản</button>
-        <p class="small-text">Đã có tài khoản? <a href="#">Đăng nhập</a></p>
+    <!-- Call to action / Footer top -->
+    <section class="bf-cta-join">
+        <div class="bf-cta-inner">
+            <h3>Cảm ơn bạn đã lắng nghe. Hãy tham gia ngay.</h3>
+            <p>Lưu bài, theo dõi nghệ sĩ và tạo danh sách phát. Hoàn toàn miễn phí.</p>
+            <button class="btn btn-primary">Tạo tài khoản</button>
+            <p class="small">Đã có tài khoản? <a href="#">Đăng nhập</a></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bf-footer">
+        <div class="bf-footer-inner">
+            <div class="bf-footer-links">
+                <a href="#">Giới thiệu</a>
+                <a href="#">Trợ giúp</a>
+                <a href="#">Điều khoản & Quyền riêng tư</a>
+                <a href="#">Liên hệ</a>
+            </div>
+            <div class="bf-footer-copyright">
+                <small>© <span id="year"></span> BeatFlow. All rights reserved.</small>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // small script to set year and simple dot slider effect
+        document.getElementById('year').innerText = new Date().getFullYear();
+        // slider dots simple demo (non-animated)
+        const dots = document.querySelectorAll('.bf-slider-dots .dot');
+        dots.forEach((d,i) => d.addEventListener('click',()=>{
+            dots.forEach(x=>x.classList.remove('active'));
+            dots[i].classList.add('active');
+        }));
+    </script>
 </body>
 </html>

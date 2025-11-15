@@ -164,16 +164,8 @@ body {
     transition: background-image 0.8s ease-in-out;
 }
 
-.bf-hero.slide-1 {
-    background-image: url('../img/hero-bg-1.jpg');
-}
-
-.bf-hero.slide-2 {
-    background-image: url('../img/hero-bg-2.jpg');
-}
-
-.bf-hero.slide-3 {
-    background-image: url('../img/hero-bg-3.jpg');
+.bf-hero {
+    background-image: url('../img/hero-bg.jpg');
 }
 
 .bf-hero-bg {
@@ -250,36 +242,6 @@ body {
 
 .hero-image-placeholder {
     display: none;
-}
-
-/* Dot slider */
-.bf-hero-dots {
-    position: absolute;
-    bottom: 40px;
-    left: 60px;
-    z-index: 5;
-    display: flex;
-    gap: 10px;
-}
-
-.bf-hero-dots .dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.bf-hero-dots .dot:hover {
-    background: rgba(255, 255, 255, 0.7);
-}
-
-.bf-hero-dots .dot.active {
-    background: #fff;
-    transform: scale(1.4);
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
 }
 
 /* ============= SEARCH SECTION ============= */

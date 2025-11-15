@@ -11,7 +11,10 @@
     <!-- Thanh header -->
     <header class="bf-header">
         <div class="bf-header-inner">
-            <div class="bf-logo">BeatFlow</div>
+            <div class="bf-logo">
+                <img src="assets/img/logo.png" alt="BeatFlow logo" class="bf-logo-img">
+                <span class="bf-logo-text">BeatFlow</span>
+            </div>
             <nav class="bf-nav">
                 <button class="btn btn-ghost">Đăng nhập</button>
                 <button class="btn btn-primary">Tạo tài khoản</button>
@@ -25,22 +28,16 @@
         <div class="bf-hero-bg"></div>
 
         <div class="bf-hero-content">
-            <h1>Khám phá.<br>Được khám phá.</h1>
+            <h1>Khám phá.<br>Được mọi người tìm kiếm.</h1>
             <p>
-                Tìm bản nhạc tiếp theo mà bạn mê, hoặc trở thành nghệ sĩ được cộng đồng biết đến.
-                BeatFlow là nơi để người nghe và nghệ sĩ kết nối với nhau.
+                Tìm kiếm bản nhạc, danh sách phát mà bạn yêu thích hoặc trở thành nghệ sĩ được mọi người biết đến.
+                BeatFlow là một cộng đồng nơi người hâm mộ và nghệ sĩ cùng nhau khám phá và kết nối thông qua âm nhạc.
             </p>
 
             <div class="bf-hero-btns">
                 <button class="btn btn-primary">Bắt đầu</button>
                 <button class="btn btn-outline-light">Tìm hiểu thêm</button>
             </div>
-        </div>
-
-        <div class="bf-hero-dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
         </div>
    	</section>
 

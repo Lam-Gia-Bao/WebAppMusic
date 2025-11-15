@@ -23,15 +23,15 @@
         </div>
     </header>
 
-    <!-- Hero / Slider -->
+    <!-- Hero -->
  	<section class="bf-hero">
         <div class="bf-hero-bg"></div>
 
         <div class="bf-hero-content">
-            <h1>Khám phá.<br>Được mọi người tìm kiếm.</h1>
+            <h1>Tìm kiếm.<br>Được mọi người tìm kiếm.</h1>
             <p>
                 Tìm kiếm bản nhạc, danh sách phát mà bạn yêu thích hoặc trở thành nghệ sĩ được mọi người biết đến.
-                BeatFlow là một cộng đồng nơi người hâm mộ và nghệ sĩ cùng nhau khám phá và kết nối thông qua âm nhạc.
+                <br>BeatFlow là một cộng đồng nơi người hâm mộ và nghệ sĩ cùng nhau khám phá và kết nối thông qua âm nhạc.
             </p>
 
             <div class="bf-hero-btns">
@@ -54,22 +54,26 @@
     <section class="bf-trending">
         <div class="bf-trending-inner">
             <p class="bf-trending-title">Nghe những gì đang thịnh hành miễn phí trên cộng đồng BeatFlow</p>
-            <button class="btn btn-outline">Khám phá danh sách phát nổi bật</button>
+            <button class="btn btn-primary">Khám phá danh sách phát nổi bật</button>
         </div>
     </section>
 
     <!-- Apps / Preview -->
     <section class="bf-apps">
-        <div class="bf-apps-left">
-            <h2>Không bao giờ ngừng nghe</h2>
-            <p>BeatFlow có mặt trên Web, iOS, Android, Chromecast và nhiều nền tảng khác.</p>
-            <div class="bf-store-buttons">
-                <img src="assets/img/appstore.png" alt="App Store" class="store-badge">
-                <img src="assets/img/googleplay.png" alt="Google Play" class="store-badge">
+        <div class="bf-apps-container">
+            <!-- show preview image first so it appears on the left visually -->
+            <div class="bf-apps-right">
+                <img src="assets/img/app-preview.png" alt="App preview" class="app-preview">
             </div>
-        </div>
-        <div class="bf-apps-right">
-            <img src="assets/img/app-preview.png" alt="App preview" class="app-preview">
+            <div class="bf-apps-left">
+                <h2>Không bao giờ ngừng nghe</h2>
+                <div class="bf-apps-underline"></div>
+                <p class="bf-apps-lead">BeatFlow có mặt trên Web, iOS, Android, Chromecast và nhiều nền tảng khác.</p>
+                <div class="bf-store-buttons">
+                    <img src="assets/img/appstore.png" alt="App Store" class="store-badge">
+                    <img src="assets/img/googleplay.png" alt="Google Play" class="store-badge">
+                </div>
+            </div>
         </div>
     </section>
 

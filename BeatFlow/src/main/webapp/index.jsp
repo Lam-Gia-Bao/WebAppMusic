@@ -23,7 +23,7 @@
         </div>
     </header>
 
-    <!-- Hero -->
+    <!-- Hero Banner-->
  	<section class="bf-hero">
         <div class="bf-hero-bg"></div>
 
@@ -41,7 +41,7 @@
         </div>
    	</section>
 
-    <!-- Search bar area -->
+    <!-- Search bar -->
     <section class="bf-search-wrap">
         <div class="bf-search-inner">
             <input class="bf-search-input" type="search" placeholder="Tìm nghệ sĩ, ban nhạc, bài hát, podcast...">
@@ -58,10 +58,9 @@
         </div>
     </section>
 
-    <!-- Apps / Preview -->
+    <!-- Apps -->
     <section class="bf-apps">
         <div class="bf-apps-container">
-            <!-- show preview image first so it appears on the left visually -->
             <div class="bf-apps-right">
                 <img src="assets/img/app-preview.png" alt="App preview" class="app-preview">
             </div>
@@ -79,17 +78,23 @@
 
     <!-- Creators -->
     <section class="bf-creators">
+    <div class="bf-creators-container">
         <div class="bf-creators-left">
             <h2>Kêu gọi tất cả nghệ sĩ</h2>
-            <p>Tham gia BeatFlow để kết nối với người hâm mộ, chia sẻ âm nhạc và mở rộng cộng đồng của bạn. Bạn còn chờ gì?</p>
+            <p>
+                Tham gia BeatFlow để kết nối với người hâm mộ, chia sẻ âm nhạc và mở rộng cộng đồng của bạn. 
+                Bạn còn chờ gì?
+            </p>
             <button class="btn btn-outline">Tìm hiểu thêm</button>
         </div>
+
         <div class="bf-creators-right">
             <img src="assets/img/artist.png" alt="Artist" class="artist-image">
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Call to action / Footer top -->
+    <!-- Call to action -->
     <section class="bf-cta-join">
         <div class="bf-cta-inner">
             <h3>Cảm ơn bạn đã lắng nghe. Hãy tham gia ngay.</h3>

@@ -120,14 +120,8 @@
     </footer>
 
     <script>
-        // small script to set year and simple dot slider effect
+        // Set copyright year
         document.getElementById('year').innerText = new Date().getFullYear();
-        // slider dots simple demo (non-animated)
-        const dots = document.querySelectorAll('.bf-slider-dots .dot');
-        dots.forEach((d,i) => d.addEventListener('click',()=>{
-            dots.forEach(x=>x.classList.remove('active'));
-            dots[i].classList.add('active');
-        }));
     </script>
 </body>
 </html>

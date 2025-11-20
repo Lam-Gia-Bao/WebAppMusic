@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeatFlow | Khám phá & Nghe nhạc</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
 </head>
 <body>
     <!-- Thanh header -->
@@ -46,7 +48,7 @@
         <div class="bf-search-inner">
             <input class="bf-search-input" type="search" placeholder="Tìm nghệ sĩ, ban nhạc, bài hát, podcast...">
             <span class="bf-or">hoặc</span>
-            <button class="btn btn-primary">Tải nhạc lên</button>
+                <a href="upload-intro.jsp" class="btn btn-primary">Tải nhạc lên</a>
         </div>
     </section>
 

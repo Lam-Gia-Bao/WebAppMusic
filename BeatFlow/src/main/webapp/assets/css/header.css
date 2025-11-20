@@ -1,0 +1,65 @@
+/* ============= HEADER ============= */
+.bf-header {
+    background: #fff;
+    color: #111;
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.bf-header-inner {
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.bf-logo {
+    font-size: 20px;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.bf-logo-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    display: inline-block;
+}
+.bf-logo-text {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 900;
+    color: #111;
+}
+.logo-icon {
+    font-size: 24px;
+}
+.bf-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.bf-link { 
+    color: #666; 
+    text-decoration: none; 
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.bf-link:hover {
+    color: #111;
+}
+.artist-link {
+    color: #ff5500;
+}
+.artist-link:hover {
+    opacity: 0.8;
+}

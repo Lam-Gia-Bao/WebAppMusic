@@ -63,3 +63,89 @@
 .artist-link:hover {
     opacity: 0.8;
 }
+
+/* Additional header / top menu styles (logo, main nav, search, actions) */
+.bf-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.bf-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.bf-main-nav {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+.bf-main-nav .nav-link {
+    color: rgba(0, 0, 0, 0.9);
+    background: rgba(0,0,0,0.12);
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+.bf-main-nav .nav-link:hover {
+    background: rgba(255,255,255,0.06);
+}
+.bf-search {
+    flex: 1 1 420px;
+    display: flex;
+    justify-content: center;
+}
+.bf-header-search {
+    width: 60%;
+    max-width: 520px;
+    min-width: 240px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: none;
+    background: rgba(0,0,0,0.18);
+    color: #000000;
+    outline: none;
+}
+.bf-header-search::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+.bf-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.bf-actions .bf-link {
+    color: rgba(0, 0, 0, 0.9);
+    font-weight: 600;
+}
+.bf-actions .btn-outline-light {
+    background: #fff;
+    color: #111;
+    border-radius: 6px;
+    padding: 6px 12px;
+}
+
+/* Active Upload underline */
+.upload-active {
+    position: relative;
+}
+.upload-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 3px;
+    width: 100%;
+    background: #ff5500;
+    border-radius: 2px;
+}
+
+@media (max-width: 900px) {
+    .bf-header-inner { flex-direction: column; gap: 10px; }
+    .bf-search { order: 3; width: 100%; }
+    .bf-header-search { width: 90%; }
+    .bf-left { width: 100%; justify-content: space-between; }
+}

@@ -131,10 +131,6 @@ body {
     color: #111;
 }
 
-.logo-icon {
-    font-size: 24px;
-}
-
 .bf-nav {
     display: flex;
     align-items: center;
@@ -153,14 +149,6 @@ body {
     color: #111;
 }
 
-.artist-link {
-    color: #ff5500;
-}
-
-.artist-link:hover {
-    opacity: 0.8;
-}
-
 /* ============= HERO SECTION ============= */
 .bf-hero {
     position: relative;
@@ -176,9 +164,6 @@ body {
     background-position: center right;
     background-attachment: fixed;
     transition: background-image 0.8s ease-in-out;
-}
-
-.bf-hero {
     background-image: url('../img/hero-bg.jpg');
 }
 
@@ -321,7 +306,6 @@ body {
     width: 100%;
     background: #000; 
     padding: 60px 20px;
-    margin: 60px 0;
 }
 
 .bf-apps-container {
@@ -350,7 +334,6 @@ body {
     max-width: 100%;
     border-radius: 12px;
     box-shadow: 0 30px 60px rgba(0,0,0,0.08);
-    border: 8px solid #fff;
     transform: translateX(-40px);
     display: block;
 }
@@ -411,7 +394,6 @@ body {
     .bf-apps {
         flex-direction: column-reverse;
         gap: 30px;
-        margin: 40px auto;
         padding: 30px 20px;
     }
 
@@ -501,7 +483,6 @@ body {
     color: #fff; 
     text-align: center; 
     padding: 60px 0;
-    margin-top: 0;
 }
 
 .bf-cta-inner { 
@@ -542,7 +523,6 @@ body {
     background: #050505; 
     color: #999; 
     padding: 40px 0 20px;
-    margin-top: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -552,17 +532,10 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     display: flex; 
-    align-items: flex-start; 
+    align-items: center; 
     justify-content: space-between;
     flex-wrap: wrap; 
-    gap: 40px;
-}
-
-.bf-footer-col h4 {
-    color: #fff;
-    font-size: 16px;
-    font-weight: 800;
-    margin-bottom: 8px;
+    gap: 20px;
 }
 
 .bf-footer-links { 
@@ -582,19 +555,10 @@ body {
     color: #fff;
 }
 
-.bf-footer-bottom {
-    margin-left: auto;
-    align-self: flex-end;
-}
-
-.lang-select {
-    background: transparent;
-    color: #999;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 6px 8px;
-    border-radius: 4px;
-    font-size: 13px;
-    cursor: pointer;
+.bf-footer-copyright {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
 }
 
 /* ============= RESPONSIVE ============= */
@@ -604,8 +568,7 @@ body {
     .bf-trending-inner,
     .bf-apps,
     .bf-cta-inner,
-    .bf-footer-inner,
-    .bf-creators-inner {
+    .bf-footer-inner {
         width: 100%;
         padding: 0 20px;
     }
@@ -630,26 +593,8 @@ body {
         font-size: 40px;
     }
 
-    .bf-hero-image {
-        width: 100%;
-        max-width: 360px;
-        height: 350px;
-        margin-left: 0;
-    }
-
-    .bf-hero-dots {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
     .bf-hero-btns {
         justify-content: center;
-    }
-
-    .bf-apps {
-        flex-direction: column-reverse;
-        gap: 30px;
-        margin: 40px auto;
     }
 
     .bf-apps-left,
@@ -661,7 +606,7 @@ body {
         justify-content: center;
     }
 
-    .bf-creators-inner {
+    .bf-creators-container {
         flex-direction: column-reverse;
         gap: 30px;
     }
@@ -686,11 +631,7 @@ body {
     .bf-footer-inner {
         flex-direction: column;
         gap: 20px;
-    }
-
-    .bf-footer-bottom {
-        margin-left: 0;
-        align-self: auto;
+        text-align: center;
     }
 }
 
@@ -739,12 +680,6 @@ body {
 
     .bf-trending-title {
         font-size: 14px;
-    }
-
-    .app-preview-placeholder,
-    .artist-image-placeholder {
-        width: 100%;
-        max-width: 300px;
     }
 
     .bf-cta-join h3 {

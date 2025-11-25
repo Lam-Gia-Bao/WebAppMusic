@@ -1,0 +1,45 @@
+
+.login-container {
+	min-height: 100vh;
+	background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.login-box {
+	background: #fff;
+	width: 420px;
+	border-radius: 10px;
+	padding: 35px 30px;
+	text-align: center;
+}
+
+.login-box h2 {
+	margin-bottom: 20px;
+}
+
+.login-box input {
+	width: 100%;
+	padding: 12px;
+	margin-bottom: 15px;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+}
+
+.social-login {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.social-login button {
+	flex: 1;
+	border-radius: 30px;
+}
+.social-login .zalo-icon {
+	width: 16px;
+	height: 16px;
+	object-fit: contain;
+}

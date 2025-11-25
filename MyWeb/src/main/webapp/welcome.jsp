@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BeatFlow | Khám phá & Nghe nhạc</title>
-<link rel="stylesheet" href="assets/css/home.css">
+<link rel="stylesheet" href="assets/css/welcome.css">
 </head>
 <body>
 	<!-- Thanh header -->
@@ -122,7 +122,7 @@
 		<div class="container text-center">
             <div class="bf-footer-links">
 			<div class="mb-3">
-				<a href="#" class="text-secondary me-2">Hợp pháp</a> · <a href="#"
+				<a href="#" class="text-secondary me-2">Trang chính thức</a> · <a href="#"
 					class="text-secondary mx-2">Bảo mật</a> · <a href="#"
 					class="text-secondary mx-2">Chính sách Cookie</a> · <a href="#"
 					class="text-secondary mx-2">Trình quản lý Cookie</a> · <a href="#"
@@ -130,7 +130,7 @@
 					class="text-secondary mx-2">Nguồn nghệ sĩ</a> · <a href="#"
 					class="text-secondary mx-2">Tin tức</a> · <a href="#"
 					class="text-secondary mx-2">Biểu đồ</a> · <a href="#"
-					class="text-secondary mx-2">Báo cáo minh bạch</a>
+					class="text-secondary mx-2">Uy tín</a>
 			</div>
 			<div class="text-secondary">
 				Ngôn ngữ: <a href="#" class="text-primary fw-bold">Tiếng Việt (VN)</a>

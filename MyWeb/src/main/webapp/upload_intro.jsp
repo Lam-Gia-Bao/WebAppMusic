@@ -15,7 +15,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="assets/css/upload-intro.css">
+<link rel="stylesheet" href="assets/css/upload_intro.css">
 </head>
 <body>
 
@@ -29,11 +29,10 @@
 						class="bf-logo-img"> <span class="brand">BeatFlow</span>
 				</div>
 				<ul class="nav d-none d-md-flex">
-					<li class="nav-item"><a class="nav-link" href="#">Trang
+					<li class="nav-item"><a class="nav-link" href="home.jsp">Trang
 							chủ</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Tin tức</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Thư viện
-							nhạc</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Thư viện</a></li>
 				</ul>
 			</div>
 
@@ -46,7 +45,7 @@
 	</nav>
 
 	<!-- HERO -->
-	<header class="hero">
+	<header class="hero" style="background-image: url('assets/img/hero-upload.png');">
 		<div class="container">
 			<div class="row align-items-start">
 				<div class="col-lg-6 hero-left">
@@ -219,13 +218,13 @@
 		</div>
 	</section>
 
-	<!-- FOOTER -->
+	<!-- Footer -->
 	<footer class="py-4"
 		style="background: #0d0d0d; color: #bbb; font-size: 0.9rem;">
 		<div class="container text-center">
-
+            <div class="bf-footer-links">
 			<div class="mb-3">
-				<a href="#" class="text-secondary me-2">Hợp pháp</a> · <a href="#"
+				<a href="#" class="text-secondary me-2">Trang chính thức</a> · <a href="#"
 					class="text-secondary mx-2">Bảo mật</a> · <a href="#"
 					class="text-secondary mx-2">Chính sách Cookie</a> · <a href="#"
 					class="text-secondary mx-2">Trình quản lý Cookie</a> · <a href="#"
@@ -233,12 +232,12 @@
 					class="text-secondary mx-2">Nguồn nghệ sĩ</a> · <a href="#"
 					class="text-secondary mx-2">Tin tức</a> · <a href="#"
 					class="text-secondary mx-2">Biểu đồ</a> · <a href="#"
-					class="text-secondary mx-2">Báo cáo minh bạch</a>
+					class="text-secondary mx-2">Uy tín</a>
 			</div>
-
 			<div class="text-secondary">
 				Ngôn ngữ: <a href="#" class="text-primary fw-bold">Tiếng Việt (VN)</a>
 			</div>
+		</div>
 		</div>
 	</footer>
 

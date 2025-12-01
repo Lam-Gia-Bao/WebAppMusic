@@ -5,22 +5,32 @@
 <title>Đăng ký - BeatFlow</title>
 <link rel="stylesheet" href="assets/css/home.css">
 
-<!-- Copy y nguyên CSS phần login -->
 <style>
 .login-container {
 	min-height: 100vh;
-	background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+	background: url("assets/img/backg-login.jpg") center/cover no-repeat fixed;
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
+.login-container::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	backdrop-filter: blur(3px);
+	background: rgba(0, 0, 0, 0.45);
+}
+
 .login-box {
-	background: #fff;
+	position: relative;
+	background: rgba(255, 255, 255, 0.95);
 	width: 420px;
-	border-radius: 10px;
+	border-radius: 14px;
 	padding: 35px 30px;
 	text-align: center;
+	box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
 }
 
 .login-box h2 {
@@ -46,13 +56,27 @@
 	flex: 1;
 	border-radius: 30px;
 }
+
 .social-login .zalo-icon {
 	width: 16px;
 	height: 16px;
 	object-fit: contain;
 }
+
+/* THÔNG BÁO LỖI */
+.error-box {
+	background: #ffdddd;
+	border: 1px solid #ff7777;
+	padding: 10px;
+	border-radius: 8px;
+	color: #b30000;
+	font-weight: 600;
+	margin-bottom: 15px;
+}
 </style>
 </head>
+
+
 <body>
 
 <div class="login-container">

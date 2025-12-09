@@ -668,6 +668,59 @@
 			</div>
 		</footer>
 	</div>
+	
+	<!-- Fixed Music Player Bar -->
+	<div class="fixed-player-bar">
+		<div class="player-container">
+			<!-- Previous/Play/Next Controls -->
+			<div class="player-controls-left">
+				<button class="player-btn">
+					<i class="bi bi-skip-backward-fill"></i>
+				</button>
+				<button class="player-btn player-play-btn">
+					<i class="bi bi-play-fill"></i>
+				</button>
+				<button class="player-btn">
+					<i class="bi bi-skip-forward-fill"></i>
+				</button>
+			</div>
+			
+			<!-- Progress Bar -->
+			<div class="player-progress-section">
+				<span class="player-time">0:00</span>
+				<div class="player-progress-bar">
+					<div class="player-progress-fill"></div>
+				</div>
+				<span class="player-time">3:04</span>
+			</div>
+			
+			<!-- Song Info Center -->
+			<div class="player-song-info">
+				<img src="assets/img/ca-phe_song.jpg" alt="Now Playing" class="player-song-thumb">
+				<div class="player-song-details">
+					<div class="player-song-title">Lil Liem</div>
+					<div class="player-song-artist">uocgianhaynoiyeutoi</div>
+				</div>
+			</div>
+			
+			<!-- Volume & More Controls -->
+			<div class="player-controls-right">
+				<button class="player-btn">
+					<i class="bi bi-shuffle"></i>
+				</button>
+				<button class="player-btn">
+					<i class="bi bi-chat"></i>
+				</button>
+				<div class="player-volume-control">
+					<i class="bi bi-volume-up"></i>
+					<input type="range" class="player-volume-slider" min="0" max="100" value="50">
+				</div>
+				<button class="player-btn">
+					<i class="bi bi-justify"></i>
+				</button>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

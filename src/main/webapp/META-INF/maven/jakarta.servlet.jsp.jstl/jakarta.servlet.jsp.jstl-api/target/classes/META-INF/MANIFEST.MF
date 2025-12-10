@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: jakarta.servlet.jsp.jstl
+Bnd-LastModified: 1765381376516
+Build-Jdk-Spec: 17
+Bundle-Description: Jakarta Standard Tag Library 2.0 Specification
+Bundle-DocURL: https://www.eclipse.org
+Bundle-License: http://www.eclipse.org/legal/epl-2.0, https://www.gnu.or
+ g/software/classpath/license.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Jakarta Standard Tag Library API
+Bundle-SymbolicName: jakarta.servlet.jsp.jstl-api
+Bundle-Vendor: Eclipse Foundation
+Bundle-Version: 2.0.0
+Created-By: Apache Maven Bundle Plugin
+Extension-Name: jakarta.servlet.jsp.jstl
+Implementation-Vendor: Eclipse Foundation
+Implementation-Vendor-Id: org.glassfish
+Implementation-Version: 2.0.0
+Specification-Vendor: Eclipse Foundation
+Specification-Version: 2.0
+Tool: Bnd-5.1.1.202006162103

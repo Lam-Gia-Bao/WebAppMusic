@@ -8,13 +8,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/home")
-public class HomeServlet extends HttpServlet {
+public class WelcomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // forward tới trang giao diện home.jsp
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        request.getRequestDispatcher("welcome.jsp").forward(request, response);
     }
 }

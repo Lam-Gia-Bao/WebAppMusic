@@ -3,77 +3,18 @@
 <html>
 <head>
 <title>Đăng nhập - BeatFlow</title>
-<link rel="stylesheet" href="assets/css/home.css">
-
-<style>
-.login-container {
-	min-height: 100vh;
-	background: url("assets/img/backg-login.jpg") center/cover no-repeat fixed;
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.login-container::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	backdrop-filter: blur(3px);
-	background: rgba(0, 0, 0, 0.45);
-}
-
-.login-box {
-	position: relative;
-	background: rgba(255, 255, 255, 0.95);
-	width: 420px;
-	border-radius: 14px;
-	padding: 35px 30px;
-	text-align: center;
-	box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
-}
-
-.login-box h2 {
-	margin-bottom: 20px;
-}
-
-.login-box input {
-	width: 100%;
-	padding: 12px;
-	margin-bottom: 15px;
-	border-radius: 8px;
-	border: 1px solid #ddd;
-}
-
-.social-login {
-	display: flex;
-	gap: 10px;
-	justify-content: center;
-	margin-top: 10px;
-}
-
-.social-login button {
-	flex: 1;
-	border-radius: 30px;
-}
-
-.social-login .zalo-icon {
-	width: 16px;
-	height: 16px;
-	object-fit: contain;
-}
-
-/* THÔNG BÁO LỖI */
-.error-box {
-	background: #ffdddd;
-	border: 1px solid #ff7777;
-	padding: 10px;
-	border-radius: 8px;
-	color: #b30000;
-	font-weight: 600;
-	margin-bottom: 15px;
-}
-</style>
+<link rel="stylesheet" href="assets/css/login.css">
+ <style>
+        .login-container {
+            min-height: 100vh;
+            background: url("${pageContext.request.contextPath}/assets/img/backg-login.jpg") 
+                        center/cover no-repeat fixed;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 
 <body>

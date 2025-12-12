@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BeatFlow | Khám phá & Nghe nhạc</title>
-<link rel="stylesheet" href="assets/css/home.css">
+<link rel="stylesheet" href="assets/css/welcome.css">
 </head>
 <body>
 	<!-- Thanh header -->
@@ -17,27 +17,17 @@
 					class="bf-logo-img"> <span class="bf-logo-text">BeatFlow</span>
 			</div>
 			<nav class="bf-nav">
-				<%
-				String user = (String) session.getAttribute("user");
-				if (user != null) {
-				%>
-				<span>👋 Xin chào, <b><%=user%></b></span> <a href="logout"
-					class="btn btn-ghost">Đăng xuất</a>
-				<%
-				} else {
-				%>
-				<a href="login" class="btn btn-ghost">Đăng nhập</a> <a
-					href="register" class="btn btn-primary">Tạo tài khoản</a>
-				<%
-				}
-				%>
+				<button class="btn btn-ghost">Đăng nhập</button>
+				<button class="btn btn-primary">Tạo tài khoản</button>
+				<a class="bf-link" href="#">Dành cho Nghệ sĩ</a>
 			</nav>
-
 		</div>
 	</header>
+
 	<!-- Hero Banner-->
 	<section class="bf-hero">
 		<div class="bf-hero-bg"></div>
+
 		<div class="bf-hero-content">
 			<h1>
 				Tìm kiếm.<br>Được mọi người tìm kiếm.
@@ -48,23 +38,24 @@
 				nơi người hâm mộ và nghệ sĩ cùng nhau khám phá và kết nối thông qua
 				âm nhạc.
 			</p>
+
 			<div class="bf-hero-btns">
 				<button class="btn btn-primary">Bắt đầu</button>
 				<button class="btn btn-outline-light">Tìm hiểu thêm</button>
 			</div>
 		</div>
 	</section>
+
 	<!-- Search bar -->
 	<section class="bf-search-wrap">
 		<div class="bf-search-inner">
 			<input class="bf-search-input" type="search"
 				placeholder="Tìm nghệ sĩ, ban nhạc, bài hát, podcast..."> <span
-				class="bf-or">hoặc</span> <a href="upload" class="btn btn-primary">Tải
-				nhạc lên
-				</button>
-			</a>
+				class="bf-or">hoặc</span>
+			<button class="btn btn-primary">Tải nhạc lên</button>
 		</div>
 	</section>
+
 	<!-- Trending -->
 	<section class="bf-trending">
 		<div class="bf-trending-inner">
@@ -74,6 +65,7 @@
 				bật</button>
 		</div>
 	</section>
+
 	<!-- Apps -->
 	<section class="bf-apps">
 		<div class="bf-apps-container">
@@ -94,6 +86,7 @@
 			</div>
 		</div>
 	</section>
+
 	<!-- Creators -->
 	<section class="bf-creators">
 		<div class="bf-creators-container">
@@ -103,11 +96,13 @@
 					nhạc và mở rộng cộng đồng của bạn. Bạn còn chờ gì?</p>
 				<button class="btn btn-primary">Tìm hiểu thêm</button>
 			</div>
+
 			<div class="bf-creators-right">
 				<img src="assets/img/artist.png" alt="Artist" class="artist-image">
 			</div>
 		</div>
 	</section>
+
 	<!-- Call to action -->
 	<section class="bf-cta-join">
 		<div class="bf-cta-inner">
@@ -120,27 +115,27 @@
 			</p>
 		</div>
 	</section>
+
 	<!-- Footer -->
 	<footer class="py-4"
 		style="background: #0d0d0d; color: #bbb; font-size: 0.9rem;">
 		<div class="container text-center">
-			<div class="bf-footer-links">
-				<div class="mb-3">
-					<a href="#" class="text-secondary me-2">Hợp pháp</a> · <a href="#"
-						class="text-secondary mx-2">Bảo mật</a> · <a href="#"
-						class="text-secondary mx-2">Chính sách Cookie</a> · <a href="#"
-						class="text-secondary mx-2">Trình quản lý Cookie</a> · <a href="#"
-						class="text-secondary mx-2">Xuất bản</a> · <a href="#"
-						class="text-secondary mx-2">Nguồn nghệ sĩ</a> · <a href="#"
-						class="text-secondary mx-2">Tin tức</a> · <a href="#"
-						class="text-secondary mx-2">Biểu đồ</a> · <a href="#"
-						class="text-secondary mx-2">Báo cáo minh bạch</a>
-				</div>
-				<div class="text-secondary">
-					Ngôn ngữ: <a href="#" class="text-primary fw-bold">Tiếng Việt
-						(VN)</a>
-				</div>
+            <div class="bf-footer-links">
+			<div class="mb-3">
+				<a href="#" class="text-secondary me-2">Trang chính thức</a> · <a href="#"
+					class="text-secondary mx-2">Bảo mật</a> · <a href="#"
+					class="text-secondary mx-2">Chính sách Cookie</a> · <a href="#"
+					class="text-secondary mx-2">Trình quản lý Cookie</a> · <a href="#"
+					class="text-secondary mx-2">Xuất bản</a> · <a href="#"
+					class="text-secondary mx-2">Nguồn nghệ sĩ</a> · <a href="#"
+					class="text-secondary mx-2">Tin tức</a> · <a href="#"
+					class="text-secondary mx-2">Biểu đồ</a> · <a href="#"
+					class="text-secondary mx-2">Uy tín</a>
 			</div>
+			<div class="text-secondary">
+				Ngôn ngữ: <a href="#" class="text-primary fw-bold">Tiếng Việt (VN)</a>
+			</div>
+		</div>
 		</div>
 	</footer>
 </body>

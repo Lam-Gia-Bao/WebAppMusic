@@ -1,29 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/home.css?v=2">
+<link rel="stylesheet" href="assets/css/next_up.css">
+<link rel="stylesheet" href="assets/css/feed.css">
+<title>Feed</title>
+</head>
+<body>
 	<%@ include file="header.jsp" %>
-						</div>
-					</div>
-				</div>
-				<div class="dropdown-container">
-					<button class="btn-icon-nav" id="messagesMenuButton">
-						<i class="bi bi-envelope"></i>
-					</button>
-					<!-- Messages Dropdown -->
-					<div class="messages-dropdown" id="messagesMenu">
-						<div class="messages-header">
-							<h5>Tin nhắn</h5>
-						</div>
-						<div class="messages-body">
-							<p class="no-messages">Bạn chưa có tin nhắn nào.</p>
-						</div>
-						<div class="messages-footer">
-							<a href="#" class="view-all-link">Xem tất cả tin nhắn</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
+	<script>
+		// Change active nav to "Tin tức" for feed page
+		document.addEventListener('DOMContentLoaded', function() {
+			const navLinks = document.querySelectorAll('.site-nav .nav-link');
+			navLinks.forEach(link => {
+				link.classList.remove('active');
+				if (link.textContent.trim() === 'Tin tức') {
+					link.classList.add('active');
+				}
+			});
+		});
+	</script>
 
 	<div class="container home-wrapper">
 
@@ -49,53 +53,59 @@
 					<!-- Post 1 -->
 					<div class="feed-post">
 						<div class="post-header">
-							<img src="assets/img/avt_travis-scott.jpg" alt="Artist" class="post-avatar">
+							<img src="assets/img/avt_travis-scott.jpg" alt="User" class="post-avatar">
 							<div class="post-user-info">
-								<span class="post-username">Htingale</span>
-								<span class="post-time">posted a track 3 days ago</span>
+								<span class="post-username">Bảo Lâm</span>
+								<i class="bi bi-repeat" style="font-size: 14px; color: #999; margin: 0 5px;"></i>
+								<span class="post-time">reposted a track 3 days ago</span>
 							</div>
 						</div>
 
 						<div class="post-content">
 							<img src="assets/img/edm-playlist.jpg" alt="Track" class="post-cover">
-							<div class="post-track-info">
-								<button class="post-play-btn">
-									<i class="bi bi-play-fill"></i>
-								</button>
-								<div class="track-details">
-									<h4 class="track-artist">Htingale</h4>
-									<p class="track-title">rasuto kurisumasu</p>
+							<div class="post-player">
+								<div class="player-top">
+									<button class="post-play-btn">
+										<i class="bi bi-play-fill"></i>
+									</button>
+									<div class="track-info">
+										<div class="track-artist">buitruonglinh</div>
+										<div class="track-title">Dù Cho Mai Về Sau (demo)</div>
+									</div>
+									<div class="post-tag"># R&B & Soul</div>
 								</div>
 								<div class="track-waveform">
-									<svg viewBox="0 0 400 50" class="waveform-svg">
-										<path d="M 5 25 L 10 15 L 15 30 L 20 20 L 25 28 L 30 18 L 35 32 L 40 22 L 45 26 L 50 16 L 55 30 L 60 19 L 65 31 L 70 21 L 75 27 L 80 17 L 85 29 L 90 23 L 95 25 L 100 15 L 105 28 L 110 20 L 115 32 L 120 18 L 125 30 L 130 22 L 135 26 L 140 16 L 145 29 L 150 24 L 155 25" stroke="white" stroke-width="1" fill="none" opacity="0.6"/>
-									</svg>
+									<div class="waveform-track">
+										<div class="waveform-progress"></div>
+										<div class="waveform-thumb"></div>
+									</div>
+									<div class="track-duration">3:00</div>
 								</div>
-								<span class="track-duration">3:23</span>
-							</div>
-						</div>
-
-						<div class="post-actions">
-							<button class="post-action-btn">
-								<i class="bi bi-heart"></i>
-								<span>37</span>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-repeat"></i>
-								<span>3</span>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-share"></i>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-bookmark"></i>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-three-dots"></i>
-							</button>
-							<div class="post-stats">
-								<span class="plays">▶ 1,121</span>
-								<span class="comments">💬 1</span>
+								<div class="post-actions">
+									<div class="action-buttons">
+										<button class="post-action-btn liked">
+											<i class="bi bi-heart-fill"></i>
+											<span>22.4K</span>
+										</button>
+										<button class="post-action-btn reposted">
+											<i class="bi bi-repeat"></i>
+											<span>638</span>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-share"></i>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-files"></i>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-three-dots"></i>
+										</button>
+									</div>
+									<div class="post-stats">
+										<span class="plays"><i class="bi bi-play-fill"></i> 3.55M</span>
+										<span class="comments"><i class="bi bi-chat"></i> 580</span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -103,54 +113,58 @@
 					<!-- Post 2 -->
 					<div class="feed-post">
 						<div class="post-header">
-							<img src="assets/img/avt_travis-scott.jpg" alt="Artist" class="post-avatar">
+							<img src="assets/img/avt_bad-bunny.jpg" alt="User" class="post-avatar">
 							<div class="post-user-info">
-								<span class="post-username">Hensonn</span>
+								<span class="post-username">Minh Anh</span>
 								<span class="post-time">posted a track 7 days ago</span>
 							</div>
-							<span class="post-tag"># Electronic</span>
 						</div>
 
 						<div class="post-content">
 							<img src="assets/img/nkl2-playlist.jpg" alt="Track" class="post-cover">
-							<div class="post-track-info">
-								<button class="post-play-btn">
-									<i class="bi bi-play-fill"></i>
-								</button>
-								<div class="track-details">
-									<h4 class="track-artist">Hensonn</h4>
-									<p class="track-title">taca taca bro (unreleased)</p>
+							<div class="post-player">
+								<div class="player-top">
+									<button class="post-play-btn">
+										<i class="bi bi-play-fill"></i>
+									</button>
+									<div class="track-info">
+										<div class="track-artist">Hensonn</div>
+										<div class="track-title">taca taca bro (unreleased)</div>
+									</div>
+									<div class="post-tag"># Electronic</div>
 								</div>
 								<div class="track-waveform">
-									<svg viewBox="0 0 400 50" class="waveform-svg">
-										<path d="M 5 25 L 10 15 L 15 30 L 20 20 L 25 28 L 30 18 L 35 32 L 40 22 L 45 26 L 50 16 L 55 30 L 60 19 L 65 31 L 70 21 L 75 27 L 80 17 L 85 29 L 90 23 L 95 25 L 100 15 L 105 28 L 110 20 L 115 32 L 120 18 L 125 30 L 130 22 L 135 26 L 140 16 L 145 29 L 150 24 L 155 25" stroke="#4a9eff" stroke-width="1" fill="none" opacity="0.8"/>
-									</svg>
+									<div class="waveform-track">
+										<div class="waveform-progress"></div>
+										<div class="waveform-thumb"></div>
+									</div>
+									<div class="track-duration">3:05</div>
 								</div>
-								<span class="track-duration">3:05</span>
-							</div>
-						</div>
-
-						<div class="post-actions">
-							<button class="post-action-btn">
-								<i class="bi bi-heart"></i>
-								<span>87</span>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-repeat"></i>
-								<span>3</span>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-share"></i>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-bookmark"></i>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-three-dots"></i>
-							</button>
-							<div class="post-stats">
-								<span class="plays">▶ 1,573</span>
-								<span class="comments">💬 9</span>
+								<div class="post-actions">
+									<div class="action-buttons">
+										<button class="post-action-btn">
+											<i class="bi bi-heart"></i>
+											<span>87</span>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-repeat"></i>
+											<span>12</span>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-share"></i>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-files"></i>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-three-dots"></i>
+										</button>
+									</div>
+									<div class="post-stats">
+										<span class="plays"><i class="bi bi-play-fill"></i> 1.57K</span>
+										<span class="comments"><i class="bi bi-chat"></i> 9</span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -158,55 +172,58 @@
 					<!-- Post 3 -->
 					<div class="feed-post">
 						<div class="post-header">
-							<img src="assets/img/avt_travis-scott.jpg" alt="Artist" class="post-avatar">
+							<img src="assets/img/avt_doja-cat.png" alt="User" class="post-avatar">
 							<div class="post-user-info">
-								<span class="post-username">Htingale</span>
+								<span class="post-username">Thu Hà</span>
 								<span class="post-time">posted a track 8 days ago</span>
-								<span class="post-caption">gol cuska ra day.</span>
 							</div>
-							<span class="post-tag"># Deep House</span>
 						</div>
 
 						<div class="post-content">
 							<img src="assets/img/pop-playlist.jpg" alt="Track" class="post-cover">
-							<div class="post-track-info">
-								<button class="post-play-btn">
-									<i class="bi bi-play-fill"></i>
-								</button>
-								<div class="track-details">
-									<h4 class="track-artist">Htingale</h4>
-									<p class="track-title">winter song</p>
+							<div class="post-player">
+								<div class="player-top">
+									<button class="post-play-btn">
+										<i class="bi bi-play-fill"></i>
+									</button>
+									<div class="track-info">
+										<div class="track-artist">Htingale</div>
+										<div class="track-title">winter song</div>
+									</div>
+									<div class="post-tag"># Deep House</div>
 								</div>
 								<div class="track-waveform">
-									<svg viewBox="0 0 400 50" class="waveform-svg">
-										<path d="M 5 25 L 10 15 L 15 30 L 20 20 L 25 28 L 30 18 L 35 32 L 40 22 L 45 26 L 50 16 L 55 30 L 60 19 L 65 31 L 70 21 L 75 27 L 80 17 L 85 29 L 90 23 L 95 25 L 100 15 L 105 28 L 110 20 L 115 32 L 120 18 L 125 30 L 130 22 L 135 26 L 140 16 L 145 29 L 150 24 L 155 25" stroke="white" stroke-width="1" fill="none" opacity="0.6"/>
-									</svg>
+									<div class="waveform-track">
+										<div class="waveform-progress"></div>
+										<div class="waveform-thumb"></div>
+									</div>
+									<div class="track-duration">4:15</div>
 								</div>
-								<span class="track-duration">4:15</span>
-							</div>
-						</div>
-
-						<div class="post-actions">
-							<button class="post-action-btn">
-								<i class="bi bi-heart"></i>
-								<span>52</span>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-repeat"></i>
-								<span>2</span>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-share"></i>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-bookmark"></i>
-							</button>
-							<button class="post-action-btn">
-								<i class="bi bi-three-dots"></i>
-							</button>
-							<div class="post-stats">
-								<span class="plays">▶ 892</span>
-								<span class="comments">💬 4</span>
+								<div class="post-actions">
+									<div class="action-buttons">
+										<button class="post-action-btn">
+											<i class="bi bi-heart"></i>
+											<span>52</span>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-repeat"></i>
+											<span>8</span>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-share"></i>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-files"></i>
+										</button>
+										<button class="post-action-btn">
+											<i class="bi bi-three-dots"></i>
+										</button>
+									</div>
+									<div class="post-stats">
+										<span class="plays"><i class="bi bi-play-fill"></i> 892</span>
+										<span class="comments"><i class="bi bi-chat"></i> 4</span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -273,7 +290,7 @@
 				<div class="listening-history-section mt-5">
 					<div class="d-flex justify-content-between align-items-center mb-3">
 						<h4 class="history-title">Lịch sử nghe nhạc</h4>
-						<a href="#" class="view-all-link-small">View all</a>
+						<a href="#" class="view-all-link-small">Xem tất cả</a>
 					</div>
 
 					<!-- History Items -->
@@ -367,12 +384,12 @@
 			</div>
 		</div>
 
-		<!-- App scripts -->
-		<script src="assets/js/app.js"></script>
-	<%@ include file="footer.jsp" %>
+		</div>
 	</div>
-	
-	<%@ include file="player.jsp" %>
 
+	<script src="assets/js/app.js"></script>
+	<script src="assets/js/login_home.js"></script>
+	<%@ include file="footer.jsp" %>
+	<%@ include file="player.jsp" %>
 </body>
 </html>

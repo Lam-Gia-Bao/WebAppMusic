@@ -56,8 +56,8 @@
 					để đăng tải.</div>
 
 				<div>
-					<label class="choose-btn" for="fileInput">Chọn tệp âm thanh</label> <input
-						id="fileInput" type="file" accept="audio/*" multiple
+					<label class="choose-btn" for="fileInput">Chọn tệp âm thanh</label>
+					<input id="fileInput" type="file" accept="audio/*" multiple
 						style="display: none;">
 				</div>
 			</div>
@@ -112,16 +112,15 @@
 						<a href="#" class="text-secondary me-2">Trang chính thức</a> · <a
 							href="#" class="text-secondary mx-2">Bảo mật</a> · <a href="#"
 							class="text-secondary mx-2">Chính sách Cookie</a> · <a href="#"
-							class="text-secondary mx-2">Trình quản lý Cookie</a> · <a
-							href="#" class="text-secondary mx-2">Xuất bản</a> · <a href="#"
+							class="text-secondary mx-2">Trình quản lý Cookie</a> · <a href="#"
+							class="text-secondary mx-2">Xuất bản</a> · <a href="#"
 							class="text-secondary mx-2">Nguồn nghệ sĩ</a> · <a href="#"
 							class="text-secondary mx-2">Tin tức</a> · <a href="#"
 							class="text-secondary mx-2">Biểu đồ</a> · <a href="#"
 							class="text-secondary mx-2">Uy tín</a>
 					</div>
 					<div class="text-secondary">
-						Ngôn ngữ: <a href="#" class="text-primary fw-bold">Tiếng Việt
-							(VN)</a>
+						Ngôn ngữ: <a href="#" class="text-primary fw-bold">Tiếng Việt (VN)</a>
 					</div>
 				</div>
 			</div>
@@ -132,53 +131,6 @@
 	<!-- Optional JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-	<script>
-    // Basic drag & drop visual behavior + file open
-    const drop = document.getElementById('dropzone');
-    const fileInput = document.getElementById('fileInput');
-
-    drop.addEventListener('dragenter', e => { e.preventDefault(); drop.style.borderColor = '#5a5a5a'; });
-    drop.addEventListener('dragover', e => { e.preventDefault(); });
-    drop.addEventListener('dragleave', e => { e.preventDefault(); drop.style.borderColor = '' ;});
-    drop.addEventListener('drop', e => {
-      e.preventDefault();
-      drop.style.borderColor = '';
-      const files = e.dataTransfer.files;
-      if(files && files.length) handleFiles(files);
-    });
-
-    fileInput.addEventListener('change', e => {
-      const files = e.target.files;
-      if(files && files.length) handleFiles(files);
-    });
-
-    function handleFiles(files){
-      // demo: chỉ log tên file, bạn thay bằng upload ajax nếu cần
-      const list = Array.from(files).map(f => f.name).join(', ');
-      alert('Selected files:\\n' + list);
-    }
-
-    // close button (demo)
-    document.querySelector('.close-circle').addEventListener('click', () => {
-      // nếu là modal trong thực tế: đóng modal. Ở đây: redirect ra trang khác
-      window.history.back();
-    });
-
-    function toggleMicPanel() {
-        const panel = document.getElementById("micPanel");
-        const arrow = document.getElementById("micArrow");
-
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-            arrow.classList.remove("bi-chevron-up");
-            arrow.classList.add("bi-chevron-down");
-        } else {
-            panel.style.display = "block";
-            arrow.classList.remove("bi-chevron-down");
-            arrow.classList.add("bi-chevron-up");
-        }
-    }
-  </script>
+	<script src="assets/js/upload.js"></script>
 </body>
 </html>

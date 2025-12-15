@@ -205,7 +205,7 @@
 				<div class="listening-history-section mt-5">
 					<div class="d-flex justify-content-between align-items-center mb-3">
 						<h4 class="history-title">Lịch sử nghe nhạc</h4>
-						<a href="#" class="view-all-link-small">View all</a>
+						<a href="#" class="view-all-link-small">Xem tất cả</a>
 					</div>
 
 					<div class="history-list">

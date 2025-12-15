@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- Fixed Music Player Bar -->
 <div class="fixed-player-bar">
 	<div class="player-container">

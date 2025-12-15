@@ -101,20 +101,21 @@
 
 .post-user-info {
     flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
 }
 
 .post-username {
-    display: block;
     color: #fff;
     font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 2px;
+    font-size: 15px;
 }
 
 .post-time {
-    display: block;
     color: #999;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .post-caption {
@@ -124,35 +125,37 @@
     margin-top: 4px;
 }
 
-.post-tag {
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: #ff5500;
-    font-size: 12px;
-    font-weight: 600;
-}
+
 
 .post-content {
     display: flex;
-    gap: 20px;
+    gap: 16px;
     align-items: flex-start;
     margin-bottom: 15px;
+    position: relative;
 }
 
 .post-cover {
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
     border-radius: 8px;
     object-fit: cover;
     flex-shrink: 0;
 }
 
-.post-track-info {
+.post-player {
     flex: 1;
     display: flex;
-    gap: 15px;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+}
+
+.player-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
 }
 
 .post-play-btn {
@@ -167,71 +170,140 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-left: 2px;
     flex-shrink: 0;
-    transition: transform 0.2s;
+    transition: all 0.3s;
 }
 
 .post-play-btn:hover {
     transform: scale(1.05);
+    background: #f0f0f0;
 }
 
-.track-details {
+.track-info {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
 }
 
 .track-artist {
-    font-size: 14px;
-    color: #fff;
+    font-size: 13px;
     font-weight: 600;
-    margin: 0 0 4px 0;
+    color: #fff;
+    margin: 0;
 }
 
 .track-title {
     font-size: 16px;
+    font-weight: 700;
     color: #fff;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-tag {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ddd;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
     font-weight: 600;
-    margin: 0 0 10px 0;
+    flex-shrink: 0;
 }
 
 .track-waveform {
     width: 100%;
-    height: 50px;
+    height: 30px;
+    background: transparent;
+    border-radius: 4px;
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-    padding: 0 10px;
+    justify-content: space-between;
+    padding: 0;
+    overflow: visible;
+    cursor: pointer;
+    position: relative;
+}
+
+.waveform-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+}
+
+.waveform-progress {
+    height: 100%;
+    background: #ff5500;
+    border-radius: 2px;
+    width: 35%;
+    position: relative;
+}
+
+.waveform-thumb {
+    width: 12px;
+    height: 12px;
+    background: #ff5500;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    z-index: 10;
+}
+
+.waveform-thumb:active {
+    cursor: grabbing;
 }
 
 .waveform-svg {
-    width: 100%;
-    height: 30px;
+    flex: 1;
+    height: 100%;
 }
 
 .track-duration {
     font-size: 12px;
-    color: #999;
+    color: #fff;
+    background: #ff5500;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-left: 12px;
 }
 
 .post-actions {
     display: flex;
     align-items: center;
-    gap: 20px;
     justify-content: space-between;
+    width: 100%;
+    margin-top: 6px;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .post-action-btn {
     background: transparent;
     border: none;
-    color: #ddd;
-    font-size: 16px;
+    color: #999;
+    font-size: 18px;
     cursor: pointer;
-    padding: 8px;
+    padding: 0;
     transition: color 0.2s;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .post-action-btn:hover {
@@ -239,24 +311,43 @@
 }
 
 .post-action-btn span {
-    font-size: 12px;
+    font-size: 13px;
     color: #999;
+    font-weight: 500;
 }
 
 .post-action-btn:hover span {
     color: #fff;
 }
 
+.post-action-btn.liked {
+    color: #ff5500;
+}
+
+.post-action-btn.liked span {
+    color: #ff5500;
+}
+
+.post-action-btn.reposted {
+    color: #ff5500;
+}
+
+.post-action-btn.reposted span {
+    color: #ff5500;
+}
+
 .post-stats {
     display: flex;
-    gap: 15px;
-    margin-left: auto;
+    gap: 16px;
 }
 
 .plays,
 .comments {
-    font-size: 12px;
+    font-size: 13px;
     color: #999;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 /* Responsive */

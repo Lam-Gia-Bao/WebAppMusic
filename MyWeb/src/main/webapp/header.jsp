@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- NAVBAR -->
 <nav class="site-nav">
 	<div class="container d-flex align-items-center justify-content-between">
@@ -7,8 +8,8 @@
 				<span class="brand">BeatFlow</span>
 			</div>
 			<ul class="nav d-none d-md-flex">
-				<li class="nav-item"><a class="nav-link active" href="#">Trang chủ</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Tin tức</a></li>
+				<li class="nav-item"><a class="nav-link active" href="login_home.jsp">Trang chủ</a></li>
+				<li class="nav-item"><a class="nav-link" href="feed.jsp">Tin tức</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">Thư viện</a></li>
 			</ul>
 		</div>

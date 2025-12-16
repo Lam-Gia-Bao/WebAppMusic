@@ -1,4 +1,23 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Helper function to wait for element
+function waitForElement(selector, timeout = 5000) {
+  return new Promise((resolve) => {
+    const startTime = Date.now();
+    const checkElement = () => {
+      const element = document.querySelector(selector);
+      if (element) {
+        resolve(element);
+      } else if (Date.now() - startTime < timeout) {
+        requestAnimationFrame(checkElement);
+      } else {
+        resolve(null);
+      }
+    };
+    checkElement();
+  });
+}
+
+// Initialize after all DOM is ready
+function initializeApp() {
   // Profile dropdown
   const dropdownButton = document.getElementById('dropdownMenuButton');
   const dropdownMenu = document.getElementById('dropdownMenu');
@@ -87,19 +106,19 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <a href="#" class="action-menu-item">
               <i class="bi bi-repeat"></i>
-              <span>Repost</span>
+              <span>Đăng lại</span>
             </a>
             <a href="#" class="action-menu-item">
               <i class="bi bi-share"></i>
-              <span>Share</span>
+              <span>Chia sẻ</span>
             </a>
             <a href="#" class="action-menu-item">
-              <i class="bi bi-link-45deg"></i>
-              <span>Copy Link</span>
+              <i class="bi bi-bookmark"></i>
+              <span>Thêm vào playlist</span>
             </a>
             <a href="#" class="action-menu-item">
-              <i class="bi bi-clock-history"></i>
-              <span>Add to Next up</span>
+              <i class="bi bi-justify"></i>
+              <span>Thêm vào danh sách chờ</span>
             </a>
           `;
           actionDiv.appendChild(menu);
@@ -137,27 +156,23 @@ document.addEventListener('DOMContentLoaded', function() {
           menu.innerHTML = `
             <a href="#" class="action-menu-item">
               <i class="bi bi-repeat"></i>
-              <span>Repost</span>
+              <span>Đăng lại</span>
             </a>
             <a href="#" class="action-menu-item">
               <i class="bi bi-share"></i>
-              <span>Share</span>
+              <span>Chia sẻ</span>
             </a>
             <a href="#" class="action-menu-item">
-              <i class="bi bi-link-45deg"></i>
-              <span>Copy Link</span>
-            </a>
-            <a href="#" class="action-menu-item">
-              <i class="bi bi-clock-history"></i>
-              <span>Add to Next up</span>
+              <i class="bi bi-justify"></i>
+              <span>Thêm vào danh sách chờ</span>
             </a>
             <a href="#" class="action-menu-item">
               <i class="bi bi-bookmark"></i>
-              <span>Add to Playlist</span>
+              <span>Thêm vào playlist</span>
             </a>
             <a href="#" class="action-menu-item">
               <i class="bi bi-broadcast"></i>
-              <span>Station</span>
+              <span>Thêm vào đài phát thanh</span>
             </a>
           `;
           historyItem.style.position = 'relative';
@@ -221,31 +236,31 @@ document.addEventListener('DOMContentLoaded', function() {
           menu.innerHTML = `
             <a href="#" class="action-menu-item">
               <i class="bi bi-heart"></i>
-              <span>Like</span>
+              <span>Thích</span>
             </a>
             <a href="#" class="action-menu-item">
               <i class="bi bi-repeat"></i>
-              <span>Repost</span>
+              <span>Đăng lại</span>
             </a>
             <a href="#" class="action-menu-item">
               <i class="bi bi-share"></i>
-              <span>Share</span>
+              <span>Chia sẻ</span>
             </a>
             <a href="#" class="action-menu-item">
-              <i class="bi bi-clock-history"></i>
-              <span>Add to Next up</span>
+              <i class="bi bi-justify"></i>
+              <span>Thêm vào danh sách chờ</span>
             </a>
             <a href="#" class="action-menu-item">
               <i class="bi bi-x-lg"></i>
-              <span>Remove from Next up</span>
+              <span>Xóa khỏi danh sách chờ</span>
             </a>
             <a href="#" class="action-menu-item">
               <i class="bi bi-bookmark"></i>
-              <span>Add to Playlist</span>
+              <span>Thêm vào playlist</span>
             </a>
             <a href="#" class="action-menu-item">
               <i class="bi bi-broadcast"></i>
-              <span>Station</span>
+              <span>Thêm vào đài phát thanh</span>
             </a>
           `;
           nextUpItem.appendChild(menu);
@@ -264,4 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-});
+}
+
+// Start initialization when DOM is ready
+document.addEventListener('DOMContentLoaded', initializeApp);

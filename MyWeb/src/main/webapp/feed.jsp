@@ -38,9 +38,9 @@
 				<!-- MAIN TITLE -->
 				<!-- Feed Header -->
 				<div class="feed-header">
-					<h2 class="section-title">Hear the latest posts from the people you're following:</h2>
+					<h2 class="section-title">Nghe những bài đăng mới nhất từ ​​những người bạn đang theo dõi:</h2>
 					<div class="feed-filter">
-						<span>Reposts</span>
+						<span>Đăng lại</span>
 						<label class="feed-toggle">
 							<input type="checkbox" checked>
 							<span class="toggle-slider"></span>
@@ -57,7 +57,7 @@
 							<div class="post-user-info">
 								<span class="post-username">Bảo Lâm</span>
 								<i class="bi bi-repeat" style="font-size: 14px; color: #999; margin: 0 5px;"></i>
-								<span class="post-time">reposted a track 3 days ago</span>
+								<span class="post-time">đã đăng lại một bài hát 3 ngày trước</span>
 							</div>
 						</div>
 
@@ -116,7 +116,7 @@
 							<img src="assets/img/avt_bad-bunny.jpg" alt="User" class="post-avatar">
 							<div class="post-user-info">
 								<span class="post-username">Minh Anh</span>
-								<span class="post-time">posted a track 7 days ago</span>
+								<span class="post-time">đã đăng một bài hát 7 ngày trước</span>
 							</div>
 						</div>
 
@@ -175,7 +175,7 @@
 							<img src="assets/img/avt_doja-cat.png" alt="User" class="post-avatar">
 							<div class="post-user-info">
 								<span class="post-username">Thu Hà</span>
-								<span class="post-time">posted a track 8 days ago</span>
+								<span class="post-time">đã đăng một bài hát 8 ngày trước</span>
 							</div>
 						</div>
 

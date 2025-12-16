@@ -385,11 +385,9 @@
 		</div>
 
 		</div>
-	</div>
 
-	<script src="assets/js/app.js"></script>
-	<script src="assets/js/login_home.js"></script>
-	<%@ include file="footer.jsp" %>
 	<%@ include file="player.jsp" %>
+	<%@ include file="footer.jsp" %>
+	<script src="assets/js/app.js"></script>
 </body>
 </html>

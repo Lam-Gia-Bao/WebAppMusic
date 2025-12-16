@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- Bootstrap 5 CSS (utilities + icons sizing) -->
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Google Font -->
@@ -25,7 +25,7 @@
   <nav class="site-nav">
     <div class="container d-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center gap-3">
-        <div class="bf-logo">
+        <div class="bf-logo d-flex align-items-center gap-2">
           <img src="assets/img/logo.png" alt="BeatFlow logo" class="bf-logo-img">
           <span class="brand">BeatFlow</span>
         </div>
@@ -35,22 +35,26 @@
           <li class="nav-item"><a class="nav-link" href="#">Thư viện</a></li>
         </ul>
       </div>
+
       <div class="flex-grow-1 px-4">
         <div class="search-wrapper">
           <input class="search-input" type="text" placeholder="Tìm kiếm những bài hát, bản nhạc, playlist, album">
           <i class="bi bi-search search-icon"></i>
         </div>
       </div>
+
       <div class="d-flex align-items-center gap-3">
         <a href="#" class="nav-function-link">Dành cho nghệ sĩ</a>
         <a href="upload.jsp" class="nav-function-link">Đăng tải</a>
 
-        <button class="btn-icon-nav" aria-label="Profile">
+        <!-- Avatar button -->
+        <button class="btn-icon-nav" id="profileMenuButton" aria-label="Profile" aria-expanded="false" aria-haspopup="true">
           <img src="assets/img/profile_avatar.jpg" alt="Profile" class="profile-avatar-small">
         </button>
 
+        <!-- Account dropdown trigger (caret) -->
         <div class="dropdown-container">
-          <button class="btn-icon-nav" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" aria-label="Tài khoản">
+          <button class="btn-icon-nav" id="dropdownMenuButton" aria-label="Tài khoản" aria-expanded="false" aria-haspopup="true">
             <i class="bi bi-chevron-down"></i>
           </button>
           <div class="dropdown-menu-custom" id="dropdownMenu" role="menu">
@@ -65,23 +69,25 @@
           </div>
         </div>
 
+        <!-- Notifications -->
         <div class="dropdown-container">
-          <button class="btn-icon-nav" id="notificationsMenuButton" aria-haspopup="true" aria-expanded="false" aria-label="Thông báo">
+          <button class="btn-icon-nav" id="notificationsMenuButton" aria-label="Thông báo" aria-expanded="false" aria-haspopup="true">
             <i class="bi bi-bell"></i>
           </button>
           <div class="messages-dropdown" id="notificationsMenu" role="menu">
-            <div class="messages-header"><h5 class="m-0">Thông báo</h5></div>
+            <div class="messages-header"><h5>Thông báo</h5></div>
             <div class="messages-body"><p class="no-messages">Bạn chưa có thông báo nào.</p></div>
             <div class="messages-footer"><a href="#" class="view-all-link">Xem tất cả thông báo</a></div>
           </div>
         </div>
 
+        <!-- Messages -->
         <div class="dropdown-container">
-          <button class="btn-icon-nav" id="messagesMenuButton" aria-haspopup="true" aria-expanded="false" aria-label="Tin nhắn">
+          <button class="btn-icon-nav" id="messagesMenuButton" aria-label="Tin nhắn" aria-expanded="false" aria-haspopup="true">
             <i class="bi bi-envelope"></i>
           </button>
           <div class="messages-dropdown" id="messagesMenu" role="menu">
-            <div class="messages-header"><h5 class="m-0">Tin nhắn</h5></div>
+            <div class="messages-header"><h5>Tin nhắn</h5></div>
             <div class="messages-body"><p class="no-messages">Bạn chưa có tin nhắn nào.</p></div>
             <div class="messages-footer"><a href="#" class="view-all-link">Xem tất cả tin nhắn</a></div>
           </div>
@@ -327,7 +333,7 @@
     </div>
   </div>
 
-  <!-- Tabs + Modal script -->
+  <!-- Scripts: Tabs + Modal + Dropdowns -->
   <script>
     (function () {
       // Tabs
@@ -362,7 +368,49 @@
       window.addEventListener('hashchange', () => activate(fromHash()));
       activate(fromHash());
 
-      // Modal
+      // Dropdowns
+      const btnProfile = document.getElementById('profileMenuButton');
+      const btnCaret   = document.getElementById('dropdownMenuButton');
+      const menuAcc    = document.getElementById('dropdownMenu');
+
+      const btnNoti = document.getElementById('notificationsMenuButton');
+      const menuNoti = document.getElementById('notificationsMenu');
+
+      const btnMsg = document.getElementById('messagesMenuButton');
+      const menuMsg = document.getElementById('messagesMenu');
+
+      const menus = [menuAcc, menuNoti, menuMsg];
+      const buttons = [btnProfile, btnCaret, btnNoti, btnMsg];
+
+      function closeAll() {
+        menus.forEach(m => m && m.classList.remove('show'));
+        buttons.forEach(b => b && b.setAttribute('aria-expanded', 'false'));
+      }
+      function toggle(menu, btn) {
+        if (!menu) return;
+        const isOpen = menu.classList.contains('show');
+        closeAll();
+        if (!isOpen) {
+          menu.classList.add('show');
+          btn && btn.setAttribute('aria-expanded', 'true');
+        }
+      }
+
+      // Stop click inside menu from closing
+      menus.forEach(m => m && m.addEventListener('click', e => e.stopPropagation()));
+
+      // Open account menu by avatar or caret
+      btnProfile && btnProfile.addEventListener('click', (e) => { e.stopPropagation(); toggle(menuAcc, btnProfile); });
+      btnCaret   && btnCaret.addEventListener('click',   (e) => { e.stopPropagation(); toggle(menuAcc, btnCaret); });
+
+      // Other menus
+      btnNoti && btnNoti.addEventListener('click', (e) => { e.stopPropagation(); toggle(menuNoti, btnNoti); });
+      btnMsg  && btnMsg.addEventListener('click',  (e) => { e.stopPropagation(); toggle(menuMsg, btnMsg); });
+
+      document.addEventListener('click', closeAll);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+
+      // Modal Create Playlist
       const openBtn = document.getElementById('openCreatePlaylist');
       const modal = document.getElementById('createPlaylistModal');
       const closeBtn = document.getElementById('closeCreatePlaylist');
@@ -373,12 +421,11 @@
       const coverInput = document.getElementById('plCoverInput');
       const coverPreview = document.getElementById('plCoverPreview');
       const coverReset = document.getElementById('plCoverReset');
-      const defaultCover = coverPreview.src;
+      const defaultCover = coverPreview ? coverPreview.src : '';
 
       function openModal() {
         modal.classList.add('show');
-        // focus tên sau 150ms để đảm bảo CSS animation
-        setTimeout(() => nameInput.focus(), 150);
+        setTimeout(() => nameInput && nameInput.focus(), 150);
         document.body.style.overflow = 'hidden';
       }
       function closeModal() {
@@ -386,40 +433,30 @@
         document.body.style.overflow = '';
       }
 
-      openBtn?.addEventListener('click', () => openModal());
-      closeBtn?.addEventListener('click', () => closeModal());
-      cancelBtn?.addEventListener('click', () => closeModal());
+      openBtn && openBtn.addEventListener('click', () => openModal());
+      closeBtn && closeBtn.addEventListener('click', () => closeModal());
+      cancelBtn && cancelBtn.addEventListener('click', () => closeModal());
 
-      // click ra ngoài để đóng
-      modal?.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-      });
-      // phím ESC
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+      modal && modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+
+      nameInput && nameInput.addEventListener('input', () => {
+        createBtn.disabled = nameInput.value.trim().length === 0;
       });
 
-      // enable nút tạo khi có tên
-      nameInput?.addEventListener('input', () => {
-        const ok = nameInput.value.trim().length > 0;
-        createBtn.disabled = !ok;
-      });
-
-      // preview ảnh bìa
-      coverInput?.addEventListener('change', () => {
-        const file = coverInput.files?.[0];
+      coverInput && coverInput.addEventListener('change', () => {
+        const file = coverInput.files && coverInput.files[0];
         if (file) {
           const url = URL.createObjectURL(file);
           coverPreview.src = url;
         }
       });
-      coverReset?.addEventListener('click', () => {
-        coverInput.value = '';
-        coverPreview.src = defaultCover;
+      coverReset && coverReset.addEventListener('click', () => {
+        if (coverInput) coverInput.value = '';
+        if (defaultCover) coverPreview.src = defaultCover;
       });
 
-      // submit demo
-      form?.addEventListener('submit', (e) => {
+      form && form.addEventListener('submit', (e) => {
         e.preventDefault();
         const data = {
           name: document.getElementById('plName').value.trim(),
@@ -428,13 +465,34 @@
           topic: document.getElementById('plTopic').value,
           tags: document.getElementById('plTags').value.trim()
         };
-        console.log('Create playlist payload (demo):', data);
-        // Hiển thị thông báo demo
+        // Demo only
         alert('Đã tạo playlist: ' + data.name);
         closeModal();
-        // TODO: khi làm backend, gửi data bằng fetch/XHR ở đây
       });
     })();
   </script>
+  <!-- Footer -->
+		<footer class="py-4"
+			style="background: #0d0d0d; color: #bbb; font-size: 0.9rem;">
+			<div class="container text-center">
+				<div class="bf-footer-links">
+					<div class="mb-3">
+						<a href="#" class="text-secondary me-2">Trang chính thức</a> · <a
+							href="#" class="text-secondary mx-2">Bảo mật</a> · <a href="#"
+							class="text-secondary mx-2">Chính sách Cookie</a> · <a href="#"
+							class="text-secondary mx-2">Trình quản lý Cookie</a> · <a
+							href="#" class="text-secondary mx-2">Xuất bản</a> · <a href="#"
+							class="text-secondary mx-2">Nguồn nghệ sĩ</a> · <a href="#"
+							class="text-secondary mx-2">Tin tức</a> · <a href="#"
+							class="text-secondary mx-2">Biểu đồ</a> · <a href="#"
+							class="text-secondary mx-2">Uy tín</a>
+					</div>
+					<div class="text-secondary">
+						Ngôn ngữ: <a href="#" class="text-primary fw-bold">Tiếng Việt
+							(VN)</a>
+					</div>
+				</div>
+			</div>
+		</footer>
 </body>
 </html>

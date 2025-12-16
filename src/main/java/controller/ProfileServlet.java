@@ -16,7 +16,7 @@ import service.PlaylistService;
 import service.TrackService;
 import service.UploadService;
 
-@WebServlet(name = "ProfileServlet", urlPatterns = {"/profile"})
+@WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
 
     private TrackService trackService;

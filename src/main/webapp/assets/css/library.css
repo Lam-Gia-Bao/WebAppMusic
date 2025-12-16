@@ -1,0 +1,330 @@
+/* Base */
+:root {
+	--bg: #0d0d0d;
+	--card: #141414;
+	--card-2: #101010;
+	--line: #222;
+	--text: #ffffff;
+	--muted: #bdbdbd;
+	--brand: #ff7a33;
+	--brand-2: #ff5500;
+	--shadow: 0 10px 30px rgba(0, 0, 0, .35);
+	--radius: 12px;
+	--radius-sm: 10px;
+}
+
+* {
+	box-sizing: border-box
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	background: var(--bg);
+	color: var(--text);
+	font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+		sans-serif
+}
+
+/* Navbar */
+.site-nav {
+	position: sticky;
+	top: 0;
+	z-index: 1030;
+	background: #0d0d0d;
+	border-bottom: 1px solid rgba(255, 255, 255, .08);
+	padding: 10px 0;
+}
+
+.bf-logo {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.bf-logo-img {
+	width: 36px;
+	height: 36px;
+	object-fit: cover;
+}
+
+.brand {
+	font-weight: 800;
+	letter-spacing: .3px;
+}
+
+.site-nav .nav .nav-link {
+	color: #bbb;
+	padding: 6px 12px;
+	border-radius: 8px;
+	transition: .2s;
+}
+
+.site-nav .nav .nav-link:hover {
+	color: #fff;
+	background: rgba(255, 255, 255, .06);
+}
+
+.site-nav .nav .nav-link.active {
+	color: #fff;
+	background: rgba(255, 255, 255, .12);
+}
+
+.search-wrapper {
+	position: relative;
+}
+
+.search-input {
+	width: 100%;
+	background: #141414;
+	color: #eee;
+	border: 1px solid var(--line);
+	border-radius: 999px;
+	padding: 10px 40px 10px 14px;
+	outline: none;
+}
+
+.search-icon {
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #888;
+	pointer-events: none;
+}
+
+.nav-function-link {
+	color: #ddd;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.nav-function-link:hover {
+	color: #fff;
+}
+
+.btn-icon-nav {
+	background: #141414;
+	border: 1px solid var(--line);
+	color: #ddd;
+	width: 36px;
+	height: 36px;
+	border-radius: 8px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn-icon-nav:hover {
+	background: #1a1a1a;
+}
+
+.profile-avatar-small {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+/* Dropdowns (pure CSS using :focus-within and :hover) */
+.dropdown-container {
+	position: relative;
+}
+
+.dropdown-menu-custom, .messages-dropdown {
+	position: absolute;
+	right: 0;
+	top: calc(100% + 8px);
+	background: #141414;
+	color: #fff;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	min-width: 240px;
+	box-shadow: var(--shadow);
+	display: none;
+	overflow: hidden;
+}
+
+.dropdown-item-custom {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 14px;
+	color: #ddd;
+	text-decoration: none;
+}
+
+.dropdown-item-custom:hover {
+	background: #1a1a1a;
+	color: #fff;
+}
+
+.messages-header, .messages-footer {
+	padding: 10px 14px;
+	border-bottom: 1px solid var(--line);
+}
+
+.messages-footer {
+	border-bottom: 0;
+	border-top: 1px solid var(--line);
+}
+
+.messages-body {
+	padding: 12px 14px;
+}
+
+.no-messages {
+	margin: 0;
+	color: #aaa;
+}
+
+.view-all-link {
+	color: var(--brand);
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.view-all-link:hover {
+	text-decoration: underline;
+}
+
+/* Show dropdown on focus-within or hover */
+.dropdown-container:focus-within>.dropdown-menu-custom,
+	.dropdown-container:hover>.dropdown-menu-custom, .dropdown-container:focus-within>.messages-dropdown,
+	.dropdown-container:hover>.messages-dropdown {
+	display: block;
+}
+
+/* Page wrapper */
+.library-wrapper {
+	padding-top: 24px;
+	padding-bottom: 48px;
+}
+/* ===== Library Tabs + Stats (giống style profile) ===== */
+.library-tabs-stats {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.library-tabs {
+  display: flex;
+  gap: 20px;
+}
+
+.library-tabs .library-tab {
+  text-decoration: none;
+  color: #aaa;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.library-tabs .library-tab.active {
+  color: #fff;
+  border-bottom: 2px solid #ff5500;
+  padding-bottom: 4px;
+}
+
+.library-tabs .library-tab:hover {
+  color: #fff;
+}
+
+.library-stats {
+  display: flex;
+  gap: 30px;
+}
+
+.library-stats .stat {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.library-stats .stat span {
+  font-size: 13px;
+  color: #aaa;
+}
+
+/* Ẩn/hiện nội dung từng tab (nếu bạn dùng hash + class 'active') */
+.lib-pane { display: none; }
+.lib-pane.active { display: block; }
+
+/* Sections */
+.section-block {
+	margin-bottom: 36px;
+}
+
+.sub-title {
+	font-weight: 800;
+}
+
+/* Card row grid */
+.card-row {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 18px;
+}
+
+/* Playlist/Album/Artist cards */
+.playlist-card {
+	display: block;
+	color: #fff;
+	text-decoration: none;
+}
+
+.playlist-card .playlist-img-wrapper {
+	width: 100%;
+	aspect-ratio: 1/1;
+	background: var(--card-2);
+	border-radius: var(--radius);
+	overflow: hidden;
+	border: 1px solid var(--line);
+	transition: .2s;
+}
+
+.playlist-card .playlist-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.playlist-card.only-img .playlist-img-wrapper {
+	aspect-ratio: 1/1;
+}
+
+.playlist-card:hover .playlist-img-wrapper {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+	border-color: rgba(255, 122, 51, .6);
+}
+
+.playlist-title {
+	margin-top: 10px;
+	font-weight: 700;
+}
+
+.playlist-desc {
+	color: #bdbdbd;
+	font-size: 14px;
+}
+
+/* Rounded-circle compatibility if Bootstrap missing the utility */
+.rounded-circle {
+	border-radius: 50% !important;
+}
+
+/* Responsive tweaks */
+@media ( max-width : 576px) {
+	.library-tabs {
+		gap: 12px !important;
+		flex-wrap: wrap;
+	}
+	.playlist-title {
+		font-size: 15px;
+	}
+	.playlist-desc {
+		font-size: 13px;
+	}
+}

@@ -39,7 +39,7 @@
 				<i class="bi bi-shuffle"></i>
 			</button>
 			<button class="player-btn">
-				<i class="bi bi-chat"></i>
+				<i class="bi bi-repeat"></i>
 			</button>
 			<div class="player-volume-control">
 				<i class="bi bi-volume-up"></i>
@@ -55,9 +55,9 @@
 <!-- Next Up Panel -->
 <div class="next-up-panel" id="nextUpPanel">
 	<div class="next-up-header">
-		<h3>Next up</h3>
+		<h3>Danh sách chờ</h3>
 		<div class="next-up-header-actions">
-			<button class="next-up-clear">Clear</button>
+			<button class="next-up-clear">Xóa tất cả</button>
 			<button class="next-up-close" id="closeNextUp">
 				<i class="bi bi-x-lg"></i>
 			</button>

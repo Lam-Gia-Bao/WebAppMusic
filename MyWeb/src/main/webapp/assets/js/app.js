@@ -278,7 +278,42 @@ function initializeApp() {
         menu.classList.remove('show');
       }
     });
+
+    // Close track dropdown menus when clicking outside
+    const trackMenus = document.querySelectorAll('.track-dropdown-menu.show');
+    trackMenus.forEach(menu => {
+      if (!menu.contains(e.target) && !e.target.closest('.btn-track-menu')) {
+        menu.classList.remove('show');
+      }
+    });
   });
+
+  // Track dropdown menu handlers
+  const trackMenuButtons = document.querySelectorAll('.btn-track-menu');
+  trackMenuButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const dropdown = this.nextElementSibling;
+      if (dropdown && dropdown.classList.contains('track-dropdown-menu')) {
+        // Close all other dropdowns
+        document.querySelectorAll('.track-dropdown-menu.show').forEach(menu => {
+          if (menu !== dropdown) {
+            menu.classList.remove('show');
+          }
+        });
+        
+        // Toggle dropdown and position it
+        dropdown.classList.toggle('show');
+        
+        if (dropdown.classList.contains('show')) {
+          const rect = button.getBoundingClientRect();
+          dropdown.style.top = (rect.bottom + 8) + 'px';
+          dropdown.style.left = (rect.right - 200) + 'px';
+        }
+      }
+    });
+  });
+
 }
 
 // Start initialization when DOM is ready

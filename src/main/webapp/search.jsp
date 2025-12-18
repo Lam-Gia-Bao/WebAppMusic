@@ -28,7 +28,7 @@
 						class="bf-logo-img"> <span class="brand">BeatFlow</span>
 				</div>
 				<ul class="nav d-none d-md-flex">
-					<li class="nav-item"><a class="nav-link" href="#">Trang
+					<li class="nav-item"><a class="nav-link" href="index.jsp">Trang
 							chủ</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Tin tức</a></li>
 					<li class="nav-item"><a class="nav-link" href="library.jsp">Thư
@@ -135,11 +135,13 @@
 
 		<!-- Results -->
 		<section class="search-results">
-			<!-- Featured playlist style block -->
+			<!-- Featured playlist block -->
 			<article class="featured">
 				<div class="featured-cover">
 					<img src="assets/img/playlist.jpg" alt="Featured cover">
-					<button class="btn-play-lg" aria-label="Play">
+					<button class="btn-play-lg" aria-label="Play"
+						data-play-src="assets/img/playlist.jpg"
+						data-play-artist="Duy Quốc" data-play-title="ballad việt">
 						<i class="bi bi-play-fill"></i>
 					</button>
 				</div>
@@ -153,7 +155,7 @@
 					</div>
 					<div class="wave-skeleton" aria-hidden="true"></div>
 
-					<!-- UPDATED: numbered list, bold title, muted uploader -->
+					<!-- Numbered list, bold title, muted uploader -->
 					<ol class="featured-tracks">
 						<li><span class="idx">1</span>
 							<div class="ft-line">
@@ -212,7 +214,9 @@
 
 				<article class="track-row">
 					<img class="trk-thumb" src="assets/img/track1.jpg" alt="thumb">
-					<button class="trk-play">
+					<button class="trk-play" data-play-src="assets/img/track1.jpg"
+						data-play-artist="NU9EVE"
+						data-play-title="Người Đầu Tiên - Juky San (nueve remake)">
 						<i class="bi bi-play-fill"></i>
 					</button>
 					<div class="trk-main">
@@ -250,7 +254,8 @@
 
 				<article class="track-row">
 					<img class="trk-thumb" src="assets/img/track2.jpg" alt="thumb">
-					<button class="trk-play">
+					<button class="trk-play" data-play-src="assets/img/track2.jpg"
+						data-play-artist="Pierre Bourne" data-play-title="Ballad">
 						<i class="bi bi-play-fill"></i>
 					</button>
 					<div class="trk-main">
@@ -351,6 +356,120 @@
 
 		</section>
 	</main>
+
+	<!-- Fixed Music Player Bar -->
+	<div class="fixed-player-bar">
+		<div class="player-container">
+			<!-- Prev / Play / Next -->
+			<div class="player-controls-left">
+				<button class="player-btn">
+					<i class="bi bi-skip-backward-fill"></i>
+				</button>
+				<button class="player-btn player-play-btn" id="mainPlayBtn">
+					<i class="bi bi-play-fill"></i>
+				</button>
+				<button class="player-btn">
+					<i class="bi bi-skip-forward-fill"></i>
+				</button>
+			</div>
+
+			<!-- Progress -->
+			<div class="player-progress-section">
+				<span class="player-time" id="curTime">0:00</span>
+				<div class="player-progress-bar" id="progressBar">
+					<div class="player-progress-fill" id="progressFill"></div>
+				</div>
+				<span class="player-time" id="durTime">3:04</span>
+			</div>
+
+			<!-- Now playing -->
+			<div class="player-song-info">
+				<img src="assets/img/track1.jpg" alt="Now Playing"
+					class="player-song-thumb" id="nowThumb">
+				<div class="player-song-details">
+					<div class="player-song-title" id="nowArtist">Lil Liem</div>
+					<div class="player-song-artist" id="nowTitle">uocgianhaynoiyeutoi</div>
+				</div>
+			</div>
+
+			<!-- Right controls -->
+			<div class="player-controls-right">
+				<button class="player-btn">
+					<i class="bi bi-shuffle"></i>
+				</button>
+				<button class="player-btn">
+					<i class="bi bi-chat"></i>
+				</button>
+				<div class="player-volume-control">
+					<i class="bi bi-volume-up"></i> <input type="range"
+						class="player-volume-slider" min="0" max="100" value="50">
+				</div>
+				<button class="player-btn" id="nextUpButton">
+					<i class="bi bi-justify"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Next Up Panel -->
+	<div class="next-up-panel" id="nextUpPanel">
+		<div class="next-up-header">
+			<h3>Next up</h3>
+			<div class="next-up-header-actions">
+				<button class="next-up-clear">Clear</button>
+				<button class="next-up-close" id="closeNextUp">
+					<i class="bi bi-x-lg"></i>
+				</button>
+			</div>
+		</div>
+		<div class="next-up-content">
+			<div class="next-up-item">
+				<div class="next-up-thumb-wrap">
+					<img src="assets/img/avt_travis-scott.jpg" alt="Song"
+						class="next-up-thumb">
+					<button class="next-up-play-btn">
+						<i class="bi bi-play-fill"></i>
+					</button>
+				</div>
+				<div class="next-up-info">
+					<div class="next-up-artist">LeeHi 이하이</div>
+					<div class="next-up-song">LeeHi (이하이) - ONLY</div>
+				</div>
+				<div class="next-up-time">4:00</div>
+				<div class="next-up-actions">
+					<button class="next-up-action-btn">
+						<i class="bi bi-heart"></i>
+					</button>
+					<button class="next-up-action-btn">
+						<i class="bi bi-three-dots"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="next-up-item active">
+				<div class="next-up-thumb-wrap">
+					<img src="assets/img/kem-duyen-drill_song.jpg" alt="Song"
+						class="next-up-thumb">
+					<button class="next-up-play-btn">
+						<i class="bi bi-play-fill"></i>
+					</button>
+				</div>
+				<div class="next-up-info">
+					<div class="next-up-artist">Sevenlow</div>
+					<div class="next-up-song">Kem duyen drill mix tiktok</div>
+				</div>
+				<div class="next-up-time">4:00</div>
+				<div class="next-up-actions">
+					<button class="next-up-action-btn active">
+						<i class="bi bi-heart-fill"></i>
+					</button>
+					<button class="next-up-action-btn">
+						<i class="bi bi-three-dots"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script src="assets/js/search.js"></script>
 </body>

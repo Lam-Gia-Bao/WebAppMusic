@@ -32,9 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleFiles(files) {
-    const list = Array.from(files).map(f => f.name).join(', ');
-    // Demo: replace alert with upload logic when backend is ready
-    alert('Selected files:\n' + list);
+    if (files && files.length > 0) {
+      // Store selected files in sessionStorage
+      const fileNames = Array.from(files).map(f => f.name);
+      sessionStorage.setItem('selectedAudioFiles', JSON.stringify(fileNames));
+      
+      // Redirect to track info page
+      window.location.href = 'upload_track_info.jsp';
+    }
   }
 
   if (closeCircle) {

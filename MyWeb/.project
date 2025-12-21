@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>MyWeb</name>
+	<name>BeatFlowWeb</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -24,7 +24,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1764662629060</id>
+			<id>1764608723091</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

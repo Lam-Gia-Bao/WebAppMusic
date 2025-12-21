@@ -1,3 +1,4 @@
+// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
 package controller;
 
 import jakarta.servlet.ServletException;
@@ -7,14 +8,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/welcome")
+@WebServlet({"/welcome"})
 public class WelcomeServlet extends HttpServlet {
+   public WelcomeServlet() {
+   }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        // forward tới trang giao diện home.jsp
-        request.getRequestDispatcher("welcome.jsp").forward(request, response);
-    }
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      request.getRequestDispatcher("welcome.jsp").forward(request, response);
+   }
 }

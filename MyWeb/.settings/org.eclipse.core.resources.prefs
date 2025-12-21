@@ -1,8 +1,3 @@
 eclipse.preferences.version=1
-encoding//src/main/java/controller/LibraryServlet.java=UTF-8
-encoding//src/main/java/controller/LoginServlet.java=UTF-8
-encoding//src/main/java/controller/ProfileServlet.java=UTF-8
-encoding//src/main/java/controller/RegisterServlet.java=UTF-8
-encoding//src/main/java/controller/WelcomeServlet.java=UTF-8
-encoding//src/main/webapp/profile.jsp=UTF-8
-encoding/<project>=windows-1258
+encoding//src/main/webapp/right_column.jsp=UTF-8
+encoding/<project>=UTF-8

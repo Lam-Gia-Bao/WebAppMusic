@@ -17,9 +17,9 @@
 					class="bf-logo-img"> <span class="bf-logo-text">BeatFlow</span>
 			</div>
 			<nav class="bf-nav">
-				<button class="btn btn-ghost">Đăng nhập</button>
-				<button class="btn btn-primary">Tạo tài khoản</button>
-				<a class="bf-link" href="#">Dành cho Nghệ sĩ</a>
+				<a class="btn btn-ghost" href="login">Đăng nhập</a>
+				<a class="btn btn-primary" href="register">Tạo tài khoản</a>
+				<a class="bf-link" href="profile">Dành cho Nghệ sĩ</a>
 			</nav>
 		</div>
 	</header>
@@ -40,8 +40,8 @@
 			</p>
 
 			<div class="bf-hero-btns">
-				<button class="btn btn-primary">Bắt đầu</button>
-				<button class="btn btn-outline-light">Tìm hiểu thêm</button>
+				<a class="btn btn-primary" href="register">Bắt đầu</a>
+				<a class="btn btn-outline-light" href="login">Tìm hiểu thêm</a>
 			</div>
 		</div>
 	</section>
@@ -52,7 +52,7 @@
 			<input class="bf-search-input" type="search"
 				placeholder="Tìm nghệ sĩ, ban nhạc, bài hát, podcast..."> <span
 				class="bf-or">hoặc</span>
-			<button class="btn btn-primary">Tải nhạc lên</button>
+			<a class="btn btn-primary" href="upload.jsp">Tải nhạc lên</a>
 		</div>
 	</section>
 
@@ -109,9 +109,9 @@
 			<h3>Cảm ơn bạn đã lắng nghe. Hãy tham gia ngay.</h3>
 			<p>Lưu bài, theo dõi nghệ sĩ và tạo danh sách phát. Hoàn toàn
 				miễn phí.</p>
-			<button class="btn btn-primary">Tạo tài khoản</button>
+			<a class="btn btn-primary" href="register">Tạo tài khoản</a>
 			<p class="small">
-				Đã có tài khoản? <a href="#">Đăng nhập</a>
+				Đã có tài khoản? <a href="login">Đăng nhập</a>
 			</p>
 		</div>
 	</section>

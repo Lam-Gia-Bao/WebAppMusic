@@ -1,11 +1,15 @@
 package dao;
 
-import model.Track;
-import util.DatabaseConnection;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Track;
+import service.Database;
 
 /**
  * Track DAO (Data Access Object)
@@ -21,7 +25,7 @@ public class TrackDAO {
                      "privacy, artwork_url, audio_file_url, buy_link, release_date, record_label, publisher) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             
             stmt.setInt(1, track.getUserId());
@@ -64,7 +68,7 @@ public class TrackDAO {
                      "INNER JOIN users u ON t.user_id = u.user_id " +
                      "WHERE t.track_id = ?";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, trackId);
@@ -91,7 +95,7 @@ public class TrackDAO {
                      "WHERE t.privacy = 'public' " +
                      "ORDER BY t.created_at DESC";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = Database.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             
@@ -116,7 +120,7 @@ public class TrackDAO {
                      "WHERE t.user_id = ? " +
                      "ORDER BY t.created_at DESC";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, userId);
@@ -144,7 +148,7 @@ public class TrackDAO {
                      "AND t.privacy = 'public' " +
                      "ORDER BY t.play_count DESC";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             String searchPattern = "%" + keyword + "%";
@@ -172,7 +176,7 @@ public class TrackDAO {
         String sql = "UPDATE tracks SET title = ?, artist = ?, genre = ?, tags = ?, " +
                      "description = ?, privacy = ?, artwork_url = ? WHERE track_id = ?";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setString(1, track.getTitle());
@@ -199,7 +203,7 @@ public class TrackDAO {
     public boolean deleteTrack(int trackId) {
         String sql = "DELETE FROM tracks WHERE track_id = ?";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, trackId);
@@ -218,7 +222,7 @@ public class TrackDAO {
     public boolean incrementPlayCount(int trackId) {
         String sql = "UPDATE tracks SET play_count = play_count + 1 WHERE track_id = ?";
         
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, trackId);

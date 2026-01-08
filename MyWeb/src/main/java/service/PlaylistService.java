@@ -1,16 +1,22 @@
 package service;
 
-import java.util.Arrays;
-import java.util.List;
-
+import dao.PlaylistDAO;
 import model.Playlist;
 
+import java.util.List;
+
 public class PlaylistService {
-    public List<Playlist> getPlaylists(long userId) {
-        // Demo data
-        return Arrays.asList(
-                new Playlist(1, "Chill Vibes", 12),
-                new Playlist(2, "Workout Mix", 20)
-        );
-    }
+	private final PlaylistDAO dao = new PlaylistDAO();
+
+	public List<Playlist> getPlaylists(long userId) {
+		return dao.findByUserId(userId);
+	}
+
+	public java.util.List<String> getTracksInPlaylist(long playlistId) {
+		return dao.findTracksInPlaylist(playlistId);
+	}
+
+	public void addTrackToPlaylist(long playlistId, String trackTitle) {
+		dao.addTrackToPlaylist(playlistId, trackTitle);
+	}
 }

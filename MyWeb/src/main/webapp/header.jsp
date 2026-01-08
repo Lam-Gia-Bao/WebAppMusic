@@ -8,9 +8,9 @@
 				<span class="brand">BeatFlow</span>
 			</div>
 			<ul class="nav d-none d-md-flex">
-				<li class="nav-item"><a class="nav-link active" href="login_home.jsp">Trang chủ</a></li>
+				<li class="nav-item"><a class="nav-link active" href="welcome">Trang chủ</a></li>
 				<li class="nav-item"><a class="nav-link" href="feed.jsp">Tin tức</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Thư viện</a></li>
+				<li class="nav-item"><a class="nav-link" href="library">Thư viện</a></li>
 			</ul>
 		</div>
 		<div class="flex-grow-1 px-4">
@@ -20,9 +20,9 @@
 			</div>
 		</div>
 		<div class="d-flex align-items-center gap-3">
-			<a href="#" class="nav-function-link">Dành cho nghệ sĩ</a>
+			<a href="profile" class="nav-function-link">Dành cho nghệ sĩ</a>
 			<a href="upload.jsp" class="nav-function-link">Đăng tải</a>
-			<button class="btn-icon-nav">
+			<button class="btn-icon-nav" onclick="window.location.href='profile'">
 				<img src="assets/img/profile_avatar.jpg" alt="Profile" class="profile-avatar-small">
 			</button>
 			<div class="dropdown-container">
@@ -31,35 +31,35 @@
 				</button>
 				<!-- Dropdown Menu -->
 				<div class="dropdown-menu-custom" id="dropdownMenu">
-					<a href="#" class="dropdown-item-custom">
+					<a href="profile" class="dropdown-item-custom">
 						<i class="bi bi-person"></i>
 						<span>Trang cá nhân</span>
 					</a>
-					<a href="#" class="dropdown-item-custom">
+					<a href="library?tab=favorite" class="dropdown-item-custom">
 						<i class="bi bi-heart"></i>
 						<span>Đã thích</span>
 					</a>
-					<a href="#" class="dropdown-item-custom">
+					<a href="library?tab=playlist" class="dropdown-item-custom">
 						<i class="bi bi-collection-play"></i>
 						<span>Playlist nhạc</span>
 					</a>
-					<a href="#" class="dropdown-item-custom">
+					<a href="library" class="dropdown-item-custom">
 						<i class="bi bi-broadcast"></i>
 						<span>Đài phát thanh</span>
 					</a>
-					<a href="#" class="dropdown-item-custom">
+					<a href="profile" class="dropdown-item-custom">
 						<i class="bi bi-people"></i>
 						<span>Đang theo dõi</span>
 					</a>
-					<a href="#" class="dropdown-item-custom">
+					<a href="profile" class="dropdown-item-custom">
 						<i class="bi bi-person-plus"></i>
 						<span>Đề xuất theo dõi</span>
 					</a>
-					<a href="#" class="dropdown-item-custom">
+					<a href="library?tab=tracks" class="dropdown-item-custom">
 						<i class="bi bi-music-note-list"></i>
 						<span>Những bản track</span>
 					</a>
-					<a href="#" class="dropdown-item-custom">
+					<a href="profile" class="dropdown-item-custom">
 						<i class="bi bi-bar-chart"></i>
 						<span>Thông tin về người nghe</span>
 					</a>

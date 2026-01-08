@@ -137,10 +137,34 @@
         <h4 class="sub-title">Likes</h4>
       </div>
       <div class="card-row">
-        <a href="#" class="playlist-card only-img"><div class="playlist-img-wrapper"><img src="assets/img/like1.jpg" class="playlist-img" alt="Like 1"></div></a>
-        <a href="#" class="playlist-card only-img"><div class="playlist-img-wrapper"><img src="assets/img/like2.jpg" class="playlist-img" alt="Like 2"></div></a>
-        <a href="#" class="playlist-card only-img"><div class="playlist-img-wrapper"><img src="assets/img/like3.jpg" class="playlist-img" alt="Like 3"></div></a>
-        <a href="#" class="playlist-card only-img"><div class="playlist-img-wrapper"><img src="assets/img/like4.jpg" class="playlist-img" alt="Like 4"></div></a>
+        <a href="#" class="playlist-card">
+          <div class="playlist-img-wrapper">
+            <img src="assets/img/drake.jpg" class="playlist-img" alt="God's Plan">
+          </div>
+          <div class="playlist-title">God's Plan</div>
+          <div class="playlist-desc">Drake</div>
+        </a>
+        <a href="#" class="playlist-card">
+          <div class="playlist-img-wrapper">
+            <img src="assets/img/taylor-swift.png" class="playlist-img" alt="Cardigan">
+          </div>
+          <div class="playlist-title">Cardigan</div>
+          <div class="playlist-desc">Taylor Swift</div>
+        </a>
+        <a href="#" class="playlist-card">
+          <div class="playlist-img-wrapper">
+            <img src="assets/img/ed-sheeran.jpg" class="playlist-img" alt="Shape of You">
+          </div>
+          <div class="playlist-title">Shape of You</div>
+          <div class="playlist-desc">Ed Sheeran</div>
+        </a>
+        <a href="#" class="playlist-card">
+          <div class="playlist-img-wrapper">
+            <img src="assets/img/avt_travis-scott.jpg" class="playlist-img" alt="SICKO MODE">
+          </div>
+          <div class="playlist-title">SICKO MODE</div>
+          <div class="playlist-desc">Travis Scott</div>
+        </a>
       </div>
     </section>
 
@@ -150,37 +174,84 @@
         <h4 class="sub-title">Playlists</h4>
       </div>
       <div class="card-row">
-        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/playlist3.jpg" class="playlist-img" alt="Chill Vibes"></div><div class="playlist-title">Chill Vibes</div><div class="playlist-desc">by Takezo</div></a>
-        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/playlist4.jpg" class="playlist-img" alt="Road Trip"></div><div class="playlist-title">Road Trip</div><div class="playlist-desc">by Takezo</div></a>
-        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/playlist5.jpg" class="playlist-img" alt="Workout Mix"></div><div class="playlist-title">Workout Mix</div><div class="playlist-desc">by Takezo</div></a>
-        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/playlist6.jpg" class="playlist-img" alt="Focus Beats"></div><div class="playlist-title">Focus Beats</div><div class="playlist-desc">by Takezo</div></a>
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/edm-playlist.jpg" class="playlist-img" alt="Electronic Dance"></div><div class="playlist-title">Electronic Dance</div><div class="playlist-desc">by BeatFlow</div></a>
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/nkl2-playlist.jpg" class="playlist-img" alt="Nhạc Không Lời"></div><div class="playlist-title">Nhạc Không Lời</div><div class="playlist-desc">by BeatFlow</div></a>
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/pop-playlist.jpg" class="playlist-img" alt="POP Hits"></div><div class="playlist-title">POP Hits</div><div class="playlist-desc">by BeatFlow</div></a>
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/rnh-playlist.jpg" class="playlist-img" alt="Rap & Hip-Hop"></div><div class="playlist-title">Rap & Hip-Hop</div><div class="playlist-desc">by BeatFlow</div></a>
       </div>
     </section>
 
     <!-- Albums -->
     <section class="section-block lib-pane" data-tab="albums">
       <h4 class="sub-title mb-3">Albums</h4>
-      <p class="text-muted">Nội dung mẫu.</p>
+      <div class="card-row">
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/ca-phe_song.jpg" class="playlist-img" alt="Cà Phê"></div><div class="playlist-title">Cà Phê</div><div class="playlist-desc">Minh</div></a>
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/kem-duyen_song.jpg" class="playlist-img" alt="Kẻ Mê Duyên"></div><div class="playlist-title">Kẻ Mê Duyên</div><div class="playlist-desc">Hứa Kim Tuyền</div></a>
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/avt_doja-cat.png" class="playlist-img" alt="Planet Her"></div><div class="playlist-title">Planet Her</div><div class="playlist-desc">Doja Cat</div></a>
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/avt_bad-bunny.jpg" class="playlist-img" alt="Un Verano Sin Ti"></div><div class="playlist-title">Un Verano Sin Ti</div><div class="playlist-desc">Bad Bunny</div></a>
+      </div>
     </section>
 
     <!-- Stations -->
     <section class="section-block lib-pane" data-tab="stations">
       <h4 class="sub-title mb-3">Stations</h4>
-      <p class="text-muted">Nội dung mẫu.</p>
+      <div class="card-row">
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/rnh2-playlist.jpg" class="playlist-img" alt="Hip-Hop Radio"></div><div class="playlist-title">Hip-Hop Radio</div><div class="playlist-desc">Based on Travis Scott</div></a>
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/edm2-playlist.jpg" class="playlist-img" alt="EDM Radio"></div><div class="playlist-title">EDM Radio</div><div class="playlist-desc">Based on Martin Garrix</div></a>
+        <a href="#" class="playlist-card"><div class="playlist-img-wrapper"><img src="assets/img/viet-playlist.jpg" class="playlist-img" alt="V-Pop Radio"></div><div class="playlist-title">V-Pop Radio</div><div class="playlist-desc">Based on Sơn Tùng M-TP</div></a>
+      </div>
     </section>
 
     <!-- Following -->
     <section class="section-block lib-pane" data-tab="following">
       <h4 class="sub-title mb-3">Following</h4>
-      <p class="text-muted">Nội dung mẫu.</p>
+      <div class="card-row">
+        <a href="#" class="playlist-card">
+          <div class="playlist-img-wrapper"><img src="assets/img/artist.png" class="playlist-img rounded-circle" alt="Nghệ sĩ"></div>
+          <div class="playlist-title">BeatFlow Artist</div>
+          <div class="playlist-desc">Nghệ sĩ được theo dõi</div>
+        </a>
+        <a href="#" class="playlist-card">
+          <div class="playlist-img-wrapper"><img src="assets/img/profile_avatar.jpg" class="playlist-img rounded-circle" alt="DJ Night"></div>
+          <div class="playlist-title">DJ Night</div>
+          <div class="playlist-desc">Producer</div>
+        </a>
+        <a href="#" class="playlist-card">
+          <div class="playlist-img-wrapper"><img src="assets/img/user.jpg" class="playlist-img rounded-circle" alt="Indie Girl"></div>
+          <div class="playlist-title">Indie Girl</div>
+          <div class="playlist-desc">Singer</div>
+        </a>
+      </div>
     </section>
 
     <!-- History -->
     <section class="section-block lib-pane" data-tab="history">
       <h4 class="sub-title mb-3">History</h4>
-      <p class="text-muted">Nội dung mẫu.</p>
+      <div class="card-row">
+        <a href="#" class="playlist-card">
+          <div class="playlist-img-wrapper">
+            <img src="assets/img/edm-playlist.jpg" class="playlist-img" alt="Night Drive">
+          </div>
+          <div class="playlist-title">Night Drive</div>
+          <div class="playlist-desc">John Doe · 2 ngày trước</div>
+        </a>
+        <a href="#" class="playlist-card">
+          <div class="playlist-img-wrapper">
+            <img src="assets/img/pop2-playlist.png" class="playlist-img" alt="Pop Chill">
+          </div>
+          <div class="playlist-title">Pop Chill</div>
+          <div class="playlist-desc">Jane Smith · 1 tuần trước</div>
+        </a>
+        <a href="#" class="playlist-card">
+          <div class="playlist-img-wrapper">
+            <img src="assets/img/hero-upload.png" class="playlist-img" alt="Upload Session">
+          </div>
+          <div class="playlist-title">Upload Session</div>
+          <div class="playlist-desc">Bạn · 2 tuần trước</div>
+        </a>
+      </div>
     </section>
-  </main>
+  </main>	
 
   <script>
     (function () {

@@ -30,10 +30,10 @@
 						class="bf-logo-img"> <span class="brand">BeatFlow</span>
 				</div>
 				<ul class="nav d-none d-md-flex">
-					<li class="nav-item"><a class="nav-link active" href="#">Trang
+					<li class="nav-item"><a class="nav-link active" href="welcome">Trang
 							chủ</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Tin tức</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Thư viện</a></li>
+					<li class="nav-item"><a class="nav-link" href="feed.jsp">Tin tức</a></li>
+					<li class="nav-item"><a class="nav-link" href="library">Thư viện</a></li>
 				</ul>
 			</div>
 			<div class="flex-grow-1 px-4">
@@ -44,9 +44,9 @@
 				</div>
 			</div>
 			<div class="d-flex gap-2">
-				<button class="btn btn-sm btn-outline-light d-none d-md-inline">Đăng
-					nhập</button>
-				<button class="btn btn-sm btn-ghost">Tạo tài khoản</button>
+				<a class="btn btn-sm btn-outline-light d-none d-md-inline" href="login">Đăng
+					nhập</a>
+				<a class="btn btn-sm btn-ghost" href="register">Tạo tài khoản</a>
 			</div>
 		</div>
 	</nav>

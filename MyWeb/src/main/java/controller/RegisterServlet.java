@@ -1,23 +1,45 @@
-// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
 package controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
+import service.UserService;
+
 import java.io.IOException;
 
-@WebServlet({"/register"})
+@WebServlet({ "/register" })
 public class RegisterServlet extends HttpServlet {
-   public RegisterServlet() {
-   }
+	private UserService userService;
 
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      request.getRequestDispatcher("register.jsp").forward(request, response);
-   }
+	@Override
+	public void init() throws ServletException {
+		this.userService = new UserService();
+	}
 
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      response.sendRedirect("login");
-   }
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/register.jsp").forward(request, response);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String username = request.getParameter("username");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+
+		try {
+			long id = userService.register(username, email, password);
+			// Đăng ký thành công → chuyển sang login
+			request.setAttribute("message", "Đăng ký thành công! Mời đăng nhập.");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		} catch (IllegalArgumentException | IllegalStateException ex) {
+			request.setAttribute("error", ex.getMessage());
+			request.getRequestDispatcher("/register.jsp").forward(request, response);
+		} catch (Exception ex) {
+			request.setAttribute("error", "Có lỗi hệ thống: " + ex.getMessage());
+			request.getRequestDispatcher("/register.jsp").forward(request, response);
+		}
+	}
 }

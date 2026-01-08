@@ -355,6 +355,40 @@ html, body {
 	border-radius: 50% !important;
 }
 
+/* History list */
+.history-list {
+	background: transparent;
+}
+
+.history-list .list-group-item {
+	background: var(--card, #141414) !important;
+	color: #fff !important;
+	border: 1px solid var(--line, #222) !important;
+	padding: 12px 14px;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.history-list .list-group-item + .list-group-item {
+	border-top: 1px solid var(--line, #222) !important;
+}
+
+.history-list .list-group-item:hover {
+	background: #1a1a1a !important;
+}
+
+.history-thumb {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+	border-radius: 10px;
+	border: 1px solid var(--line, #222);
+}
+
+.history-list .fw-bold { color: #fff; }
+.history-list small { color: #bdbdbd !important; }
+
 /* Responsive */
 @media ( max-width :576px) {
 	.library-tabs {

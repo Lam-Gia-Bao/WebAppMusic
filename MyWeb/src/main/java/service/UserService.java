@@ -20,4 +20,22 @@ public class UserService {
 		String hash = HashUtil.sha256(rawPassword);
 		return dao.insertUser(username.trim(), email.trim(), hash);
 	}
+
+	/**
+	 * Kiểm tra đăng nhập: so sánh password raw với hash lưu trong DB.
+	 */
+	public boolean authenticate(String username, String rawPassword) {
+		if (username == null || rawPassword == null)
+			return false;
+		return dao.findPasswordHashByUsername(username.trim())
+				.map(stored -> {
+					String trimmed = stored == null ? "" : stored.trim();
+					String raw = rawPassword;
+					String hashed = HashUtil.sha256(raw);
+					// Nếu DB đã lưu SHA-256 (64 hex) thì so sánh với hash; nếu không, fallback so sánh plaintext để không khóa tài khoản cũ.
+					boolean isSha256Hex = trimmed.length() == 64 && trimmed.matches("[0-9a-fA-F]{64}");
+					return isSha256Hex ? trimmed.equalsIgnoreCase(hashed) : (trimmed.equals(raw) || trimmed.equalsIgnoreCase(hashed));
+				})
+				.orElse(false);
+	}
 }

@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%
-	// Lấy thông tin người dùng từ session
-	HttpSession sess = request.getSession(false);
-	String username = null;
-	String userAvatar = null;
-	if (sess != null) {
-		username = (String) sess.getAttribute("user");
-		userAvatar = (String) sess.getAttribute("avatar");
+	// Lấy thông tin người dùng từ session (header)
+	HttpSession headerSess = request.getSession(false);
+	String headerUsername = null;
+	String headerUserAvatar = null;
+	if (headerSess != null) {
+		headerUsername = (String) headerSess.getAttribute("user");
+		headerUserAvatar = (String) headerSess.getAttribute("avatar");
 	}
-	if (userAvatar == null) {
-		userAvatar = "assets/img/profile_avatar.jpg";
+	if (headerUserAvatar == null) {
+		headerUserAvatar = "assets/img/profile_avatar.jpg";
 	}
 %>
 <!-- NAVBAR -->
@@ -37,7 +37,7 @@
 			<a href="profile" class="nav-function-link">Dành cho nghệ sĩ</a>
 			<a href="upload.jsp" class="nav-function-link">Đăng tải</a>
 			<button class="btn-icon-nav" onclick="window.location.href='profile'" title="Trang cá nhân">
-				<img src="<%= userAvatar %>" alt="Profile" class="profile-avatar-small" onerror="this.src='assets/img/profile_avatar.jpg'">
+				<img src="<%= headerUserAvatar %>" alt="Profile" class="profile-avatar-small" onerror="this.src='assets/img/profile_avatar.jpg'">
 			</button>
 			<!-- User Menu Dropdown -->
 			<div class="dropdown-container">
@@ -47,17 +47,17 @@
 				<!-- Dropdown Menu -->
 				<div class="dropdown-menu-custom" id="dropdownMenu" role="menu">
 					<div style="padding: 10px 15px; border-bottom: 1px solid #e0e0e0; font-weight: 500;">
-						<span id="userDisplayName"><%= username != null ? username : "Người dùng" %></span>
+						<span id="userDisplayName"><%= headerUsername != null ? headerUsername : "Người dùng" %></span>
 					</div>
 					<a href="profile" class="dropdown-item-custom">
 						<i class="bi bi-person"></i>
 						<span>Trang cá nhân</span>
 					</a>
-					<a href="library?tab=favorite" class="dropdown-item-custom">
+					<a href="profile?tab=favorite" class="dropdown-item-custom">
 						<i class="bi bi-heart"></i>
 						<span>Đã thích</span>
 					</a>
-					<a href="library?tab=playlist" class="dropdown-item-custom">
+					<a href="profile?tab=playlist" class="dropdown-item-custom">
 						<i class="bi bi-collection-play"></i>
 						<span>Playlist nhạc</span>
 					</a>
@@ -73,7 +73,7 @@
 						<i class="bi bi-person-plus"></i>
 						<span>Đề xuất theo dõi</span>
 					</a>
-					<a href="library?tab=tracks" class="dropdown-item-custom">
+					<a href="profile?tab=tracks" class="dropdown-item-custom">
 						<i class="bi bi-music-note-list"></i>
 						<span>Những bản track</span>
 					</a>
@@ -200,9 +200,9 @@
 				
 				body.innerHTML = data.map(notif => `
 					<div class="message-item" style="padding: 10px; border-bottom: 1px solid #f0f0f0;">
-						<div style="font-weight: 500; color: #333;">${escapeHtml(notif.title)}</div>
-						<div style="font-size: 0.9em; color: #666;">${escapeHtml(notif.message)}</div>
-						<div style="font-size: 0.8em; color: #999; margin-top: 5px;">${notif.time}</div>
+						<div style="font-weight: 500; color: #333;">\${escapeHtml(notif.title)}</div>
+						<div style="font-size: 0.9em; color: #666;">\${escapeHtml(notif.message)}</div>
+						<div style="font-size: 0.8em; color: #999; margin-top: 5px;">\${notif.time}</div>
 					</div>
 				`).join('');
 			}
@@ -229,10 +229,10 @@
 				badge.style.display = 'block';
 				
 				body.innerHTML = data.map(msg => `
-					<div class="message-item" style="padding: 10px; border-bottom: 1px solid #f0f0f0; cursor: pointer;" onclick="openMessage(${msg.id})">
-						<div style="font-weight: 500; color: #333;">${escapeHtml(msg.senderName)}</div>
-						<div style="font-size: 0.9em; color: #666;">${escapeHtml(msg.content)}</div>
-						<div style="font-size: 0.8em; color: #999; margin-top: 5px;">${msg.time}</div>
+					<div class="message-item" style="padding: 10px; border-bottom: 1px solid #f0f0f0; cursor: pointer;" onclick="openMessage(\${msg.id})">
+						<div style="font-weight: 500; color: #333;">\${escapeHtml(msg.senderName)}</div>
+						<div style="font-size: 0.9em; color: #666;">\${escapeHtml(msg.content)}</div>
+						<div style="font-size: 0.8em; color: #999; margin-top: 5px;">\${msg.time}</div>
 					</div>
 				`).join('');
 			}

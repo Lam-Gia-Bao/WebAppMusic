@@ -50,6 +50,16 @@
 					</label>
 				</div>
 				
+				<!-- Audio File Upload -->
+				<div class="audio-file-section" style="margin-top: 20px;">
+					<label class="track-label" style="color: #999; font-size: 14px;">
+						<i class="bi bi-music-note-beamed"></i> Audio File <span class="required">*</span>
+					</label>
+					<input type="file" id="audioFileInput" name="audioFile" accept="audio/*" 
+						class="form-control" style="background: #1a1a1a; border: 1px solid #333; color: #fff; margin-top: 8px;" required>
+					<small style="color: #666; font-size: 11px;">MP3, WAV, FLAC, AIFF, M4A</small>
+				</div>
+				
 				<!-- Advanced Details -->
 				<div class="advanced-section">
 					<div class="advanced-header" onclick="toggleAdvanced()">
@@ -227,26 +237,15 @@
 			}
 		}
 
-		// Form submission
+		// Form submission - actually submit the form to server
 		document.getElementById('trackInfoForm').addEventListener('submit', function(e) {
-			e.preventDefault();
+			// Get the audio file from sessionStorage file name and validate
+			const submitBtn = this.querySelector('.upload-submit-btn');
+			submitBtn.disabled = true;
+			submitBtn.textContent = 'Uploading...';
 			
-			const formData = new FormData(this);
-			
-			// Store in sessionStorage for now (you can implement backend upload later)
-			const trackData = {
-				title: formData.get('trackTitle'),
-				artist: formData.get('mainArtist'),
-				genre: formData.get('genre'),
-				tags: formData.get('tags'),
-				description: formData.get('description'),
-				privacy: formData.get('privacy')
-			};
-			
-			sessionStorage.setItem('uploadedTrack', JSON.stringify(trackData));
-			
-			alert('Track uploaded successfully!');
-			window.location.href = 'welcome.jsp';
+			// Let form submit naturally to the server
+			// Do NOT call e.preventDefault() - we want the form to submit
 		});
 	</script>
 </body>

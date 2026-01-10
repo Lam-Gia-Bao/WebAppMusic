@@ -1,16 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="jakarta.servlet.http.HttpSession"%>
 <%
-    // Kiểm tra phiên đăng nhập
-    HttpSession sess = request.getSession(false);
-    String username = null;
-    if (sess != null) {
-        username = (String) sess.getAttribute("user");
-    }
-    if (username == null) {
-        response.sendRedirect("login");
-        return;
-    }
+// Kiểm tra phiên đăng nhập
+HttpSession sess = request.getSession(false);
+String username = null;
+if (sess != null) {
+	username = (String) sess.getAttribute("user");
+}
+if (username == null) {
+	response.sendRedirect("login");
+	return;
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -18,37 +19,56 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <!-- Bootstrap 5 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+	rel="stylesheet">
 <link rel="stylesheet" href="assets/css/home.css?v=2">
 <link rel="stylesheet" href="assets/css/next_up.css">
 <title>Home</title>
 </head>
 <body>
-	<%@ include file="header.jsp" %>
+	<%@ include file="header.jsp"%>
 
 	<div class="container home-wrapper">
 		<div class="row">
 			<!-- Left Column: playlists -->
 			<div class="col-lg-8">
 				<!-- Thông báo khi thành công -->
-				<% if (request.getAttribute("successMessage") != null) { %>
-					<div class="alert alert-success alert-dismissible fade show" role="alert">
-						<%= request.getAttribute("successMessage") %>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
-				<% } %>
+				<%
+				if (request.getAttribute("successMessage") != null) {
+				%>
+				<div class="alert alert-success alert-dismissible fade show"
+					role="alert">
+					<%=request.getAttribute("successMessage")%>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+				<%
+				}
+				%>
 				<!-- Thông báo lỗi -->
-				<% if (request.getAttribute("errorMessage") != null) { %>
-					<div class="alert alert-danger alert-dismissible fade show" role="alert">
-						<%= request.getAttribute("errorMessage") %>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
-				<% } %>
+				<%
+				if (request.getAttribute("errorMessage") != null) {
+				%>
+				<div class="alert alert-danger alert-dismissible fade show"
+					role="alert">
+					<%=request.getAttribute("errorMessage")%>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+				<%
+				}
+				%>
 
-				<h2 class="section-title">Khám phá các bản nhạc và danh sách phát</h2>
+				<h2 class="section-title">Khám phá các bản nhạc và danh sách
+					phát</h2>
 				<h4 class="sub-title">Đề cử theo sở thích của bạn</h4>
 
 				<div class="d-flex gap-4 flex-wrap mb-4" id="playlistContainer">
@@ -69,36 +89,39 @@
 						</div>
 					</div>
 				</div>
-				</div>
 			</div>
-
-			<!-- Right Column extracted to separate JSP -->
-			<%@ include file="right_column.jsp" %>
 		</div>
+
+		<!-- Right Column extracted to separate JSP -->
+		<%@ include file="right_column.jsp"%>
+	</div>
 	</div>
 
-	<%@ include file="player.jsp" %>
-	<%@ include file="footer.jsp" %>
-	<script src="assets/js/app.js"></script>
-</body>
+	<%@ include file="player.jsp"%>
+	<%@ include file="footer.jsp"%>
+
 <!-- Modal xem chi tiết playlist -->
-<div class="modal fade" id="playlistModal" tabindex="-1" aria-labelledby="playlistModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="playlistModalLabel">Chi tiết Playlist</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="playlistModalBody">
-        <!-- Nội dung sẽ được load bằng JavaScript -->
-      </div>
-    </div>
-  </div>
+<div class="modal fade" id="playlistModal" tabindex="-1"
+	aria-labelledby="playlistModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="playlistModalLabel">Chi tiết
+					Playlist</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="playlistModalBody">
+				<!-- Nội dung sẽ được load bằng JavaScript -->
+			</div>
+		</div>
+	</div>
 </div>
 
-	<%@ include file="footer.jsp" %>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script>
+<script src="assets/js/app.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
 		// Khởi tạo trang - Load playlists từ API
 		document.addEventListener('DOMContentLoaded', function() {
 			loadPlaylists();
@@ -157,7 +180,7 @@
 					'<div class="alert alert-warning">Không thể tải danh sách nghệ sĩ</div>';
 			});
 		}
-
+ 
 		// Hiển thị playlists
 		function renderPlaylists(playlists) {
 			const container = document.getElementById('playlistContainer');
@@ -200,29 +223,29 @@
 
 			card.innerHTML = `
 				<div class="playlist-img-wrapper">
-					<img src="${imgPath}" class="playlist-img" onerror="this.src='assets/img/default-playlist.jpg'">
+					<img src="\${imgPath}" class="playlist-img" onerror="this.src='assets/img/default-playlist.jpg'">
 					<div class="playlist-overlay">
-						<button class="btn-play" data-playlist-id="${playlist.id}" title="Phát nhạc">
+						<button class="btn-play" data-playlist-id="\${playlist.id}" title="Phát nhạc">
 							<i class="bi bi-play-fill"></i>
 						</button>
 						<div class="playlist-actions">
-							<button class="btn-action btn-favorite" data-playlist-id="${playlist.id}" 
+							<button class="btn-action btn-favorite" data-playlist-id="\${playlist.id}" 
 									title="Thêm vào yêu thích">
 								<i class="bi bi-heart"></i>
 							</button>
-							<button class="btn-action btn-follow" data-playlist-id="${playlist.id}" 
+							<button class="btn-action btn-follow" data-playlist-id="\${playlist.id}" 
 									title="Theo dõi">
 								<i class="bi bi-person-plus"></i>
 							</button>
-							<button class="btn-action btn-menu" data-playlist-id="${playlist.id}" 
+							<button class="btn-action btn-menu" data-playlist-id="\${playlist.id}" 
 									title="Thêm tùy chọn">
 								<i class="bi bi-three-dots"></i>
 							</button>
 						</div>
 					</div>
 				</div>
-				<div class="playlist-title">${escapeHtml(playlist.name)}</div>
-				<div class="playlist-desc">${escapeHtml(playlist.description || '')}</div>
+				<div class="playlist-title">\${escapeHtml(playlist.name)}</div>
+				<div class="playlist-desc">\${escapeHtml(playlist.description || '')}</div>
 			`;
 
 			return card;
@@ -238,28 +261,28 @@
 
 			card.innerHTML = `
 				<div class="playlist-img-wrapper">
-					<img src="${imgPath}" class="playlist-img" onerror="this.src='assets/img/default-artist.jpg'">
+					<img src="\${imgPath}" class="playlist-img" onerror="this.src='assets/img/default-artist.jpg'">
 					<div class="playlist-overlay">
-						<button class="btn-play" data-artist-id="${artist.id}" title="Phát nhạc của nghệ sĩ">
+						<button class="btn-play" data-artist-id="\${artist.id}" title="Phát nhạc của nghệ sĩ">
 							<i class="bi bi-play-fill"></i>
 						</button>
 						<div class="playlist-actions">
-							<button class="btn-action btn-favorite" data-artist-id="${artist.id}" 
+							<button class="btn-action btn-favorite" data-artist-id="\${artist.id}" 
 									title="Thêm vào yêu thích">
 								<i class="bi bi-heart"></i>
 							</button>
-							<button class="btn-action btn-follow" data-artist-id="${artist.id}" 
+							<button class="btn-action btn-follow" data-artist-id="\${artist.id}" 
 									title="Theo dõi nghệ sĩ">
 								<i class="bi bi-person-plus"></i>
 							</button>
-							<button class="btn-action btn-menu" data-artist-id="${artist.id}" 
+							<button class="btn-action btn-menu" data-artist-id="\${artist.id}" 
 									title="Thêm tùy chọn">
 								<i class="bi bi-three-dots"></i>
 							</button>
 						</div>
 					</div>
 				</div>
-				<div class="playlist-title">${escapeHtml(artist.name)}</div>
+				<div class="playlist-title">\${escapeHtml(artist.name)}</div>
 				<div class="playlist-desc">New!</div>
 			`;
 
@@ -457,14 +480,11 @@
 		function showNotification(message, type = 'success') {
 			const alertClass = type === 'error' ? 'alert-danger' : 'alert-success';
 			const alertDiv = document.createElement('div');
-			alertDiv.className = `alert ${alertClass} alert-dismissible fade show position-fixed`;
+			alertDiv.className = 'alert ' + alertClass + ' alert-dismissible fade show position-fixed';
 			alertDiv.style.top = '20px';
 			alertDiv.style.right = '20px';
 			alertDiv.style.zIndex = '9999';
-			alertDiv.innerHTML = `
-				${message}
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			`;
+			alertDiv.innerHTML = message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
 			document.body.appendChild(alertDiv);
 
 			setTimeout(() => {

@@ -1,15 +1,20 @@
 package controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import com.google.gson.Gson;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import model.Artist;
+import service.ArtistService;
 
 /**
  * API Servlet xử lý các yêu cầu liên quan đến Artists
@@ -18,6 +23,7 @@ import java.util.Map;
 @WebServlet(name = "ArtistAPIServlet", urlPatterns = {"/api/artists*"})
 public class ArtistAPIServlet extends HttpServlet {
     private Gson gson = new Gson();
+    private ArtistService artistService = new ArtistService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -77,9 +83,8 @@ public class ArtistAPIServlet extends HttpServlet {
         }
     }
 
-    private Object getRecommendedArtists(String username) {
-        // TODO: Implement get recommended artists from database
-        return new java.util.ArrayList<>();
+    private List<Artist> getRecommendedArtists(String username) {
+        return artistService.getRecommendedArtists(username, 10);
     }
 
     private void handlePlayArtist(HttpServletResponse response, long artistId) 
@@ -94,11 +99,11 @@ public class ArtistAPIServlet extends HttpServlet {
 
     private void handleFollowArtist(HttpServletResponse response, String username, long artistId) 
             throws IOException {
-        // TODO: Implement follow artist logic
+        boolean success = artistService.followArtist(username, artistId);
         Map<String, Object> result = new HashMap<>();
-        result.put("success", true);
+        result.put("success", success);
         result.put("artistId", artistId);
-        result.put("message", "Artist followed");
+        result.put("message", success ? "Artist followed" : "Failed to follow artist");
         response.getWriter().write(gson.toJson(result));
     }
 

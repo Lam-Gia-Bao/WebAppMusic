@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -17,84 +18,12 @@
   <title>Hồ sơ - BeatFlow</title>
 
   <!-- Page CSS -->
+  <link rel="stylesheet" href="assets/css/home.css">
   <link rel="stylesheet" href="assets/css/profile.css">
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="site-nav">
-    <div class="container d-flex align-items-center justify-content-between">
-      <div class="d-flex align-items-center gap-3">
-        <div class="bf-logo d-flex align-items-center gap-2">
-          <img src="assets/img/logo.png" alt="BeatFlow logo" class="bf-logo-img">
-          <span class="brand">BeatFlow</span>
-        </div>
-        <ul class="nav d-none d-md-flex">
-          <li class="nav-item"><a class="nav-link active" href="#">Trang chủ</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Tin tức</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Thư viện</a></li>
-        </ul>
-      </div>
-
-      <div class="flex-grow-1 px-4">
-        <div class="search-wrapper">
-          <input class="search-input" type="text" placeholder="Tìm kiếm những bài hát, bản nhạc, playlist, album">
-          <i class="bi bi-search search-icon"></i>
-        </div>
-      </div>
-
-      <div class="d-flex align-items-center gap-3">
-        <a href="#" class="nav-function-link">Dành cho nghệ sĩ</a>
-        <a href="upload.jsp" class="nav-function-link">Đăng tải</a>
-
-        <!-- Avatar button -->
-        <button class="btn-icon-nav" id="profileMenuButton" aria-label="Profile" aria-expanded="false" aria-haspopup="true">
-          <img src="assets/img/profile_avatar.jpg" alt="Profile" class="profile-avatar-small">
-        </button>
-
-        <!-- Account dropdown trigger (caret) -->
-        <div class="dropdown-container">
-          <button class="btn-icon-nav" id="dropdownMenuButton" aria-label="Tài khoản" aria-expanded="false" aria-haspopup="true">
-            <i class="bi bi-chevron-down"></i>
-          </button>
-          <div class="dropdown-menu-custom" id="dropdownMenu" role="menu">
-            <a href="#" class="dropdown-item-custom"><i class="bi bi-person"></i><span>Trang cá nhân</span></a>
-            <a href="#" class="dropdown-item-custom"><i class="bi bi-heart"></i><span>Đã thích</span></a>
-            <a href="#" class="dropdown-item-custom"><i class="bi bi-collection-play"></i><span>Playlist nhạc</span></a>
-            <a href="#" class="dropdown-item-custom"><i class="bi bi-broadcast"></i><span>Đài phát thanh</span></a>
-            <a href="#" class="dropdown-item-custom"><i class="bi bi-people"></i><span>Đang theo dõi</span></a>
-            <a href="#" class="dropdown-item-custom"><i class="bi bi-person-plus"></i><span>Đề xuất theo dõi</span></a>
-            <a href="#" class="dropdown-item-custom"><i class="bi bi-music-note-list"></i><span>Những bản track</span></a>
-            <a href="#" class="dropdown-item-custom"><i class="bi bi-bar-chart"></i><span>Thông tin về người nghe</span></a>
-          </div>
-        </div>
-
-        <!-- Notifications -->
-        <div class="dropdown-container">
-          <button class="btn-icon-nav" id="notificationsMenuButton" aria-label="Thông báo" aria-expanded="false" aria-haspopup="true">
-            <i class="bi bi-bell"></i>
-          </button>
-          <div class="messages-dropdown" id="notificationsMenu" role="menu">
-            <div class="messages-header"><h5>Thông báo</h5></div>
-            <div class="messages-body"><p class="no-messages">Bạn chưa có thông báo nào.</p></div>
-            <div class="messages-footer"><a href="#" class="view-all-link">Xem tất cả thông báo</a></div>
-          </div>
-        </div>
-
-        <!-- Messages -->
-        <div class="dropdown-container">
-          <button class="btn-icon-nav" id="messagesMenuButton" aria-label="Tin nhắn" aria-expanded="false" aria-haspopup="true">
-            <i class="bi bi-envelope"></i>
-          </button>
-          <div class="messages-dropdown" id="messagesMenu" role="menu">
-            <div class="messages-header"><h5>Tin nhắn</h5></div>
-            <div class="messages-body"><p class="no-messages">Bạn chưa có tin nhắn nào.</p></div>
-            <div class="messages-footer"><a href="#" class="view-all-link">Xem tất cả tin nhắn</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <%@ include file="header.jsp" %>
 
   <!-- COVER + PROFILE -->
   <div class="profile-cover"></div>
@@ -104,164 +33,182 @@
     <!-- Avatar -->
     <div class="profile-center">
       <img src="assets/img/user.jpg" class="avatar" alt="avatar">
-      <h1 class="username">Takezo</h1>
+      <h1 class="username">${username}</h1>
     </div>
+
+    <!-- Success Message -->
+    <c:if test="${not empty successMessage}">
+      <div class="alert alert-success alert-dismissible fade show" role="alert" style="max-width: 600px; margin: 10px auto;">
+        ${successMessage}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    </c:if>
 
     <!-- Tabs + Stats -->
     <div class="tabs-stats">
       <div class="profile-tabs">
-        <a href="#all"      data-tab="all" class="active">Tất cả</a>
-        <a href="#tracks"   data-tab="tracks">Bài hát</a>
-        <a href="#playlist" data-tab="playlist">Playlist</a>
-        <a href="#favorite" data-tab="favorite">Yêu thích</a>
-        <a href="#upload"   data-tab="upload">Đã upload</a>
-        <a href="#history"  data-tab="history">Lịch sử</a>
+        <a href="#all"      data-tab="all" class="${tab == 'all' ? 'active' : ''}">Tất cả</a>
+        <a href="#tracks"   data-tab="tracks" class="${tab == 'tracks' ? 'active' : ''}">Bài hát</a>
+        <a href="#playlist" data-tab="playlist" class="${tab == 'playlist' ? 'active' : ''}">Playlist</a>
+        <a href="#favorite" data-tab="favorite" class="${tab == 'favorite' ? 'active' : ''}">Yêu thích</a>
+        <a href="#upload"   data-tab="upload" class="${tab == 'upload' ? 'active' : ''}">Đã upload</a>
+        <a href="#history"  data-tab="history" class="${tab == 'history' ? 'active' : ''}">Lịch sử</a>
       </div>
 
       <div class="profile-stats">
-        <div class="stat">150<br><span>Followers</span></div>
-        <div class="stat">20<br><span>Following</span></div>
-        <div class="stat">36<br><span>Tracks</span></div>
+        <div class="stat">${followers}<br><span>Followers</span></div>
+        <div class="stat">${following}<br><span>Following</span></div>
+        <div class="stat">${tracksCount}<br><span>Tracks</span></div>
       </div>
     </div>
 
     <!-- ========================= CONTENT ========================= -->
 
     <!-- ALL -->
-    <section class="tab-content active" data-tab="all">
+    <section class="tab-content${tab == 'all' || empty tab ? ' active' : ''}" data-tab="all">
       <h2 class="track-title-header">Bài hát nổi bật</h2>
       <div class="track-list">
-        <div class="track-card">
-          <img src="assets/img/track1.jpg" alt="track">
-          <div><p class="track-title">Track A</p></div>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track1.jpg" alt="track">
-          <div><p class="track-title">Track B</p></div>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track1.jpg" alt="track">
-          <div><p class="track-title">Track C</p></div>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track1.jpg" alt="track">
-          <div><p class="track-title">Track D</p></div>
-        </div>
+        <c:choose>
+          <c:when test="${not empty tracks}">
+            <c:forEach var="track" items="${tracks}" end="3">
+              <div class="track-card">
+                <img src="${not empty track.artworkUrl ? track.artworkUrl : 'assets/img/track1.jpg'}" alt="track">
+                <div><p class="track-title">${track.title}</p></div>
+              </div>
+            </c:forEach>
+          </c:when>
+          <c:otherwise>
+            <p class="text-muted">Chưa có bài hát nào.</p>
+          </c:otherwise>
+        </c:choose>
       </div>
 
       <h2 class="track-title-header" style="margin-top:24px;">Yêu thích</h2>
       <div class="track-list">
-        <div class="track-card">
-          <img src="assets/img/track3.jpg" alt="favorite">
-          <div><p class="track-title">Fav 1</p></div>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track3.jpg" alt="favorite">
-          <div><p class="track-title">Fav 2</p></div>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track3.jpg" alt="favorite">
-          <div><p class="track-title">Fav 3</p></div>
-        </div>
+        <c:choose>
+          <c:when test="${not empty favorites}">
+            <c:forEach var="fav" items="${favorites}" end="2">
+              <div class="track-card">
+                <img src="${not empty fav.artworkUrl ? fav.artworkUrl : 'assets/img/track3.jpg'}" alt="favorite">
+                <div>
+                  <p class="track-title">${fav.title}</p>
+                  <p class="track-artist">${fav.artist}</p>
+                </div>
+              </div>
+            </c:forEach>
+          </c:when>
+          <c:otherwise>
+            <p class="text-muted">Chưa có bài hát yêu thích.</p>
+          </c:otherwise>
+        </c:choose>
       </div>
     </section>
 
     <!-- TRACKS -->
-    <section class="tab-content" data-tab="tracks">
+    <section class="tab-content${tab == 'tracks' ? ' active' : ''}" data-tab="tracks">
       <h2 class="track-title-header">Tất cả bài hát</h2>
       <div class="track-list">
-        <div class="track-card">
-          <img src="assets/img/track1.jpg" alt="track">
-          <div><p class="track-title">Track A</p></div>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track1.jpg" alt="track">
-          <div><p class="track-title">Track B</p></div>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track1.jpg" alt="track">
-          <div><p class="track-title">Track C</p></div>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track1.jpg" alt="track">
-          <div><p class="track-title">Track D</p></div>
-        </div>
+        <c:choose>
+          <c:when test="${not empty tracks}">
+            <c:forEach var="track" items="${tracks}">
+              <div class="track-card">
+                <img src="${not empty track.artworkUrl ? track.artworkUrl : 'assets/img/track1.jpg'}" alt="track">
+                <div><p class="track-title">${track.title}</p></div>
+              </div>
+            </c:forEach>
+          </c:when>
+          <c:otherwise>
+            <p class="text-muted">Chưa có bài hát nào.</p>
+          </c:otherwise>
+        </c:choose>
       </div>
     </section>
 
     <!-- PLAYLIST -->
-    <section class="tab-content" data-tab="playlist">
+    <section class="tab-content${tab == 'playlist' ? ' active' : ''}" data-tab="playlist">
       <h2 class="track-title-header">Playlist</h2>
       <button class="create-playlist-btn" id="openCreatePlaylist">+ Tạo Playlist</button>
       <div class="playlist-grid">
-        <div class="playlist-card">
-          <img src="assets/img/playlist.jpg" class="playlist-thumb" alt="playlist">
-          <p class="playlist-name">Chill Vibes</p>
-          <p class="playlist-meta">12 tracks</p>
-        </div>
-        <div class="playlist-card">
-          <img src="assets/img/playlist.jpg" class="playlist-thumb" alt="playlist">
-          <p class="playlist-name">Workout Mix</p>
-          <p class="playlist-meta">20 tracks</p>
-        </div>
-        <div class="playlist-card">
-          <img src="assets/img/playlist.jpg" class="playlist-thumb" alt="playlist">
-          <p class="playlist-name">Study Beats</p>
-          <p class="playlist-meta">15 tracks</p>
-        </div>
+        <c:choose>
+          <c:when test="${not empty playlists}">
+            <c:forEach var="playlist" items="${playlists}">
+              <div class="playlist-card">
+                <img src="${not empty playlist.imagePath ? playlist.imagePath : 'assets/img/playlist.jpg'}" class="playlist-thumb" alt="playlist">
+                <p class="playlist-name">${playlist.name}</p>
+                <p class="playlist-meta">${playlist.trackCount} tracks</p>
+              </div>
+            </c:forEach>
+          </c:when>
+          <c:otherwise>
+            <p class="text-muted">Chưa có playlist nào. Hãy tạo playlist mới!</p>
+          </c:otherwise>
+        </c:choose>
       </div>
     </section>
 
     <!-- FAVORITE -->
-    <section class="tab-content" data-tab="favorite">
+    <section class="tab-content${tab == 'favorite' ? ' active' : ''}" data-tab="favorite">
       <h2 class="track-title-header">Yêu thích</h2>
       <div class="track-list">
-        <div class="track-card">
-          <img src="assets/img/track3.jpg" alt="favorite">
-          <p class="track-title">Fav 1</p>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track3.jpg" alt="favorite">
-          <p class="track-title">Fav 2</p>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track3.jpg" alt="favorite">
-          <p class="track-title">Fav 3</p>
-        </div>
+        <c:choose>
+          <c:when test="${not empty favorites}">
+            <c:forEach var="fav" items="${favorites}">
+              <div class="track-card">
+                <img src="${not empty fav.artworkUrl ? fav.artworkUrl : 'assets/img/track3.jpg'}" alt="favorite">
+                <div>
+                  <p class="track-title">${fav.title}</p>
+                  <p class="track-artist">${fav.artist}</p>
+                </div>
+              </div>
+            </c:forEach>
+          </c:when>
+          <c:otherwise>
+            <p class="text-muted">Chưa có bài hát yêu thích.</p>
+          </c:otherwise>
+        </c:choose>
       </div>
     </section>
 
     <!-- UPLOAD -->
-    <section class="tab-content" data-tab="upload">
+    <section class="tab-content${tab == 'upload' ? ' active' : ''}" data-tab="upload">
       <h2 class="track-title-header">Đã upload</h2>
       <div class="track-list">
-        <div class="track-card">
-          <img src="assets/img/track1.jpg" alt="upload">
-          <p class="track-title">My Upload 1</p>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track1.jpg" alt="upload">
-          <p class="track-title">My Upload 2</p>
-        </div>
+        <c:choose>
+          <c:when test="${not empty uploads}">
+            <c:forEach var="track" items="${uploads}">
+              <div class="track-card">
+                <img src="${not empty track.artworkUrl ? track.artworkUrl : 'assets/img/track1.jpg'}" alt="upload">
+                <div>
+                  <p class="track-title">${track.title}</p>
+                  <p class="track-artist">${track.artist}</p>
+                </div>
+              </div>
+            </c:forEach>
+          </c:when>
+          <c:otherwise>
+            <p class="text-muted">Chưa có bài hát nào được upload. <a href="upload.jsp">Upload ngay!</a></p>
+          </c:otherwise>
+        </c:choose>
       </div>
     </section>
 
     <!-- HISTORY -->
-    <section class="tab-content" data-tab="history">
+    <section class="tab-content${tab == 'history' ? ' active' : ''}" data-tab="history">
       <h2 class="track-title-header">Lịch sử nghe nhạc</h2>
       <div class="track-list">
-        <div class="track-card">
-          <img src="assets/img/track2.jpg" alt="history">
-          <p class="track-title">Played X</p>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track2.jpg" alt="history">
-          <p class="track-title">Played Y</p>
-        </div>
-        <div class="track-card">
-          <img src="assets/img/track2.jpg" alt="history">
-          <p class="track-title">Played Z</p>
-        </div>
+        <c:choose>
+          <c:when test="${not empty history}">
+            <c:forEach var="item" items="${history}">
+              <div class="track-card">
+                <img src="assets/img/track2.jpg" alt="history">
+                <p class="track-title">${item}</p>
+              </div>
+            </c:forEach>
+          </c:when>
+          <c:otherwise>
+            <p class="text-muted">Chưa có lịch sử nghe nhạc.</p>
+          </c:otherwise>
+        </c:choose>
       </div>
     </section>
 
@@ -458,15 +405,43 @@
 
       form && form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const data = {
-          name: document.getElementById('plName').value.trim(),
-          desc: document.getElementById('plDesc').value.trim(),
-          privacy: document.getElementById('plPrivacy').value,
-          topic: document.getElementById('plTopic').value,
-          tags: document.getElementById('plTags').value.trim()
-        };
-        // Demo only
-        alert('Đã tạo playlist: ' + data.name);
+        const name = document.getElementById('plName').value.trim();
+        const desc = document.getElementById('plDesc').value.trim();
+        const privacy = document.getElementById('plPrivacy').value;
+        
+        if (!name) {
+          alert('Vui lòng nhập tên playlist');
+          return;
+        }
+        
+        // Tạo form data để gửi POST
+        const formData = new URLSearchParams();
+        formData.append('name', name);
+        formData.append('description', desc);
+        formData.append('isPublic', privacy === 'public' ? 'true' : 'false');
+        formData.append('artworkUrl', '');
+        
+        fetch('${pageContext.request.contextPath}/playlist/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: formData.toString()
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Redirect về profile với tab playlist
+            window.location.href = '${pageContext.request.contextPath}/profile?tab=playlist';
+          } else {
+            alert('Không thể tạo playlist: ' + (data.error || 'Lỗi không xác định'));
+          }
+        })
+        .catch(err => {
+          console.error('Error creating playlist:', err);
+          alert('Lỗi kết nối. Vui lòng thử lại.');
+        });
+        
         closeModal();
       });
     })();

@@ -56,4 +56,21 @@ public class UserDAO {
 			throw new RuntimeException("Lỗi truy vấn user: " + e.getMessage(), e);
 		}
 	}
+
+	/**
+	 * Find user ID by username
+	 */
+	public java.util.OptionalLong findUserIdByUsername(String username) {
+		String sql = "SELECT user_id FROM users WHERE username = ?";
+		try (Connection c = Database.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, username);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next())
+					return java.util.OptionalLong.of(rs.getLong("user_id"));
+			}
+			return java.util.OptionalLong.empty();
+		} catch (SQLException e) {
+			throw new RuntimeException("Lỗi tìm user ID: " + e.getMessage(), e);
+		}
+	}
 }

@@ -1,24 +1,26 @@
 package controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gson.Gson;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import com.google.gson.Gson;
-import service.PlaylistService;
 import service.FavoriteService;
 import service.HistoryService;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import service.PlaylistService;
 
 /**
  * API Servlet xử lý các yêu cầu liên quan đến Playlists
  * Hỗ trợ các thao tác: lấy danh sách, phát, yêu thích, theo dõi
  */
-@WebServlet(name = "PlaylistAPIServlet", urlPatterns = {"/api/playlists*"})
+@WebServlet(name = "PlaylistAPIServlet", urlPatterns = {"/api/playlists", "/api/playlists/*"})
 public class PlaylistAPIServlet extends HttpServlet {
     private PlaylistService playlistService;
     private FavoriteService favoriteService;

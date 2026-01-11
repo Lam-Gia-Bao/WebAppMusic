@@ -1,19 +1,21 @@
 package controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import com.google.gson.Gson;
-import service.TrackService;
 import service.PlaylistService;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import service.TrackService;
 
 /**
  * API Servlet xử lý tìm kiếm (search)
@@ -73,10 +75,10 @@ public class SearchAPIServlet extends HttpServlet {
             var tracks = trackService.searchTracks(query, 5);
             for (var track : tracks) {
                 Map<String, Object> suggestion = new HashMap<>();
-                suggestion.put("id", track.getId());
-                suggestion.put("name", track.getName());
+                suggestion.put("id", track.getTrackId());
+                suggestion.put("name", track.getTitle());
                 suggestion.put("type", "track");
-                suggestion.put("image", track.getImagePath());
+                suggestion.put("image", track.getArtworkUrl());
                 suggestions.add(suggestion);
             }
             

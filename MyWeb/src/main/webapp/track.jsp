@@ -115,39 +115,7 @@
     </div>
   </main>
 
-  <!-- Fixed Music Player Bar -->
-  <div class="fixed-player-bar">
-    <div class="player-container">
-      <div class="player-controls-left">
-        <button class="player-btn"><i class="bi bi-skip-backward-fill"></i></button>
-        <button class="player-btn player-play-btn" id="mainPlayBtn"><i class="bi bi-play-fill"></i></button>
-        <button class="player-btn"><i class="bi bi-skip-forward-fill"></i></button>
-      </div>
-      <div class="player-progress-section">
-        <span class="player-time" id="curTime">0:00</span>
-        <div class="player-progress-bar" id="progressBar">
-          <div class="player-progress-fill" id="progressFill"></div>
-        </div>
-        <span class="player-time" id="durTime">3:25</span>
-      </div>
-      <div class="player-song-info">
-        <img src="assets/img/track1.jpg" alt="Now Playing" class="player-song-thumb" id="nowThumb">
-        <div class="player-song-details">
-          <div class="player-song-title" id="nowArtist">Thịnh Suy</div>
-          <div class="player-song-artist" id="nowTitle">Thắc Mắc?</div>
-        </div>
-      </div>
-      <div class="player-controls-right">
-        <button class="player-btn"><i class="bi bi-shuffle"></i></button>
-        <button class="player-btn"><i class="bi bi-chat"></i></button>
-        <div class="player-volume-control">
-          <i class="bi bi-volume-up"></i>
-          <input type="range" class="player-volume-slider" min="0" max="100" value="60">
-        </div>
-        <button class="player-btn" id="nextUpButton"><i class="bi bi-justify"></i></button>
-      </div>
-    </div>
-  </div>
+  <%@ include file="player.jsp" %>
 
   <script src="assets/js/track.js"></script>
 </body>

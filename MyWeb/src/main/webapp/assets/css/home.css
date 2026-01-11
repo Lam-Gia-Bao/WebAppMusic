@@ -884,7 +884,8 @@ body {
 }
 
 .player-play-btn:hover {
-    background: #fff;
+    background: #ff6a00;
+    color: #fff;
     transform: scale(1.1);
 }
 
@@ -914,7 +915,7 @@ body {
 
 .player-progress-fill {
     height: 100%;
-    background: #1db954;
+    background: #ff6a00;
     border-radius: 2px;
     width: 0%;
 }
@@ -924,7 +925,8 @@ body {
     align-items: center;
     gap: 12px;
     flex-shrink: 0;
-    min-width: 250px;
+    min-width: 200px;
+    max-width: 280px;
     margin: 0 20px;
 }
 
@@ -936,8 +938,11 @@ body {
 }
 
 .player-song-details {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     min-width: 0;
+    gap: 2px;
 }
 
 .player-song-title {
@@ -1241,3 +1246,208 @@ body {
     background: #0d0d0d;
     padding: 15px 20px;
 }
+
+/* =====================================================
+   ENHANCED PLAYER STYLES 
+   ===================================================== */
+
+/* Progress Bar Enhancements */
+.player-progress-bar {
+    position: relative;
+}
+
+.player-progress-handle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.player-progress-bar:hover .player-progress-handle,
+.player-progress-bar.dragging .player-progress-handle {
+    opacity: 1;
+}
+
+.player-progress-bar:hover .player-progress-fill,
+.player-progress-bar.dragging .player-progress-fill {
+    background: #ff8c33;
+}
+
+/* Clickable Song Info Links */
+.player-thumb-link {
+    display: block;
+    flex-shrink: 0;
+}
+
+.player-song-title,
+.player-song-artist {
+    display: block;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a.player-song-title {
+    color: #fff;
+}
+
+a.player-song-title:hover {
+    color: #ff6a00;
+    text-decoration: none;
+}
+
+a.player-song-artist {
+    color: #aaa;
+}
+
+a.player-song-artist:hover {
+    color: #ff6a00;
+    text-decoration: none;
+}
+
+/* Active States for Shuffle & Repeat */
+.player-btn.active {
+    color: #ff6a00;
+}
+
+.player-btn.active:hover {
+    color: #ff8c33;
+}
+
+#shuffleBtn.active,
+#repeatBtn.active {
+    position: relative;
+}
+
+#shuffleBtn.active::after,
+#repeatBtn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: #ff6a00;
+    border-radius: 50%;
+}
+
+/* Volume Slider Enhancement */
+.player-volume-slider {
+    background: linear-gradient(to right, #ff6a00 0%, #ff6a00 var(--volume-percent, 50%), #404040 var(--volume-percent, 50%), #404040 100%);
+}
+
+/* Queue Empty Message */
+.queue-empty-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: #666;
+}
+
+.queue-empty-message i {
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: #444;
+}
+
+.queue-empty-message p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #888;
+    margin: 0 0 8px 0;
+}
+
+.queue-empty-message span {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Queue Item Enhancements */
+.next-up-item {
+    cursor: pointer;
+}
+
+.next-up-item.active {
+    border-left: 3px solid #1db954;
+    background: rgba(29, 185, 84, 0.1);
+}
+
+.next-up-item.active .next-up-song {
+    color: #1db954;
+}
+
+/* Queue Remove Button */
+.queue-remove-btn {
+    color: #666;
+}
+
+.queue-remove-btn:hover {
+    color: #ff4444;
+}
+
+/* Player Notification */
+.player-notification {
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Player */
+@media (max-width: 992px) {
+    .player-container {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .player-progress-section {
+        order: 3;
+        width: 100%;
+        max-width: none;
+    }
+    
+    .player-song-info {
+        margin: 0;
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 576px) {
+    .player-volume-control {
+        display: none;
+    }
+    
+    .player-controls-right {
+        min-width: auto;
+        gap: 8px;
+    }
+    
+    .player-song-info {
+        min-width: 120px;
+    }
+    
+    .player-song-thumb {
+        width: 32px;
+        height: 32px;
+    }
+}
+

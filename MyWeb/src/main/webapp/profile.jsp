@@ -446,6 +446,9 @@
       });
     })();
   </script>
+  
+  <%@ include file="player.jsp" %>
+  
   <!-- Footer -->
 		<footer class="py-4"
 			style="background: #0d0d0d; color: #bbb; font-size: 0.9rem;">
@@ -469,5 +472,7 @@
 				</div>
 			</div>
 		</footer>
+  
+  <link rel="stylesheet" href="assets/css/next_up.css">
 </body>
 </html>

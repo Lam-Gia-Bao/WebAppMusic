@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.PlaylistDAO;
+import dao.TrackDAO;
 import model.Playlist;
+import model.Track;
 
 public class PlaylistService {
 	private final PlaylistDAO dao = new PlaylistDAO();
+	private final TrackDAO trackDAO = new TrackDAO();
 
 	public List<Playlist> getPlaylists(long userId) {
 		return dao.findByUserId(userId);
@@ -23,6 +26,13 @@ public class PlaylistService {
 
 	public java.util.List<String> getTracksInPlaylist(long playlistId) {
 		return dao.findTracksInPlaylist(playlistId);
+	}
+
+	/**
+	 * Get full Track objects in a playlist
+	 */
+	public List<Track> getPlaylistTracks(long playlistId) {
+		return dao.findTracksWithDetails(playlistId);
 	}
 
 	public void addTrackToPlaylist(long playlistId, long trackId) {

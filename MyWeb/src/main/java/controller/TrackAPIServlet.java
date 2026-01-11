@@ -1,30 +1,33 @@
 package controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+
+import dao.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import com.google.gson.Gson;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import model.Track;
-import service.TrackService;
 import service.FavoriteService;
+import service.TrackService;
 
 /**
  * API Servlet xử lý các yêu cầu liên quan đến Tracks
  * Hỗ trợ: lấy danh sách, phát, thích
  */
-@WebServlet(name = "TrackAPIServlet", urlPatterns = {"/api/tracks/*"})
+@WebServlet(name = "TrackAPIServlet", urlPatterns = {"/api/tracks", "/api/tracks/*"})
 public class TrackAPIServlet extends HttpServlet {
     private Gson gson = new Gson();
     private TrackService trackService = new TrackService();
     private FavoriteService favoriteService = new FavoriteService();
+    private UserDAO userDAO = new UserDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -33,6 +36,10 @@ public class TrackAPIServlet extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         String username = session != null ? (String) session.getAttribute("user") : null;
+        long userId = 0;
+        if (username != null) {
+            userId = userDAO.findUserIdByUsername(username).orElse(0L);
+        }
         
         String pathInfo = request.getPathInfo();
         
@@ -45,23 +52,23 @@ public class TrackAPIServlet extends HttpServlet {
                     try { limit = Integer.parseInt(limitParam); } catch (NumberFormatException e) {}
                 }
                 List<Track> tracks = trackService.getRecommendedTracks(limit);
-                response.getWriter().write(gson.toJson(tracks));
+                response.getWriter().write(gson.toJson(toTracksWithFavorite(tracks, userId)));
             } else if (pathInfo.equals("/trending")) {
                 // GET /api/tracks/trending
                 List<Track> tracks = trackService.getRecommendedTracks(10);
-                response.getWriter().write(gson.toJson(tracks));
+                response.getWriter().write(gson.toJson(toTracksWithFavorite(tracks, userId)));
             } else if (pathInfo.equals("/recent")) {
                 // GET /api/tracks/recent - most recent uploads
                 List<Track> tracks = trackService.getAllPublicTracks();
                 // Already sorted by upload date in DAO
                 int limit = Math.min(tracks.size(), 10);
-                response.getWriter().write(gson.toJson(tracks.subList(0, limit)));
+                response.getWriter().write(gson.toJson(toTracksWithFavorite(tracks.subList(0, limit), userId)));
             } else if (pathInfo.equals("/search")) {
                 // GET /api/tracks/search?q=keyword
                 String keyword = request.getParameter("q");
                 if (keyword != null && !keyword.isEmpty()) {
                     List<Track> tracks = trackService.searchTracks(keyword);
-                    response.getWriter().write(gson.toJson(tracks));
+                    response.getWriter().write(gson.toJson(toTracksWithFavorite(tracks, userId)));
                 } else {
                     sendJsonError(response, 400, "Missing search query");
                 }
@@ -70,7 +77,7 @@ public class TrackAPIServlet extends HttpServlet {
                 long trackId = Long.parseLong(pathInfo.substring(1));
                 Track track = trackService.getTrackById(trackId);
                 if (track != null) {
-                    response.getWriter().write(gson.toJson(track));
+                    response.getWriter().write(gson.toJson(trackToMap(track, userId)));
                 } else {
                     sendJsonError(response, 404, "Track not found");
                 }
@@ -160,5 +167,41 @@ public class TrackAPIServlet extends HttpServlet {
         error.put("success", false);
         error.put("error", message);
         response.getWriter().write(gson.toJson(error));
+    }
+
+    /**
+     * Convert track to map with favorite status
+     */
+    private Map<String, Object> trackToMap(Track track, long userId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("trackId", track.getTrackId());
+        map.put("title", track.getTitle());
+        map.put("artist", track.getArtist());
+        map.put("audioFileUrl", track.getAudioFileUrl());
+        map.put("coverImageUrl", track.getArtworkUrl());
+        map.put("artworkUrl", track.getArtworkUrl());
+        map.put("playCount", track.getPlayCount());
+        map.put("duration", track.getDuration());
+        map.put("genre", track.getGenre());
+        map.put("privacy", track.getPrivacy());
+        map.put("userId", track.getUserId());
+        // Add favorite status
+        if (userId > 0) {
+            map.put("favorited", favoriteService.isFavorited(userId, track.getTrackId()));
+        } else {
+            map.put("favorited", false);
+        }
+        return map;
+    }
+
+    /**
+     * Convert list of tracks to list of maps with favorite status
+     */
+    private List<Map<String, Object>> toTracksWithFavorite(List<Track> tracks, long userId) {
+        List<Map<String, Object>> result = new java.util.ArrayList<>();
+        for (Track track : tracks) {
+            result.add(trackToMap(track, userId));
+        }
+        return result;
     }
 }

@@ -127,7 +127,11 @@ public class FavoriteAPIServlet extends HttpServlet {
             String body = getRequestBody(request);
             JsonObject json = gson.fromJson(body, JsonObject.class);
             
-            long trackId = json.get("trackId").getAsLong();
+            long trackId = getTrackId(json);
+            if (trackId <= 0) {
+                sendJsonError(response, 400, "Missing trackId or itemId");
+                return;
+            }
             
             boolean nowFavorited = favoriteService.toggleFavorite(userId, trackId);
             
@@ -149,7 +153,11 @@ public class FavoriteAPIServlet extends HttpServlet {
             String body = getRequestBody(request);
             JsonObject json = gson.fromJson(body, JsonObject.class);
             
-            long trackId = json.get("trackId").getAsLong();
+            long trackId = getTrackId(json);
+            if (trackId <= 0) {
+                sendJsonError(response, 400, "Missing trackId or itemId");
+                return;
+            }
             
             favoriteService.addFavorite(userId, trackId);
             
@@ -170,7 +178,11 @@ public class FavoriteAPIServlet extends HttpServlet {
             String body = getRequestBody(request);
             JsonObject json = gson.fromJson(body, JsonObject.class);
             
-            long trackId = json.get("trackId").getAsLong();
+            long trackId = getTrackId(json);
+            if (trackId <= 0) {
+                sendJsonError(response, 400, "Missing trackId or itemId");
+                return;
+            }
             
             favoriteService.removeFavorite(userId, trackId);
             
@@ -193,6 +205,15 @@ public class FavoriteAPIServlet extends HttpServlet {
             sb.append(line);
         }
         return sb.toString();
+    }
+
+    private long getTrackId(JsonObject json) {
+        if (json.has("trackId")) {
+            return json.get("trackId").getAsLong();
+        } else if (json.has("itemId")) {
+            return json.get("itemId").getAsLong();
+        }
+        return -1;
     }
 
     private void sendJsonError(HttpServletResponse response, int statusCode, String message) 

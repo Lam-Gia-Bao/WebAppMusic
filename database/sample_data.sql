@@ -9,41 +9,40 @@ USE webappmusic;
 -- Sample Users (nếu chưa có)
 -- Password mặc định là "123456" (đã hash SHA-256)
 -- =============================================
-INSERT IGNORE INTO users (username, password, email, full_name, bio) VALUES
-('demo', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'demo@example.com', 'Demo User', 'Tài khoản demo để test'),
-('artist1', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'artist1@example.com', 'Nghệ Sĩ 1', 'Ca sĩ indie Việt Nam'),
-('artist2', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'artist2@example.com', 'DJ Producer', 'Producer nhạc điện tử'),
-('artist3', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'artist3@example.com', 'Rapper VN', 'Underground rapper');
+INSERT IGNORE INTO users (username, password, email, full_name, bio, profile_image) VALUES
+('demo', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'demo@example.com', 'Demo User', 'Tài khoản demo để test', 'assets/img/user.jpg'),
+('artist1', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'artist1@example.com', 'Taylor Swift', 'Ca sĩ Pop nổi tiếng', 'assets/img/taylor-swift.png'),
+('artist2', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'artist2@example.com', 'Ed Sheeran', 'Ca sĩ kiêm nhạc sĩ', 'assets/img/ed-sheeran.jpg'),
+('artist3', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'artist3@example.com', 'Drake', 'Rapper và ca sĩ', 'assets/img/drake.jpg');
 
 -- =============================================
--- Sample Tracks
--- Sử dụng audio URL giả (có thể thay bằng file thật sau)
+-- Sample Tracks - Sử dụng ảnh local
 -- =============================================
 INSERT INTO tracks (user_id, title, artist, genre, tags, description, privacy, artwork_url, audio_file_url, duration, play_count, like_count) VALUES
--- Tracks của artist1
-((SELECT user_id FROM users WHERE username='artist1'), 'Đêm Nay Em Ở Đâu', 'Nghệ Sĩ 1', 'Pop', 'vpop,ballad,tình yêu', 'Bài hát về nỗi nhớ đêm khuya', 'public', 'https://picsum.photos/seed/track1/300/300', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 210, 1523, 89),
-((SELECT user_id FROM users WHERE username='artist1'), 'Mưa Trên Cuộc Tình', 'Nghệ Sĩ 1', 'Ballad', 'vpop,buồn,mưa', 'Khi tình yêu tan vỡ như cơn mưa', 'public', 'https://picsum.photos/seed/track2/300/300', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 245, 892, 56),
-((SELECT user_id FROM users WHERE username='artist1'), 'Nắng Ấm Xa Dần', 'Nghệ Sĩ 1', 'Pop', 'vpop,acoustic', 'Acoustic version đặc biệt', 'public', 'https://picsum.photos/seed/track3/300/300', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', 198, 2341, 134),
+-- Tracks của artist1 (Taylor Swift)
+((SELECT user_id FROM users WHERE username='artist1'), 'Cà Phê', 'Taylor Swift', 'Pop', 'vpop,ballad,tình yêu', 'Bài hát về nỗi nhớ đêm khuya', 'public', 'assets/img/ca-phe_song.jpg', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 210, 1523, 89),
+((SELECT user_id FROM users WHERE username='artist1'), 'Kém Duyên', 'Taylor Swift', 'Ballad', 'vpop,buồn', 'Khi tình yêu tan vỡ', 'public', 'assets/img/kem-duyen_song.jpg', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 245, 892, 56),
+((SELECT user_id FROM users WHERE username='artist1'), 'Kém Duyên Drill', 'Taylor Swift', 'Pop', 'vpop,drill', 'Drill remix version', 'public', 'assets/img/kem-duyen-drill_song.jpg', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', 198, 2341, 134),
 
--- Tracks của artist2 (EDM/Electronic)
-((SELECT user_id FROM users WHERE username='artist2'), 'Midnight Vibes', 'DJ Producer', 'Electronic', 'edm,house,club', 'Deep house track for late nights', 'public', 'https://picsum.photos/seed/track4/300/300', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', 312, 5621, 423),
-((SELECT user_id FROM users WHERE username='artist2'), 'Summer Festival', 'DJ Producer', 'EDM', 'edm,festival,summer', 'Festival anthem 2025', 'public', 'https://picsum.photos/seed/track5/300/300', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', 278, 8934, 612),
-((SELECT user_id FROM users WHERE username='artist2'), 'Chill Sunset', 'DJ Producer', 'Lo-fi', 'lofi,chill,relax', 'Perfect for studying', 'public', 'https://picsum.photos/seed/track6/300/300', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', 185, 12453, 891),
-((SELECT user_id FROM users WHERE username='artist2'), 'Bass Drop', 'DJ Producer', 'Dubstep', 'dubstep,bass,heavy', 'Warning: Heavy bass!', 'public', 'https://picsum.photos/seed/track7/300/300', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3', 234, 3421, 267),
+-- Tracks của artist2 (Ed Sheeran)
+((SELECT user_id FROM users WHERE username='artist2'), 'Perfect Night', 'Ed Sheeran', 'Pop', 'pop,love,acoustic', 'A perfect love song', 'public', 'assets/img/pop-playlist.jpg', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', 312, 5621, 423),
+((SELECT user_id FROM users WHERE username='artist2'), 'Summer Vibes', 'Ed Sheeran', 'Pop', 'pop,summer', 'Summer anthem', 'public', 'assets/img/pop2-playlist.png', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', 278, 8934, 612),
+((SELECT user_id FROM users WHERE username='artist2'), 'Acoustic Dreams', 'Ed Sheeran', 'Acoustic', 'acoustic,chill,relax', 'Relaxing acoustic', 'public', 'assets/img/viet-playlist.jpg', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', 185, 12453, 891),
+((SELECT user_id FROM users WHERE username='artist2'), 'EDM Night', 'Ed Sheeran', 'EDM', 'edm,party', 'Party track', 'public', 'assets/img/edm-playlist.jpg', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3', 234, 3421, 267),
 
--- Tracks của artist3 (Rap/Hip-hop)
-((SELECT user_id FROM users WHERE username='artist3'), 'Đường Phố Gọi Tên', 'Rapper VN', 'Hip-hop', 'rap,viet,underground', 'Underground vibes', 'public', 'https://picsum.photos/seed/track8/300/300', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', 256, 4532, 321),
-((SELECT user_id FROM users WHERE username='artist3'), 'Thành Phố Không Ngủ', 'Rapper VN', 'Rap', 'rap,city,night', 'Saigon midnight stories', 'public', 'https://picsum.photos/seed/track9/300/300', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3', 289, 6721, 456),
-((SELECT user_id FROM users WHERE username='artist3'), 'Flow Không Giới Hạn', 'Rapper VN', 'Hip-hop', 'rap,flow,freestyle', 'Freestyle session', 'public', 'https://picsum.photos/seed/track10/300/300', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3', 198, 2134, 178);
+-- Tracks của artist3 (Drake)
+((SELECT user_id FROM users WHERE username='artist3'), 'City Lights', 'Drake', 'Hip-hop', 'rap,hiphop,city', 'City vibes', 'public', 'assets/img/nkl-playlist.jpg', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', 256, 4532, 321),
+((SELECT user_id FROM users WHERE username='artist3'), 'Midnight Flow', 'Drake', 'Rap', 'rap,night', 'Midnight stories', 'public', 'assets/img/nkl2-playlist.jpg', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3', 289, 6721, 456),
+((SELECT user_id FROM users WHERE username='artist3'), 'No Limits', 'Drake', 'Hip-hop', 'rap,freestyle', 'Freestyle session', 'public', 'assets/img/rnh-playlist.jpg', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3', 198, 2134, 178);
 
 -- =============================================
--- Sample Playlists
+-- Sample Playlists - Sử dụng ảnh local
 -- =============================================
 INSERT INTO playlists (user_id, name, description, artwork_url, is_public) VALUES
-((SELECT user_id FROM users WHERE username='demo'), 'Nhạc Chill Cuối Tuần', 'Playlist thư giãn cho cuối tuần', 'https://picsum.photos/seed/pl1/300/300', TRUE),
-((SELECT user_id FROM users WHERE username='demo'), 'Workout Mix', 'Nhạc tập gym sôi động', 'https://picsum.photos/seed/pl2/300/300', TRUE),
-((SELECT user_id FROM users WHERE username='artist2'), 'Best of EDM 2025', 'Tuyển tập EDM hay nhất', 'https://picsum.photos/seed/pl3/300/300', TRUE),
-((SELECT user_id FROM users WHERE username='artist3'), 'Rap Việt Underground', 'Những bản rap underground đỉnh cao', 'https://picsum.photos/seed/pl4/300/300', TRUE);
+((SELECT user_id FROM users WHERE username='demo'), 'Nhạc Chill Cuối Tuần', 'Playlist thư giãn cho cuối tuần', 'assets/img/rnh2-playlist.jpg', TRUE),
+((SELECT user_id FROM users WHERE username='demo'), 'Workout Mix', 'Nhạc tập gym sôi động', 'assets/img/edm2-playlist.jpg', TRUE),
+((SELECT user_id FROM users WHERE username='artist2'), 'Best of Pop 2025', 'Tuyển tập Pop hay nhất', 'assets/img/pop-playlist.jpg', TRUE),
+((SELECT user_id FROM users WHERE username='artist3'), 'Rap Việt Underground', 'Những bản rap underground đỉnh cao', 'assets/img/nkl-playlist.jpg', TRUE);
 
 -- =============================================
 -- Add tracks to playlists

@@ -20,7 +20,7 @@ import service.ArtistService;
  * API Servlet xử lý các yêu cầu liên quan đến Artists
  * Hỗ trợ các thao tác: lấy danh sách, phát, theo dõi
  */
-@WebServlet(name = "ArtistAPIServlet", urlPatterns = {"/api/artists*"})
+@WebServlet(name = "ArtistAPIServlet", urlPatterns = {"/api/artists", "/api/artists/*"})
 public class ArtistAPIServlet extends HttpServlet {
     private Gson gson = new Gson();
     private ArtistService artistService = new ArtistService();

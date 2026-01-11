@@ -185,6 +185,7 @@ public class TrackAPIServlet extends HttpServlet {
         map.put("genre", track.getGenre());
         map.put("privacy", track.getPrivacy());
         map.put("userId", track.getUserId());
+        map.put("uploaderUsername", track.getUploaderUsername());
         // Add favorite status
         if (userId > 0) {
             map.put("favorited", favoriteService.isFavorited(userId, track.getTrackId()));

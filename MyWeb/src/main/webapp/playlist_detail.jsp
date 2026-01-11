@@ -9,7 +9,7 @@
 <!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/home.css?v=2">
+<link rel="stylesheet" href="assets/css/home.css?v=3">
 <link rel="stylesheet" href="assets/css/next_up.css">
 <link rel="stylesheet" href="assets/css/playlist_detail.css">
 <title>Playlist Detail - BeatFlow</title>
@@ -249,5 +249,154 @@
 	<%@ include file="player.jsp" %>
 	<%@ include file="footer.jsp" %>
 	<script src="assets/js/app.js"></script>
+	<script>
+		// Playlist Detail Page JavaScript
+		document.addEventListener('DOMContentLoaded', function() {
+			initPlaylistDetailPage();
+		});
+
+		function initPlaylistDetailPage() {
+			// Hero play button - play all tracks
+			const heroPlayBtn = document.querySelector('.hero-play-btn');
+			if (heroPlayBtn) {
+				heroPlayBtn.addEventListener('click', function() {
+					playAllTracks();
+				});
+			}
+
+			// Track play buttons
+			document.querySelectorAll('.track-play-btn').forEach(btn => {
+				btn.addEventListener('click', function(e) {
+					e.preventDefault();
+					e.stopPropagation();
+					const trackItem = this.closest('.track-item');
+					const trackId = trackItem.dataset.trackId;
+					if (trackId) {
+						playTrackById(trackId);
+					}
+				});
+			});
+
+			// Add to queue button
+			const addToQueueBtn = document.querySelector('.btn-action-large .bi-justify')?.closest('button');
+			if (addToQueueBtn) {
+				addToQueueBtn.addEventListener('click', function() {
+					addAllToQueue();
+				});
+			}
+		}
+
+		function playAllTracks() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const playlistId = urlParams.get('id');
+			
+			if (playlistId) {
+				fetch('api/playlists/' + playlistId + '/tracks', {
+					method: 'GET',
+					headers: { 'Content-Type': 'application/json' },
+					credentials: 'include'
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.tracks && data.tracks.length > 0) {
+						const tracks = data.tracks.map(track => ({
+							trackId: track.trackId || track.id,
+							title: track.title,
+							artist: track.artist,
+							audioFileUrl: track.audioFileUrl || track.audioUrl,
+							coverImageUrl: track.artworkUrl || 'assets/img/default-track.jpg',
+							duration: track.duration || 0
+						}));
+						
+						if (typeof BeatFlowPlayer !== 'undefined') {
+							BeatFlowPlayer.loadTrack(tracks[0], true);
+							for (let i = 1; i < tracks.length; i++) {
+								BeatFlowPlayer.addToQueue(tracks[i]);
+							}
+						}
+						showNotification('Đang phát playlist');
+					}
+				})
+				.catch(error => {
+					console.error('Error loading playlist:', error);
+					showNotification('Không thể phát playlist', 'error');
+				});
+			}
+		}
+
+		function playTrackById(trackId) {
+			fetch('api/tracks/' + trackId, {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'include'
+			})
+			.then(response => response.json())
+			.then(track => {
+				const trackData = {
+					trackId: track.trackId || track.id,
+					title: track.title,
+					artist: track.artist,
+					audioFileUrl: track.audioFileUrl || track.audioUrl,
+					coverImageUrl: track.artworkUrl || 'assets/img/default-track.jpg',
+					duration: track.duration || 0,
+					uploaderUsername: track.uploaderUsername
+				};
+				
+				if (trackData.audioFileUrl && typeof BeatFlowPlayer !== 'undefined') {
+					BeatFlowPlayer.loadTrack(trackData, true);
+				} else {
+					showNotification('Bài hát không có file audio', 'error');
+				}
+			})
+			.catch(error => {
+				console.error('Error playing track:', error);
+				showNotification('Không thể phát bài hát', 'error');
+			});
+		}
+
+		function addAllToQueue() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const playlistId = urlParams.get('id');
+			
+			if (playlistId) {
+				fetch('api/playlists/' + playlistId + '/tracks', {
+					method: 'GET',
+					headers: { 'Content-Type': 'application/json' },
+					credentials: 'include'
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.tracks && data.tracks.length > 0 && typeof BeatFlowPlayer !== 'undefined') {
+						data.tracks.forEach(track => {
+							const trackData = {
+								trackId: track.trackId || track.id,
+								title: track.title,
+								artist: track.artist,
+								audioFileUrl: track.audioFileUrl || track.audioUrl,
+								coverImageUrl: track.artworkUrl || 'assets/img/default-track.jpg',
+								duration: track.duration || 0
+							};
+							BeatFlowPlayer.addToQueue(trackData);
+						});
+						showNotification('Đã thêm ' + data.tracks.length + ' bài vào danh sách chờ');
+					}
+				})
+				.catch(error => {
+					console.error('Error adding to queue:', error);
+					showNotification('Không thể thêm vào danh sách chờ', 'error');
+				});
+			}
+		}
+
+		function showNotification(message, type = 'success') {
+			const alertClass = type === 'error' ? 'alert-danger' : 'alert-success';
+			const alertDiv = document.createElement('div');
+			alertDiv.className = 'alert ' + alertClass + ' alert-dismissible fade show position-fixed';
+			alertDiv.style.cssText = 'bottom: 100px; right: 20px; z-index: 10001; max-width: 300px;';
+			alertDiv.innerHTML = message + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
+			document.body.appendChild(alertDiv);
+			setTimeout(() => alertDiv.remove(), 3000);
+		}
+	</script>
 </body>
 </html>

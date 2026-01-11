@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
@@ -12,9 +14,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Track;
 import service.FavoriteService;
 import service.HistoryService;
 import service.PlaylistService;
+import service.TrackService;
 
 /**
  * API Servlet xử lý các yêu cầu liên quan đến Playlists
@@ -25,6 +29,7 @@ public class PlaylistAPIServlet extends HttpServlet {
     private PlaylistService playlistService;
     private FavoriteService favoriteService;
     private HistoryService historyService;
+    private TrackService trackService;
     private Gson gson;
 
     @Override
@@ -32,6 +37,7 @@ public class PlaylistAPIServlet extends HttpServlet {
         this.playlistService = new PlaylistService();
         this.favoriteService = new FavoriteService();
         this.historyService = new HistoryService();
+        this.trackService = new TrackService();
         this.gson = new Gson();
     }
 
@@ -56,6 +62,19 @@ public class PlaylistAPIServlet extends HttpServlet {
                 // GET /api/playlists - lấy danh sách playlists
                 var playlists = playlistService.getRecommendedPlaylists(username, 20);
                 response.getWriter().write(gson.toJson(playlists));
+            } else if (pathInfo.matches("/\\d+/tracks")) {
+                // GET /api/playlists/{id}/tracks - lấy danh sách tracks của playlist
+                long playlistId = extractPlaylistIdFromPath(pathInfo);
+                handleGetPlaylistTracks(response, playlistId);
+            } else if (pathInfo.matches("/\\d+")) {
+                // GET /api/playlists/{id} - lấy thông tin playlist
+                long playlistId = Long.parseLong(pathInfo.substring(1));
+                var playlist = playlistService.getPlaylistById(playlistId);
+                if (playlist != null) {
+                    response.getWriter().write(gson.toJson(playlist));
+                } else {
+                    sendJsonError(response, 404, "Playlist not found");
+                }
             } else {
                 sendJsonError(response, 400, "Invalid request");
             }
@@ -148,6 +167,58 @@ public class PlaylistAPIServlet extends HttpServlet {
             }
         }
         return 0;
+    }
+
+    private long extractPlaylistIdFromPath(String pathInfo) {
+        // Từ "/123/tracks" lấy ra ID 123
+        String[] parts = pathInfo.split("/");
+        for (String part : parts) {
+            if (part.matches("\\d+")) {
+                return Long.parseLong(part);
+            }
+        }
+        return 0;
+    }
+
+    private void handleGetPlaylistTracks(HttpServletResponse response, long playlistId) 
+            throws IOException {
+        try {
+            var playlist = playlistService.getPlaylistById(playlistId);
+            if (playlist == null) {
+                sendJsonError(response, 404, "Playlist not found");
+                return;
+            }
+
+            // Lấy danh sách tracks của playlist
+            List<Track> tracks = playlistService.getPlaylistTracks(playlistId);
+            
+            // Tạo response với thông tin playlist và tracks
+            Map<String, Object> result = new HashMap<>();
+            result.put("success", true);
+            result.put("playlistId", playlistId);
+            result.put("name", playlist.getName());
+            result.put("description", playlist.getDescription());
+            
+            // Convert tracks to maps
+            List<Map<String, Object>> trackList = new ArrayList<>();
+            for (Track track : tracks) {
+                Map<String, Object> trackMap = new HashMap<>();
+                trackMap.put("trackId", track.getTrackId());
+                trackMap.put("title", track.getTitle());
+                trackMap.put("artist", track.getArtist());
+                trackMap.put("audioFileUrl", track.getAudioFileUrl());
+                trackMap.put("artworkUrl", track.getArtworkUrl());
+                trackMap.put("duration", track.getDuration());
+                trackMap.put("uploaderUsername", track.getUploaderUsername());
+                trackList.add(trackMap);
+            }
+            result.put("tracks", trackList);
+            result.put("trackCount", trackList.size());
+
+            response.getWriter().write(gson.toJson(result));
+        } catch (Exception e) {
+            sendJsonError(response, 500, "Error getting playlist tracks: " + e.getMessage());
+        }
     }
 
     private void sendJsonError(HttpServletResponse response, int statusCode, String message) 

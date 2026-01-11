@@ -255,6 +255,8 @@
     })();
   </script>
 
+  <%@ include file="player.jsp" %>
+
   <!-- Footer -->
   <footer class="py-4" style="background:#0d0d0d; color:#bbb; font-size:.9rem;">
     <div class="container text-center">
@@ -274,5 +276,7 @@
       </div>
     </div>
   </footer>
+
+  <link rel="stylesheet" href="assets/css/next_up.css">
 </body>
 </html>

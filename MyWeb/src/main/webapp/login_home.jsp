@@ -29,7 +29,7 @@ if (username == null) {
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="assets/css/home.css?v=2">
+<link rel="stylesheet" href="assets/css/home.css?v=3">
 <link rel="stylesheet" href="assets/css/next_up.css">
 <title>Home</title>
 </head>
@@ -105,7 +105,6 @@ if (username == null) {
 
 		<!-- Right Column extracted to separate JSP -->
 		<%@ include file="right_column.jsp"%>
-	</div>
 	</div>
 
 	<%@ include file="player.jsp"%>
@@ -428,8 +427,85 @@ if (username == null) {
 		// Phát bài hát
 		function playTrack(trackId) {
 			console.log('Playing track:', trackId);
-			showNotification('Đang phát bài hát...');
-			// TODO: Implement audio player
+			
+			// Fetch track details from API
+			fetch('api/tracks/' + trackId, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json'
+				},
+				credentials: 'include'
+			})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Failed to load track');
+				}
+				return response.json();
+			})
+			.then(track => {
+				console.log('Track data:', track);
+				
+				// Map API response to player format
+				const trackData = {
+					trackId: track.trackId || track.id,
+					title: track.title,
+					artist: track.artist,
+					audioFileUrl: track.audioFileUrl || track.audioUrl || track.trackLink,
+					coverImageUrl: track.artworkUrl || track.coverImageUrl || 'assets/img/default-track.jpg',
+					duration: track.duration || 0,
+					uploaderUsername: track.uploaderUsername
+				};
+				
+				if (!trackData.audioFileUrl) {
+					showNotification('Bài hát không có file audio', 'error');
+					return;
+				}
+				
+				// Use BeatFlowPlayer to load and play the track
+				if (typeof BeatFlowPlayer !== 'undefined') {
+					BeatFlowPlayer.loadTrack(trackData, true);
+				} else {
+					console.error('BeatFlowPlayer not initialized');
+					showNotification('Lỗi: Player chưa sẵn sàng', 'error');
+				}
+			})
+			.catch(error => {
+				console.error('Error loading track:', error);
+				showNotification('Không thể phát bài hát', 'error');
+			});
+		}
+
+		// Thêm bài hát vào danh sách chờ
+		function addTrackToQueue(trackId) {
+			fetch('api/tracks/' + trackId, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json'
+				},
+				credentials: 'include'
+			})
+			.then(response => response.json())
+			.then(track => {
+				const trackData = {
+					trackId: track.trackId || track.id,
+					title: track.title,
+					artist: track.artist,
+					audioFileUrl: track.audioFileUrl || track.audioUrl || track.trackLink,
+					coverImageUrl: track.artworkUrl || track.coverImageUrl || 'assets/img/default-track.jpg',
+					duration: track.duration || 0,
+					uploaderUsername: track.uploaderUsername
+				};
+				
+				if (typeof BeatFlowPlayer !== 'undefined') {
+					BeatFlowPlayer.addToQueue(trackData);
+				}
+			})
+			.catch(error => {
+				console.error('Error adding to queue:', error);
+				showNotification('Không thể thêm vào danh sách chờ', 'error');
+			});
 		}
 
 		// Phát nhạc từ playlist

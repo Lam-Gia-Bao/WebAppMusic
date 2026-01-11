@@ -16,7 +16,7 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="assets/css/home.css?v=2">
+<link rel="stylesheet" href="assets/css/home.css?v=3">
 <title>Home</title>
 </head>
 <body>

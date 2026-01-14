@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalLong;
 
 import com.google.gson.Gson;
 
+import dao.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -30,6 +32,7 @@ public class PlaylistAPIServlet extends HttpServlet {
     private FavoriteService favoriteService;
     private HistoryService historyService;
     private TrackService trackService;
+    private UserDAO userDAO;
     private Gson gson;
 
     @Override
@@ -38,6 +41,7 @@ public class PlaylistAPIServlet extends HttpServlet {
         this.favoriteService = new FavoriteService();
         this.historyService = new HistoryService();
         this.trackService = new TrackService();
+        this.userDAO = new UserDAO();
         this.gson = new Gson();
     }
 
@@ -57,9 +61,21 @@ public class PlaylistAPIServlet extends HttpServlet {
 
         String pathInfo = request.getPathInfo();
         
+        // Get userId for current user
+        OptionalLong userIdOpt = userDAO.findUserIdByUsername(username);
+        if (userIdOpt.isEmpty()) {
+            sendJsonError(response, 400, "User not found");
+            return;
+        }
+        long userId = userIdOpt.getAsLong();
+        
         try {
             if (pathInfo == null || pathInfo.equals("/")) {
-                // GET /api/playlists - lấy danh sách playlists
+                // GET /api/playlists - lấy playlists của user đang đăng nhập
+                var playlists = playlistService.getPlaylists(userId);
+                response.getWriter().write(gson.toJson(playlists));
+            } else if (pathInfo.equals("/recommended")) {
+                // GET /api/playlists/recommended - lấy playlists gợi ý
                 var playlists = playlistService.getRecommendedPlaylists(username, 20);
                 response.getWriter().write(gson.toJson(playlists));
             } else if (pathInfo.matches("/\\d+/tracks")) {
@@ -101,7 +117,11 @@ public class PlaylistAPIServlet extends HttpServlet {
         String pathInfo = request.getPathInfo();
         
         try {
-            if (pathInfo != null && pathInfo.contains("/play")) {
+            if (pathInfo != null && pathInfo.matches("/\\d+/tracks")) {
+                // POST /api/playlists/{id}/tracks - thêm track vào playlist
+                long playlistId = extractPlaylistIdFromPath(pathInfo);
+                handleAddTrackToPlaylist(request, response, username, playlistId);
+            } else if (pathInfo != null && pathInfo.contains("/play")) {
                 // POST /api/playlists/{id}/play - phát playlist
                 long playlistId = extractPlaylistId(pathInfo, "/play");
                 handlePlayPlaylist(response, username, playlistId);
@@ -158,6 +178,58 @@ public class PlaylistAPIServlet extends HttpServlet {
         }
     }
 
+    private void handleAddTrackToPlaylist(HttpServletRequest request, HttpServletResponse response, 
+            String username, long playlistId) throws IOException {
+        try {
+            // Đọc JSON body
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = request.getReader().readLine()) != null) {
+                sb.append(line);
+            }
+            Map<String, Object> body = gson.fromJson(sb.toString(), Map.class);
+            
+            if (body == null || !body.containsKey("trackId")) {
+                sendJsonError(response, 400, "Missing trackId");
+                return;
+            }
+            
+            // Xử lý trackId - có thể là String hoặc Number
+            long trackId;
+            Object trackIdObj = body.get("trackId");
+            if (trackIdObj instanceof Number) {
+                trackId = ((Number) trackIdObj).longValue();
+            } else {
+                trackId = Long.parseLong(trackIdObj.toString());
+            }
+            
+            // Xử lý position - có thể là String hoặc Number
+            Integer position = null;
+            if (body.containsKey("position") && body.get("position") != null) {
+                Object posObj = body.get("position");
+                if (posObj instanceof Number) {
+                    position = ((Number) posObj).intValue();
+                } else {
+                    position = Integer.parseInt(posObj.toString());
+                }
+            }
+            
+            // Thêm track vào playlist
+            playlistService.addTrackToPlaylist(playlistId, trackId, position);
+            
+            Map<String, Object> result = new HashMap<>();
+            result.put("success", true);
+            result.put("playlistId", playlistId);
+            result.put("trackId", trackId);
+            result.put("message", "Track added to playlist");
+            
+            response.getWriter().write(gson.toJson(result));
+        } catch (Exception e) {
+            e.printStackTrace();
+            sendJsonError(response, 500, "Error adding track to playlist: " + e.getMessage());
+        }
+    }
+
     private long extractPlaylistId(String pathInfo, String action) {
         // Từ "/123/play" hay "/123/follow" lấy ra ID 123
         String[] parts = pathInfo.split("/");
@@ -198,6 +270,8 @@ public class PlaylistAPIServlet extends HttpServlet {
             result.put("playlistId", playlistId);
             result.put("name", playlist.getName());
             result.put("description", playlist.getDescription());
+            result.put("artworkUrl", playlist.getArtworkUrl());
+            result.put("isPublic", playlist.isPublic());
             
             // Convert tracks to maps
             List<Map<String, Object>> trackList = new ArrayList<>();
@@ -210,6 +284,8 @@ public class PlaylistAPIServlet extends HttpServlet {
                 trackMap.put("artworkUrl", track.getArtworkUrl());
                 trackMap.put("duration", track.getDuration());
                 trackMap.put("uploaderUsername", track.getUploaderUsername());
+                trackMap.put("playCount", track.getPlayCount());
+                trackMap.put("likeCount", track.getLikeCount());
                 trackList.add(trackMap);
             }
             result.put("tracks", trackList);

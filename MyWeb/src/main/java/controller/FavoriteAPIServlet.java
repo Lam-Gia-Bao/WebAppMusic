@@ -22,7 +22,7 @@ import service.FavoriteService;
  * API Servlet xử lý các thao tác yêu thích
  * Hỗ trợ thêm/xóa yêu thích cho tracks
  */
-@WebServlet(name = "FavoriteAPIServlet", urlPatterns = {"/api/favorites/*"})
+@WebServlet(name = "FavoriteAPIServlet", urlPatterns = {"/api/favorites", "/api/favorites/*"})
 public class FavoriteAPIServlet extends HttpServlet {
     private FavoriteService favoriteService;
     private UserDAO userDAO;

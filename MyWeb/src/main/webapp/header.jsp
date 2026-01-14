@@ -198,13 +198,13 @@
 				badge.textContent = data.length;
 				badge.style.display = 'block';
 				
-				body.innerHTML = data.map(notif => `
-					<div class="message-item" style="padding: 10px; border-bottom: 1px solid #f0f0f0;">
-						<div style="font-weight: 500; color: #333;">\${escapeHtml(notif.title)}</div>
-						<div style="font-size: 0.9em; color: #666;">\${escapeHtml(notif.message)}</div>
-						<div style="font-size: 0.8em; color: #999; margin-top: 5px;">\${notif.time}</div>
-					</div>
-				`).join('');
+				body.innerHTML = data.map(function(notif) {
+					return '<div class="message-item" style="padding: 10px; border-bottom: 1px solid #f0f0f0;">' +
+						'<div style="font-weight: 500; color: #333;">' + escapeHtml(notif.title) + '</div>' +
+						'<div style="font-size: 0.9em; color: #666;">' + escapeHtml(notif.message) + '</div>' +
+						'<div style="font-size: 0.8em; color: #999; margin-top: 5px;">' + notif.time + '</div>' +
+					'</div>';
+				}).join('');
 			}
 		})
 		.catch(error => console.error('Error loading notifications:', error));
@@ -228,13 +228,13 @@
 				badge.textContent = data.length;
 				badge.style.display = 'block';
 				
-				body.innerHTML = data.map(msg => `
-					<div class="message-item" style="padding: 10px; border-bottom: 1px solid #f0f0f0; cursor: pointer;" onclick="openMessage(\${msg.id})">
-						<div style="font-weight: 500; color: #333;">\${escapeHtml(msg.senderName)}</div>
-						<div style="font-size: 0.9em; color: #666;">\${escapeHtml(msg.content)}</div>
-						<div style="font-size: 0.8em; color: #999; margin-top: 5px;">\${msg.time}</div>
-					</div>
-				`).join('');
+				body.innerHTML = data.map(function(msg) {
+					return '<div class="message-item" style="padding: 10px; border-bottom: 1px solid #f0f0f0; cursor: pointer;" onclick="openMessage(' + msg.id + ')">' +
+						'<div style="font-weight: 500; color: #333;">' + escapeHtml(msg.senderName) + '</div>' +
+						'<div style="font-size: 0.9em; color: #666;">' + escapeHtml(msg.content) + '</div>' +
+						'<div style="font-size: 0.8em; color: #999; margin-top: 5px;">' + msg.time + '</div>' +
+					'</div>';
+				}).join('');
 			}
 		})
 		.catch(error => console.error('Error loading messages:', error));

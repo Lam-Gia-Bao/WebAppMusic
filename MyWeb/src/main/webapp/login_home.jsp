@@ -128,6 +128,85 @@ if (username == null) {
 	</div>
 </div>
 
+<!-- Modal thêm vào Playlist -->
+<div class="modal fade" id="addToPlaylistModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content bg-dark text-white">
+			<div class="modal-header border-secondary">
+				<h5 class="modal-title">Thêm vào Playlist</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body">
+				<div id="playlistListForAdd" class="list-group list-group-flush">
+					<!-- Playlists will be loaded here -->
+				</div>
+				<hr class="border-secondary">
+				<button class="btn btn-outline-primary w-100" onclick="showCreatePlaylistForm()">
+					<i class="bi bi-plus-lg me-2"></i>Tạo playlist mới
+				</button>
+				<div id="createPlaylistForm" class="mt-3" style="display: none;">
+					<input type="text" class="form-control bg-dark text-white mb-2" id="newPlaylistName" placeholder="Tên playlist">
+					<button class="btn btn-primary w-100" onclick="createPlaylistAndAdd()">Tạo và thêm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Dropdown Menu cho track (SoundCloud style) -->
+<div class="dropdown-menu track-dropdown-menu" id="trackDropdownMenu" style="display: none; position: fixed; z-index: 10000;">
+	<button class="dropdown-item" data-action="add-to-queue">
+		<i class="bi bi-list-ul me-2"></i>Thêm vào danh sách chờ
+	</button>
+	<button class="dropdown-item" data-action="add-to-playlist">
+		<i class="bi bi-plus-square me-2"></i>Thêm vào playlist
+	</button>
+	<div class="dropdown-divider"></div>
+	<button class="dropdown-item" data-action="go-to-track">
+		<i class="bi bi-music-note me-2"></i>Đi đến bài hát
+	</button>
+	<button class="dropdown-item" data-action="go-to-artist">
+		<i class="bi bi-person me-2"></i>Đi đến nghệ sĩ
+	</button>
+	<div class="dropdown-divider"></div>
+	<button class="dropdown-item" data-action="share">
+		<i class="bi bi-share me-2"></i>Chia sẻ
+	</button>
+	<button class="dropdown-item" data-action="copy-link">
+		<i class="bi bi-link-45deg me-2"></i>Sao chép liên kết
+	</button>
+</div>
+
+<style>
+.track-dropdown-menu {
+	background: #1a1a1a;
+	border: 1px solid #333;
+	border-radius: 8px;
+	padding: 8px 0;
+	min-width: 200px;
+	box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+.track-dropdown-menu .dropdown-item {
+	color: #fff;
+	padding: 10px 16px;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	background: none;
+	border: none;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+}
+.track-dropdown-menu .dropdown-item:hover {
+	background: #333;
+	color: #f50;
+}
+.track-dropdown-menu .dropdown-divider {
+	border-color: #333;
+	margin: 4px 0;
+}
+</style>
 <script src="assets/js/app.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -166,9 +245,9 @@ if (username == null) {
 			});
 		}
 
-		// Load danh sách playlists từ database
+		// Load danh sách playlists từ database (playlists gợi ý cho home page)
 		function loadPlaylists() {
-			fetch('api/playlists', {
+			fetch('api/playlists/recommended', {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -274,29 +353,29 @@ if (username == null) {
 
 			const imgPath = track.coverImageUrl || track.artworkUrl || 'assets/img/track1.jpg';
 			const isFavorited = track.favorited || false;
+			const trackId = track.trackId || track.id;
 
-			card.innerHTML = `
-				<div class="playlist-img-wrapper">
-					<img src="\${imgPath}" class="playlist-img" onerror="this.src='assets/img/track1.jpg'">
-					<div class="playlist-overlay">
-						<button class="btn-play" data-track-id="\${track.trackId || track.id}" title="Phát bài hát">
-							<i class="bi bi-play-fill"></i>
-						</button>
-						<div class="playlist-actions">
-							<button class="btn-action btn-favorite \${isFavorited ? 'liked' : ''}" data-track-id="\${track.trackId || track.id}" 
-									title="\${isFavorited ? 'Bỏ yêu thích' : 'Thêm vào yêu thích'}">
-								<i class="bi \${isFavorited ? 'bi-heart-fill' : 'bi-heart'}"></i>
-							</button>
-							<button class="btn-action btn-menu" data-track-id="\${track.trackId || track.id}" 
-									title="Thêm tùy chọn">
-								<i class="bi bi-three-dots"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="playlist-title">\${escapeHtml(track.title)}</div>
-				<div class="playlist-desc">\${escapeHtml(track.artist || '')}</div>
-			`;
+			card.innerHTML = 
+				'<div class="playlist-img-wrapper">' +
+					'<img src="' + imgPath + '" class="playlist-img" onerror="this.src=\'assets/img/track1.jpg\'">' +
+					'<div class="playlist-overlay">' +
+						'<button class="btn-play" data-track-id="' + trackId + '" title="Phát bài hát">' +
+							'<i class="bi bi-play-fill"></i>' +
+						'</button>' +
+						'<div class="playlist-actions">' +
+							'<button class="btn-action btn-favorite ' + (isFavorited ? 'liked' : '') + '" data-track-id="' + trackId + '" ' +
+									'title="' + (isFavorited ? 'Bỏ yêu thích' : 'Thêm vào yêu thích') + '">' +
+								'<i class="bi ' + (isFavorited ? 'bi-heart-fill' : 'bi-heart') + '"></i>' +
+							'</button>' +
+							'<button class="btn-action btn-menu" data-track-id="' + trackId + '" ' +
+									'title="Thêm tùy chọn">' +
+								'<i class="bi bi-three-dots"></i>' +
+							'</button>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+				'<a href="track.jsp?id=' + trackId + '" class="playlist-title" style="text-decoration:none; color:inherit;">' + escapeHtml(track.title) + '</a>' +
+				'<div class="playlist-desc">' + escapeHtml(track.artist || '') + '</div>';
 
 			return card;
 		}
@@ -306,27 +385,27 @@ if (username == null) {
 			const card = document.createElement('div');
 			card.className = 'playlist-card';
 			card.dataset.playlistId = playlist.id;
+			card.style.cursor = 'pointer';
 
-			const imgPath = playlist.imagePath || 'assets/img/default-playlist.jpg';
+			const imgPath = playlist.imagePath || playlist.artworkUrl || 'assets/img/default-playlist.jpg';
 
-			card.innerHTML = `
-				<div class="playlist-img-wrapper">
-					<img src="\${imgPath}" class="playlist-img" onerror="this.src='assets/img/default-playlist.jpg'">
-					<div class="playlist-overlay">
-						<button class="btn-play" data-playlist-id="\${playlist.id}" title="Phát nhạc">
-							<i class="bi bi-play-fill"></i>
-						</button>
-						<div class="playlist-actions">
-							<button class="btn-action btn-menu" data-playlist-id="\${playlist.id}" 
-									title="Thêm tùy chọn">
-								<i class="bi bi-three-dots"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="playlist-title">\${escapeHtml(playlist.name)}</div>
-				<div class="playlist-desc">\${escapeHtml(playlist.description || '')}</div>
-			`;
+			card.innerHTML = 
+				'<div class="playlist-img-wrapper">' +
+					'<img src="' + imgPath + '" class="playlist-img" onerror="this.src=\'assets/img/default-playlist.jpg\'">' +
+					'<div class="playlist-overlay">' +
+						'<button class="btn-play" data-playlist-id="' + playlist.id + '" title="Phát nhạc">' +
+							'<i class="bi bi-play-fill"></i>' +
+						'</button>' +
+						'<div class="playlist-actions">' +
+							'<button class="btn-action btn-menu" data-playlist-id="' + playlist.id + '" ' +
+									'title="Thêm tùy chọn">' +
+								'<i class="bi bi-three-dots"></i>' +
+							'</button>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+				'<a href="playlist_detail.jsp?id=' + playlist.id + '" class="playlist-title" style="text-decoration:none; color:inherit;">' + escapeHtml(playlist.name) + '</a>' +
+				'<div class="playlist-desc">' + escapeHtml(playlist.description || '') + '</div>';
 
 			return card;
 		}
@@ -339,32 +418,31 @@ if (username == null) {
 
 			const imgPath = artist.imagePath || 'assets/img/default-artist.jpg';
 
-			card.innerHTML = `
-				<div class="playlist-img-wrapper">
-					<img src="\${imgPath}" class="playlist-img" onerror="this.src='assets/img/default-artist.jpg'">
-					<div class="playlist-overlay">
-						<button class="btn-play" data-artist-id="\${artist.id}" title="Phát nhạc của nghệ sĩ">
-							<i class="bi bi-play-fill"></i>
-						</button>
-						<div class="playlist-actions">
-							<button class="btn-action btn-favorite" data-artist-id="\${artist.id}" 
-									title="Thêm vào yêu thích">
-								<i class="bi bi-heart"></i>
-							</button>
-							<button class="btn-action btn-follow" data-artist-id="\${artist.id}" 
-									title="Theo dõi nghệ sĩ">
-								<i class="bi bi-person-plus"></i>
-							</button>
-							<button class="btn-action btn-menu" data-artist-id="\${artist.id}" 
-									title="Thêm tùy chọn">
-								<i class="bi bi-three-dots"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="playlist-title">\${escapeHtml(artist.name)}</div>
-				<div class="playlist-desc">New!</div>
-			`;
+			card.innerHTML = 
+				'<div class="playlist-img-wrapper">' +
+					'<img src="' + imgPath + '" class="playlist-img" onerror="this.src=\'assets/img/default-artist.jpg\'">' +
+					'<div class="playlist-overlay">' +
+						'<button class="btn-play" data-artist-id="' + artist.id + '" title="Phát nhạc của nghệ sĩ">' +
+							'<i class="bi bi-play-fill"></i>' +
+						'</button>' +
+						'<div class="playlist-actions">' +
+							'<button class="btn-action btn-favorite" data-artist-id="' + artist.id + '" ' +
+									'title="Thêm vào yêu thích">' +
+								'<i class="bi bi-heart"></i>' +
+							'</button>' +
+							'<button class="btn-action btn-follow" data-artist-id="' + artist.id + '" ' +
+									'title="Theo dõi nghệ sĩ">' +
+								'<i class="bi bi-person-plus"></i>' +
+							'</button>' +
+							'<button class="btn-action btn-menu" data-artist-id="' + artist.id + '" ' +
+									'title="Thêm tùy chọn">' +
+								'<i class="bi bi-three-dots"></i>' +
+							'</button>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+				'<div class="playlist-title">' + escapeHtml(artist.name) + '</div>' +
+				'<div class="playlist-desc">New!</div>';
 
 			return card;
 		}
@@ -420,6 +498,15 @@ if (username == null) {
 					const btn = e.target.closest('.btn-menu');
 					e.preventDefault();
 					showPlaylistMenu(btn);
+				}
+				
+				// Click playlist title/desc để mở playlist detail
+				if (e.target.closest('.playlist-title') || e.target.closest('.playlist-desc')) {
+					const card = e.target.closest('.playlist-card');
+					if (card && card.dataset.playlistId) {
+						e.preventDefault();
+						window.location.href = 'playlist_detail.jsp?id=' + card.dataset.playlistId;
+					}
 				}
 			});
 		}
@@ -673,6 +760,214 @@ if (username == null) {
 			const div = document.createElement('div');
 			div.textContent = text;
 			return div.innerHTML;
+		}
+
+		// ========== DROPDOWN MENU CHO NÚT 3 CHẤM (SOUNDCLOUD STYLE) ==========
+		let currentMenuTrackId = null;
+		const trackDropdownMenu = document.getElementById('trackDropdownMenu');
+		
+		// Hiển thị dropdown menu
+		function showTrackDropdownMenu(trackId, button) {
+			currentMenuTrackId = trackId;
+			
+			// Position menu near button
+			const rect = button.getBoundingClientRect();
+			trackDropdownMenu.style.top = (rect.bottom + 5) + 'px';
+			trackDropdownMenu.style.left = Math.min(rect.left, window.innerWidth - 220) + 'px';
+			trackDropdownMenu.style.display = 'block';
+		}
+		
+		// Hide dropdown when clicking outside
+		document.addEventListener('click', function(e) {
+			if (!e.target.closest('.btn-menu') && !e.target.closest('#trackDropdownMenu')) {
+				trackDropdownMenu.style.display = 'none';
+			}
+		});
+		
+		// Dropdown menu actions
+		trackDropdownMenu.addEventListener('click', function(e) {
+			const item = e.target.closest('.dropdown-item');
+			if (!item || !currentMenuTrackId) return;
+			
+			const action = item.dataset.action;
+			trackDropdownMenu.style.display = 'none';
+			
+			switch(action) {
+				case 'add-to-queue':
+					addTrackToQueue(currentMenuTrackId);
+					break;
+				case 'add-to-playlist':
+					openAddToPlaylistModal(currentMenuTrackId);
+					break;
+				case 'go-to-track':
+					window.location.href = 'track.jsp?id=' + currentMenuTrackId;
+					break;
+				case 'go-to-artist':
+					// TODO: Get artist ID from track
+					showNotification('Đang chuyển đến nghệ sĩ...');
+					break;
+				case 'share':
+					shareTrack(currentMenuTrackId);
+					break;
+				case 'copy-link':
+					copyTrackLink(currentMenuTrackId);
+					break;
+			}
+		});
+		
+		// Update showPlaylistMenu to use new dropdown
+		function showPlaylistMenu(button) {
+			const trackId = button.dataset.trackId;
+			if (trackId) {
+				showTrackDropdownMenu(trackId, button);
+			}
+		}
+		
+		// Thêm track vào queue
+		function addTrackToQueue(trackId) {
+			fetch('api/tracks/' + trackId, {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'include'
+			})
+			.then(response => response.json())
+			.then(track => {
+				const trackData = {
+					trackId: track.trackId || track.id,
+					title: track.title,
+					artist: track.artist,
+					audioFileUrl: track.audioFileUrl || track.audioUrl,
+					coverImageUrl: track.artworkUrl || 'assets/img/default-track.jpg',
+					duration: track.duration || 0
+				};
+				
+				if (typeof BeatFlowPlayer !== 'undefined') {
+					BeatFlowPlayer.addToQueue(trackData);
+					showNotification('Đã thêm "' + track.title + '" vào danh sách chờ');
+				}
+			})
+			.catch(error => {
+				console.error('Error adding to queue:', error);
+				showNotification('Không thể thêm vào danh sách chờ', 'error');
+			});
+		}
+		
+		// Mở modal thêm vào playlist
+		function openAddToPlaylistModal(trackId) {
+			currentMenuTrackId = trackId;
+			
+			fetch('api/playlists', {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'include'
+			})
+			.then(response => response.json())
+			.then(playlists => {
+				const listContainer = document.getElementById('playlistListForAdd');
+				listContainer.innerHTML = '';
+				
+				if (!playlists || playlists.length === 0) {
+					listContainer.innerHTML = '<div class="text-muted p-3">Bạn chưa có playlist nào</div>';
+				} else {
+					playlists.forEach(playlist => {
+						const item = document.createElement('button');
+						item.className = 'list-group-item list-group-item-action bg-dark text-white border-secondary';
+						item.innerHTML = '<i class="bi bi-music-note-list me-2"></i>' + escapeHtml(playlist.name);
+						item.addEventListener('click', () => addToPlaylist(playlist.id, playlist.name));
+						listContainer.appendChild(item);
+					});
+				}
+				
+				document.getElementById('createPlaylistForm').style.display = 'none';
+				const modal = new bootstrap.Modal(document.getElementById('addToPlaylistModal'));
+				modal.show();
+			})
+			.catch(error => {
+				console.error('Error loading playlists:', error);
+				showNotification('Không thể tải danh sách playlist', 'error');
+			});
+		}
+		
+		// Thêm track vào playlist
+		function addToPlaylist(playlistId, playlistName) {
+			if (!currentMenuTrackId) return;
+			
+			fetch('api/playlists/' + playlistId + '/tracks', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ trackId: parseInt(currentMenuTrackId) }),
+				credentials: 'include'
+			})
+			.then(response => response.json())
+			.then(data => {
+				bootstrap.Modal.getInstance(document.getElementById('addToPlaylistModal')).hide();
+				if (data.success !== false) {
+					showNotification('Đã thêm vào "' + playlistName + '"');
+				} else {
+					showNotification('Lỗi: ' + (data.error || 'Không thể thêm'), 'error');
+				}
+			})
+			.catch(error => {
+				console.error('Error adding to playlist:', error);
+				showNotification('Không thể thêm vào playlist', 'error');
+			});
+		}
+		
+		// Hiển thị form tạo playlist mới
+		function showCreatePlaylistForm() {
+			document.getElementById('createPlaylistForm').style.display = 'block';
+			document.getElementById('newPlaylistName').focus();
+		}
+		
+		// Tạo playlist mới và thêm track
+		function createPlaylistAndAdd() {
+			const name = document.getElementById('newPlaylistName').value.trim();
+			if (!name) {
+				showNotification('Vui lòng nhập tên playlist', 'error');
+				return;
+			}
+			
+			fetch('playlist/create', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: 'name=' + encodeURIComponent(name) + '&isPublic=false',
+				credentials: 'include'
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success && data.playlistId) {
+					addToPlaylist(data.playlistId, name);
+				} else {
+					showNotification('Lỗi tạo playlist: ' + (data.error || ''), 'error');
+				}
+			})
+			.catch(error => {
+				console.error('Error creating playlist:', error);
+				showNotification('Không thể tạo playlist', 'error');
+			});
+		}
+		
+		// Chia sẻ track
+		function shareTrack(trackId) {
+			const url = window.location.origin + '/track.jsp?id=' + trackId;
+			if (navigator.share) {
+				navigator.share({
+					title: 'Chia sẻ bài hát',
+					url: url
+				});
+			} else {
+				copyTrackLink(trackId);
+			}
+		}
+		
+		// Copy link track
+		function copyTrackLink(trackId) {
+			const url = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '') + 'track.jsp?id=' + trackId;
+			navigator.clipboard.writeText(url).then(() => {
+				showNotification('Đã sao chép liên kết');
+			}).catch(() => {
+				showNotification('Không thể sao chép', 'error');
+			});
 		}
 	</script>
 </body>

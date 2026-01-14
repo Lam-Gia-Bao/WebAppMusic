@@ -71,10 +71,10 @@
         <c:choose>
           <c:when test="${not empty tracks}">
             <c:forEach var="track" items="${tracks}" end="3">
-              <div class="track-card">
+              <a href="track.jsp?id=${track.trackId}" class="track-card" style="text-decoration: none; color: inherit; cursor: pointer;" data-track-id="${track.trackId}">
                 <img src="${not empty track.artworkUrl ? track.artworkUrl : 'assets/img/track1.jpg'}" alt="track">
-                <div><p class="track-title">${track.title}</p></div>
-              </div>
+                <div><p class="track-title">${track.title}</p><p class="track-artist">${track.artist}</p></div>
+              </a>
             </c:forEach>
           </c:when>
           <c:otherwise>
@@ -88,13 +88,13 @@
         <c:choose>
           <c:when test="${not empty favorites}">
             <c:forEach var="fav" items="${favorites}" end="2">
-              <div class="track-card">
+              <a href="track.jsp?id=${fav.trackId}" class="track-card" style="text-decoration: none; color: inherit; cursor: pointer;" data-track-id="${fav.trackId}">
                 <img src="${not empty fav.artworkUrl ? fav.artworkUrl : 'assets/img/track3.jpg'}" alt="favorite">
                 <div>
                   <p class="track-title">${fav.title}</p>
                   <p class="track-artist">${fav.artist}</p>
                 </div>
-              </div>
+              </a>
             </c:forEach>
           </c:when>
           <c:otherwise>
@@ -111,10 +111,10 @@
         <c:choose>
           <c:when test="${not empty tracks}">
             <c:forEach var="track" items="${tracks}">
-              <div class="track-card">
+              <a href="track.jsp?id=${track.trackId}" class="track-card" style="text-decoration: none; color: inherit; cursor: pointer;" data-track-id="${track.trackId}">
                 <img src="${not empty track.artworkUrl ? track.artworkUrl : 'assets/img/track1.jpg'}" alt="track">
-                <div><p class="track-title">${track.title}</p></div>
-              </div>
+                <div><p class="track-title">${track.title}</p><p class="track-artist">${track.artist}</p></div>
+              </a>
             </c:forEach>
           </c:when>
           <c:otherwise>
@@ -132,11 +132,11 @@
         <c:choose>
           <c:when test="${not empty playlists}">
             <c:forEach var="playlist" items="${playlists}">
-              <div class="playlist-card">
+              <a href="playlist_detail.jsp?id=${playlist.id}" class="playlist-card" style="text-decoration: none; color: inherit;">
                 <img src="${not empty playlist.imagePath ? playlist.imagePath : 'assets/img/playlist.jpg'}" class="playlist-thumb" alt="playlist">
                 <p class="playlist-name">${playlist.name}</p>
                 <p class="playlist-meta">${playlist.trackCount} tracks</p>
-              </div>
+              </a>
             </c:forEach>
           </c:when>
           <c:otherwise>
@@ -153,13 +153,13 @@
         <c:choose>
           <c:when test="${not empty favorites}">
             <c:forEach var="fav" items="${favorites}">
-              <div class="track-card">
+              <a href="track.jsp?id=${fav.trackId}" class="track-card" style="text-decoration: none; color: inherit; cursor: pointer;" data-track-id="${fav.trackId}">
                 <img src="${not empty fav.artworkUrl ? fav.artworkUrl : 'assets/img/track3.jpg'}" alt="favorite">
                 <div>
                   <p class="track-title">${fav.title}</p>
                   <p class="track-artist">${fav.artist}</p>
                 </div>
-              </div>
+              </a>
             </c:forEach>
           </c:when>
           <c:otherwise>
@@ -176,13 +176,13 @@
         <c:choose>
           <c:when test="${not empty uploads}">
             <c:forEach var="track" items="${uploads}">
-              <div class="track-card">
+              <a href="track.jsp?id=${track.trackId}" class="track-card" style="text-decoration: none; color: inherit; cursor: pointer;" data-track-id="${track.trackId}">
                 <img src="${not empty track.artworkUrl ? track.artworkUrl : 'assets/img/track1.jpg'}" alt="upload">
                 <div>
                   <p class="track-title">${track.title}</p>
                   <p class="track-artist">${track.artist}</p>
                 </div>
-              </div>
+              </a>
             </c:forEach>
           </c:when>
           <c:otherwise>

@@ -69,175 +69,20 @@
 				<!-- Content with Sidebar Layout -->
 				<div class="row">
 					<div class="col-lg-8">
-						<!-- Related Tracks List -->
-						<div class="related-tracks">
-							<div class="track-item">
-								<img src="assets/img/avt_travis-scott.jpg" alt="Artist" class="track-thumbnail">
-								<div class="track-number">1</div>
-								<button class="track-play-btn"><i class="bi bi-play-fill"></i></button>
-								<div class="track-info">
-									<div class="track-title">JVKE (Luminous Echoes)</div>
-									<div class="track-artist">her</div>
+						<!-- Related Tracks List (will be loaded dynamically) -->
+						<div class="related-tracks" id="tracksContainer">
+							<div class="text-center p-4">
+								<div class="spinner-border text-primary" role="status">
+									<span class="visually-hidden">Loading...</span>
 								</div>
-								<div class="track-actions">
-									<button class="btn-track-action"><i class="bi bi-heart"></i></button>
-									<button class="btn-track-action"><i class="bi bi-arrow-repeat"></i></button>
-									<button class="btn-track-action"><i class="bi bi-share"></i></button>
-									<%@ include file="track_dropdown_menu.jsp" %>
-									<div class="track-stats">
-										<i class="bi bi-play-fill"></i> 856K
-									</div>
-								</div>
-							</div>
-
-							<div class="track-item">
-								<img src="assets/img/avt_bad-bunny.jpg" alt="Artist" class="track-thumbnail">
-								<div class="track-number">2</div>
-								<button class="track-play-btn"><i class="bi bi-play-fill"></i></button>
-								<div class="track-info">
-									<div class="track-title">DAISY </div>
-									<div class="track-artist">From the start - Speed up</div>
-								</div>
-								<div class="track-actions">
-									<button class="btn-track-action"><i class="bi bi-heart"></i></button>
-									<button class="btn-track-action"><i class="bi bi-arrow-repeat"></i></button>
-									<button class="btn-track-action"><i class="bi bi-share"></i></button>
-									<%@ include file="track_dropdown_menu.jsp" %>
-									<div class="track-stats">
-										<i class="bi bi-play-fill"></i> 374M
-									</div>
-								</div>
-							</div>
-
-							<div class="track-item">
-								<img src="assets/img/avt_doja-cat.png" alt="Artist" class="track-thumbnail">
-								<div class="track-number">3</div>
-								<button class="track-play-btn"><i class="bi bi-play-fill"></i></button>
-								<div class="track-info">
-									<div class="track-title">j*ckG</div>
-									<div class="track-artist">golden hour + this is what heartbreak feels like [chilled] - JVKE</div>
-								</div>
-								<div class="track-actions">
-									<button class="btn-track-action"><i class="bi bi-heart"></i></button>
-									<button class="btn-track-action"><i class="bi bi-arrow-repeat"></i></button>
-									<button class="btn-track-action"><i class="bi bi-share"></i></button>
-									<%@ include file="track_dropdown_menu.jsp" %>
-									<div class="track-stats">
-										<i class="bi bi-play-fill"></i> 566K
-									</div>
-								</div>
-							</div>
-
-							<div class="track-item">
-								<img src="assets/img/avt_travis-scott.jpg" alt="Artist" class="track-thumbnail">
-								<div class="track-number">4</div>
-								<button class="track-play-btn"><i class="bi bi-play-fill"></i></button>
-								<div class="track-info">
-									<div class="track-title">iTDubzTi</div>
-									<div class="track-artist">Harry Styles - As It Was (Slowed)</div>
-								</div>
-								<div class="track-actions">
-									<button class="btn-track-action"><i class="bi bi-heart"></i></button>
-									<button class="btn-track-action"><i class="bi bi-arrow-repeat"></i></button>
-									<button class="btn-track-action"><i class="bi bi-share"></i></button>
-									<%@ include file="track_dropdown_menu.jsp" %>
-									<div class="track-stats">
-										<i class="bi bi-play-fill"></i> 176K
-									</div>
-								</div>
-							</div>
-
-							<div class="track-item">
-								<img src="assets/img/avt_bad-bunny.jpg" alt="Artist" class="track-thumbnail">
-								<div class="track-number">5</div>
-								<button class="track-play-btn"><i class="bi bi-play-fill"></i></button>
-								<div class="track-info">
-									<div class="track-title">furthermore</div>
-									<div class="track-artist">d4vd - here with me (slowed + reverb)</div>
-								</div>
-								<div class="track-actions">
-									<button class="btn-track-action"><i class="bi bi-heart"></i></button>
-									<button class="btn-track-action"><i class="bi bi-arrow-repeat"></i></button>
-									<button class="btn-track-action"><i class="bi bi-share"></i></button>
-									<%@ include file="track_dropdown_menu.jsp" %>
-									<div class="track-stats">
-										<i class="bi bi-play-fill"></i> 879K
-									</div>
-								</div>
-							</div>
-
-							<div class="track-item">
-								<img src="assets/img/avt_doja-cat.png" alt="Artist" class="track-thumbnail">
-								<div class="track-number">6</div>
-								<button class="track-play-btn"><i class="bi bi-play-fill"></i></button>
-								<div class="track-info">
-									<div class="track-title">M E L V S S A</div>
-									<div class="track-artist">JVKE - Golden Hour</div>
-								</div>
-								<div class="track-actions">
-									<button class="btn-track-action"><i class="bi bi-heart"></i></button>
-									<button class="btn-track-action"><i class="bi bi-arrow-repeat"></i></button>
-									<button class="btn-track-action"><i class="bi bi-share"></i></button>
-									<%@ include file="track_dropdown_menu.jsp" %>
-									<div class="track-stats">
-										<i class="bi bi-play-fill"></i> 723M
-									</div>
-								</div>
+								<p class="text-muted mt-2">Đang tải danh sách bài hát...</p>
 							</div>
 						</div>
 					</div>
 
 					<div class="col-lg-4">
-						<!-- Sidebar -->
-						<div class="playlist-sidebar">
-							<!-- Made For -->
-							<div class="sidebar-section">
-								<div class="made-for">
-									<img src="assets/img/profile_avatar.jpg" alt="User" class="made-for-avatar">
-									<span>Được tạo bởi Bảo Lâm</span>
-								</div>
-							</div>
-
-							<!-- Artists Featured -->
-							<div class="sidebar-section">
-								<h3 class="sidebar-title">Các nghệ sĩ nổi bật</h3>
-								
-								<div class="artist-item">
-									<img src="assets/img/avt_travis-scott.jpg" alt="Artist" class="artist-avatar">
-									<div class="artist-info">
-										<div class="artist-name">JVKE (Luminous Echoes)</div>
-										<div class="artist-stats">
-											<span><i class="bi bi-people-fill"></i> 716</span>
-											<span><i class="bi bi-music-note-beamed"></i> 45</span>
-										</div>
-									</div>
-									<button class="btn-follow">Follow</button>
-								</div>
-
-								<div class="artist-item">
-									<img src="assets/img/avt_bad-bunny.jpg" alt="Artist" class="artist-avatar">
-									<div class="artist-info">
-										<div class="artist-name">DAISY ||</div>
-										<div class="artist-stats">
-											<span><i class="bi bi-people-fill"></i> 2,340</span>
-											<span><i class="bi bi-music-note-beamed"></i> 15</span>
-										</div>
-									</div>
-									<button class="btn-follow">Follow</button>
-								</div>
-
-								<div class="artist-item">
-									<img src="assets/img/avt_doja-cat.png" alt="Artist" class="artist-avatar">
-									<div class="artist-info">
-										<div class="artist-name">j*ckG</div>
-										<div class="artist-stats">
-											<span><i class="bi bi-people-fill"></i> 776</span>
-											<span><i class="bi bi-music-note-beamed"></i> 32</span>
-										</div>
-									</div>
-									<button class="btn-follow">Follow</button>
-								</div>
-							</div>
+						<div class="playlist-sidebar" id="playlistSidebar">
+							<!-- Sidebar content will be loaded dynamically -->
 						</div>
 					</div>
 				</div>
@@ -250,10 +95,150 @@
 	<%@ include file="footer.jsp" %>
 	<script src="assets/js/app.js"></script>
 	<script>
+		let playlistData = null;
+		let playlistTracks = [];
+
 		// Playlist Detail Page JavaScript
 		document.addEventListener('DOMContentLoaded', function() {
+			loadPlaylistDetail();
 			initPlaylistDetailPage();
 		});
+
+		// Load playlist data từ API
+		function loadPlaylistDetail() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const playlistId = urlParams.get('id');
+			
+			console.log('Playlist ID from URL:', playlistId);
+			console.log('Current URL:', window.location.href);
+			
+			if (!playlistId) {
+				document.getElementById('tracksContainer').innerHTML = '<div class="text-danger p-4"><i class="bi bi-exclamation-triangle"></i> Không có ID playlist trong URL</div>';
+				document.querySelector('.playlist-hero-title').textContent = 'Playlist không tồn tại';
+				document.querySelector('.track-count-number').textContent = '0';
+				document.querySelector('.track-count-time').textContent = '0:00';
+				return;
+			}
+
+			console.log('Loading playlist ID:', playlistId);
+			
+			// Load playlist info và tracks
+			fetch('api/playlists/' + playlistId + '/tracks', {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'include'
+			})
+			.then(response => {
+				console.log('API response status:', response.status);
+				if (!response.ok) {
+					throw new Error('HTTP error! status: ' + response.status);
+				}
+				return response.json();
+			})
+			.then(data => {
+				console.log('API data:', data);
+				
+				// Check if API returned error
+				if (data.success === false) {
+					throw new Error(data.error || 'Unknown error');
+				}
+				
+				playlistData = data;
+				playlistTracks = data.tracks || [];
+				
+				// Update header
+				document.querySelector('.playlist-hero-title').textContent = data.name || 'Playlist';
+				document.querySelector('.playlist-creator').textContent = data.description || 'Playlist của bạn';
+				document.querySelector('.track-count-number').textContent = playlistTracks.length;
+				
+				// Calculate total duration
+				const totalSeconds = playlistTracks.reduce((sum, t) => sum + (t.duration || 0), 0);
+				document.querySelector('.track-count-time').textContent = formatDuration(totalSeconds);
+				
+				// Update artwork - use playlist artwork or first track artwork
+				const artworkImg = document.querySelector('.playlist-artwork-img');
+				if (data.artworkUrl) {
+					artworkImg.src = data.artworkUrl;
+				} else if (playlistTracks.length > 0 && playlistTracks[0].artworkUrl) {
+					artworkImg.src = playlistTracks[0].artworkUrl;
+				}
+				
+				// Render tracks
+				renderPlaylistTracks(playlistTracks);
+			})
+			.catch(error => {
+				console.error('Error loading playlist:', error);
+				document.getElementById('tracksContainer').innerHTML = '<div class="text-muted p-4">Không thể tải playlist: ' + error.message + '</div>';
+			});
+		}
+
+		// Render tracks list
+		function renderPlaylistTracks(tracks) {
+			const container = document.getElementById('tracksContainer');
+			
+			if (!tracks || tracks.length === 0) {
+				container.innerHTML = '<div class="text-muted p-4">Playlist này chưa có bài hát nào</div>';
+				return;
+			}
+			
+			container.innerHTML = '';
+			tracks.forEach((track, index) => {
+				const trackItem = createTrackItem(track, index + 1);
+				container.appendChild(trackItem);
+			});
+		}
+
+		// Create track item HTML
+		function createTrackItem(track, number) {
+			const div = document.createElement('div');
+			div.className = 'track-item';
+			div.dataset.trackId = track.trackId || track.id;
+			
+			const imgUrl = track.artworkUrl || 'assets/img/default-track.jpg';
+			const isFavorited = track.favorited || false;
+			const trackId = track.trackId || track.id;
+			
+			div.innerHTML = 
+				'<img src="' + imgUrl + '" alt="Track" class="track-thumbnail" onerror="this.src=\'assets/img/default-track.jpg\'">' +
+				'<div class="track-number">' + number + '</div>' +
+				'<button class="track-play-btn" data-track-id="' + trackId + '"><i class="bi bi-play-fill"></i></button>' +
+				'<div class="track-info">' +
+					'<div class="track-title">' + escapeHtml(track.title) + '</div>' +
+					'<div class="track-artist">' + escapeHtml(track.artist || '') + '</div>' +
+				'</div>' +
+				'<div class="track-actions">' +
+					'<button class="btn-track-action btn-like ' + (isFavorited ? 'liked' : '') + '" data-track-id="' + trackId + '">' +
+						'<i class="bi ' + (isFavorited ? 'bi-heart-fill' : 'bi-heart') + '"></i>' +
+					'</button>' +
+					'<button class="btn-track-action btn-add-queue" data-track-id="' + trackId + '">' +
+						'<i class="bi bi-plus-lg"></i>' +
+					'</button>' +
+					'<button class="btn-track-action btn-menu" data-track-id="' + trackId + '">' +
+						'<i class="bi bi-three-dots"></i>' +
+					'</button>' +
+					'<div class="track-stats">' +
+						'<i class="bi bi-play-fill"></i> ' + formatNumber(track.playCount || 0) +
+					'</div>' +
+				'</div>';
+			
+			// Event listeners
+			div.querySelector('.track-play-btn').addEventListener('click', (e) => {
+				e.stopPropagation();
+				playTrackById(track.trackId || track.id);
+			});
+			
+			div.querySelector('.btn-like').addEventListener('click', (e) => {
+				e.stopPropagation();
+				toggleFavorite(track.trackId || track.id, e.target.closest('.btn-like'));
+			});
+			
+			div.querySelector('.btn-add-queue').addEventListener('click', (e) => {
+				e.stopPropagation();
+				addToQueue(track.trackId || track.id);
+			});
+			
+			return div;
+		}
 
 		function initPlaylistDetailPage() {
 			// Hero play button - play all tracks
@@ -263,19 +248,6 @@
 					playAllTracks();
 				});
 			}
-
-			// Track play buttons
-			document.querySelectorAll('.track-play-btn').forEach(btn => {
-				btn.addEventListener('click', function(e) {
-					e.preventDefault();
-					e.stopPropagation();
-					const trackItem = this.closest('.track-item');
-					const trackId = trackItem.dataset.trackId;
-					if (trackId) {
-						playTrackById(trackId);
-					}
-				});
-			});
 
 			// Add to queue button
 			const addToQueueBtn = document.querySelector('.btn-action-large .bi-justify')?.closest('button');
@@ -396,6 +368,88 @@
 			alertDiv.innerHTML = message + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
 			document.body.appendChild(alertDiv);
 			setTimeout(() => alertDiv.remove(), 3000);
+		}
+
+		// Toggle favorite
+		function toggleFavorite(trackId, button) {
+			fetch('api/favorites/toggle', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ trackId: parseInt(trackId) }),
+				credentials: 'include'
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					const icon = button.querySelector('i');
+					if (data.favorited) {
+						button.classList.add('liked');
+						icon.className = 'bi bi-heart-fill';
+						showNotification('Đã thêm vào yêu thích');
+					} else {
+						button.classList.remove('liked');
+						icon.className = 'bi bi-heart';
+						showNotification('Đã bỏ yêu thích');
+					}
+				}
+			})
+			.catch(error => {
+				console.error('Error toggling favorite:', error);
+				showNotification('Lỗi khi cập nhật yêu thích', 'error');
+			});
+		}
+
+		// Add single track to queue
+		function addToQueue(trackId) {
+			fetch('api/tracks/' + trackId, {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'include'
+			})
+			.then(response => response.json())
+			.then(track => {
+				const trackData = {
+					trackId: track.trackId || track.id,
+					title: track.title,
+					artist: track.artist,
+					audioFileUrl: track.audioFileUrl || track.audioUrl,
+					coverImageUrl: track.artworkUrl || 'assets/img/default-track.jpg',
+					duration: track.duration || 0
+				};
+				
+				if (typeof BeatFlowPlayer !== 'undefined') {
+					BeatFlowPlayer.addToQueue(trackData);
+					showNotification('Đã thêm "' + track.title + '" vào danh sách chờ');
+				}
+			})
+			.catch(error => {
+				console.error('Error adding to queue:', error);
+				showNotification('Không thể thêm vào danh sách chờ', 'error');
+			});
+		}
+
+		// Helper functions
+		function escapeHtml(text) {
+			if (!text) return '';
+			const div = document.createElement('div');
+			div.textContent = text;
+			return div.innerHTML;
+		}
+
+		function formatDuration(seconds) {
+			const hours = Math.floor(seconds / 3600);
+			const mins = Math.floor((seconds % 3600) / 60);
+			const secs = seconds % 60;
+			if (hours > 0) {
+				return hours + ':' + (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+			}
+			return mins + ':' + (secs < 10 ? '0' : '') + secs;
+		}
+
+		function formatNumber(num) {
+			if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+			if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+			return num.toString();
 		}
 	</script>
 </body>

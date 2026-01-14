@@ -283,16 +283,16 @@ const BeatFlowPlayer = (function() {
 		}
 		if (elements.trackTitleLink) {
 			elements.trackTitleLink.textContent = track.title || 'Unknown Track';
-			elements.trackTitleLink.href = 'track?id=' + (track.trackId || track.id);
+			elements.trackTitleLink.href = 'track.jsp?id=' + (track.trackId || track.id);
 			elements.trackTitleLink.title = track.title;
 		}
 		if (elements.artistLink) {
 			elements.artistLink.textContent = track.artist || 'Unknown Artist';
-			elements.artistLink.href = 'profile?user=' + (track.uploaderUsername || track.artist);
+			elements.artistLink.href = 'profile.jsp?user=' + (track.uploaderUsername || track.artist);
 			elements.artistLink.title = 'Xem profile: ' + (track.artist || '');
 		}
 		if (elements.trackDetailLink) {
-			elements.trackDetailLink.href = 'track?id=' + (track.trackId || track.id);
+			elements.trackDetailLink.href = 'track.jsp?id=' + (track.trackId || track.id);
 		}
 
 		// Update document title

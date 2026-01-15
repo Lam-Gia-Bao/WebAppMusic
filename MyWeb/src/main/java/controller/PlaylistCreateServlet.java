@@ -42,6 +42,16 @@ public class PlaylistCreateServlet extends HttpServlet {
         String description = req.getParameter("description");
         boolean isPublic = Boolean.parseBoolean(req.getParameter("isPublic"));
         String artwork = req.getParameter("artworkUrl");
+        // Lấy danh sách trackId nếu có (ví dụ: trackIds=1,2,3)
+        String trackIdsParam = req.getParameter("trackIds");
+        java.util.List<Long> trackIds = new java.util.ArrayList<>();
+        if (trackIdsParam != null && !trackIdsParam.isBlank()) {
+            for (String tid : trackIdsParam.split(",")) {
+                try {
+                    trackIds.add(Long.parseLong(tid.trim()));
+                } catch (NumberFormatException ignore) {}
+            }
+        }
 
         if (name == null || name.isBlank()) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Tên playlist không hợp lệ");
@@ -49,7 +59,7 @@ public class PlaylistCreateServlet extends HttpServlet {
         }
 
         try {
-            long newPlaylistId = playlistService.createPlaylist(userId, name.trim(), description == null ? "" : description.trim(), isPublic, artwork);
+            long newPlaylistId = playlistService.createPlaylist(userId, name.trim(), description == null ? "" : description.trim(), isPublic, artwork, trackIds);
             
             System.out.println("[PlaylistCreateServlet] Created playlist ID: " + newPlaylistId + " for user: " + userId);
             

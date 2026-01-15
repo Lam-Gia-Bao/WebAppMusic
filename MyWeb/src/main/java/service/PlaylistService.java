@@ -35,8 +35,17 @@ public class PlaylistService {
 		return dao.findTracksWithDetails(playlistId);
 	}
 
-	public void addTrackToPlaylist(long playlistId, long trackId) {
-		dao.addTrackToPlaylist(playlistId, trackId);
+	       public void addTrackToPlaylist(long playlistId, long trackId) {
+		       dao.addTrackToPlaylist(playlistId, trackId);
+		       // Nếu playlist chưa có hình, cập nhật artwork bằng hình của bài hát đầu tiên
+		       Playlist playlist = dao.findById(playlistId);
+		       if (playlist != null && (playlist.getArtworkUrl() == null || playlist.getArtworkUrl().isBlank())) {
+			       Track track = trackDAO.getTrackById((int) trackId);
+			       if (track != null && track.getArtworkUrl() != null && !track.getArtworkUrl().isBlank()) {
+				       // Cập nhật artwork cho playlist
+				       dao.updatePlaylist(playlistId, playlist.getUserId(), playlist.getName(), playlist.getDescription(), playlist.isPublic(), track.getArtworkUrl());
+			       }
+		       }
 	}
 
 	/**
@@ -55,8 +64,23 @@ public class PlaylistService {
 	/**
 	 * Create a new playlist
 	 */
-	public long createPlaylist(long userId, String name, String description, boolean isPublic, String artworkUrl) {
-		return dao.createPlaylist(userId, name, description, isPublic, artworkUrl);
+	       public long createPlaylist(long userId, String name, String description, boolean isPublic, String artworkUrl, List<Long> trackIds) {
+		       String finalArtwork = artworkUrl;
+		       // Nếu không có artworkUrl, lấy artwork của bài hát đầu tiên (nếu có track)
+		       if ((artworkUrl == null || artworkUrl.isBlank()) && trackIds != null && !trackIds.isEmpty()) {
+			       Track firstTrack = trackDAO.getTrackById(trackIds.get(0).intValue());
+			       if (firstTrack != null && firstTrack.getArtworkUrl() != null && !firstTrack.getArtworkUrl().isBlank()) {
+				       finalArtwork = firstTrack.getArtworkUrl();
+			       }
+		       }
+		       long playlistId = dao.createPlaylist(userId, name, description, isPublic, finalArtwork);
+		       // Thêm các track vào playlist nếu có
+		       if (playlistId > 0 && trackIds != null) {
+			       for (Long tid : trackIds) {
+				       dao.addTrackToPlaylist(playlistId, tid);
+			       }
+		       }
+		       return playlistId;
 	}
 
 	/**

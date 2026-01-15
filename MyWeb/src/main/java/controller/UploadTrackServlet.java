@@ -33,7 +33,8 @@ import model.Track;
 )
 public class UploadTrackServlet extends HttpServlet {
     
-    private static final String UPLOAD_DIR = "uploads";
+    // Thư mục lưu trữ cố định
+    private static final String PERSISTENT_UPLOAD_DIR = "D:/Web/uploads";
     private static final String AUDIO_DIR = "audio";
     private static final String ARTWORK_DIR = "artwork";
     
@@ -64,12 +65,15 @@ public class UploadTrackServlet extends HttpServlet {
         int userId = (int) userIdOpt.getAsLong();
         
         try {
-            // Create upload directories
-            String appPath = request.getServletContext().getRealPath("");
-            Path audioPath = Paths.get(appPath, UPLOAD_DIR, AUDIO_DIR);
-            Path artworkPath = Paths.get(appPath, UPLOAD_DIR, ARTWORK_DIR);
+            // Tạo thư mục uploads cố định
+            Path audioPath = Paths.get(PERSISTENT_UPLOAD_DIR, AUDIO_DIR);
+            Path artworkPath = Paths.get(PERSISTENT_UPLOAD_DIR, ARTWORK_DIR);
+            
             Files.createDirectories(audioPath);
             Files.createDirectories(artworkPath);
+            
+            System.out.println("[UploadTrack] Audio path: " + audioPath.toAbsolutePath());
+            System.out.println("[UploadTrack] Artwork path: " + artworkPath.toAbsolutePath());
             
             // Get form fields
             String trackTitle = getPartValue(request.getPart("trackTitle"));
@@ -90,10 +94,15 @@ public class UploadTrackServlet extends HttpServlet {
             if (audioPart != null && audioPart.getSize() > 0) {
                 String audioFileName = UUID.randomUUID().toString() + "_" + getFileName(audioPart);
                 Path audioFilePath = audioPath.resolve(audioFileName);
+                System.out.println("[UploadTrack] Saving audio to: " + audioFilePath);
                 try (InputStream input = audioPart.getInputStream()) {
                     Files.copy(input, audioFilePath, StandardCopyOption.REPLACE_EXISTING);
                 }
-                audioFileUrl = UPLOAD_DIR + "/" + AUDIO_DIR + "/" + audioFileName;
+                System.out.println("[UploadTrack] Audio saved successfully!");
+                // URL dùng MediaServlet để serve file
+                audioFileUrl = "media/audio/" + audioFileName;
+            } else {
+                System.out.println("[UploadTrack] No audio file uploaded or file is empty");
             }
             
             // Handle artwork upload
@@ -102,10 +111,13 @@ public class UploadTrackServlet extends HttpServlet {
             if (artworkPart != null && artworkPart.getSize() > 0) {
                 String artworkFileName = UUID.randomUUID().toString() + "_" + getFileName(artworkPart);
                 Path artworkFilePath = artworkPath.resolve(artworkFileName);
+                System.out.println("[UploadTrack] Saving artwork to: " + artworkFilePath);
                 try (InputStream input = artworkPart.getInputStream()) {
                     Files.copy(input, artworkFilePath, StandardCopyOption.REPLACE_EXISTING);
                 }
-                artworkUrl = UPLOAD_DIR + "/" + ARTWORK_DIR + "/" + artworkFileName;
+                System.out.println("[UploadTrack] Artwork saved successfully!");
+                // URL dùng MediaServlet để serve file
+                artworkUrl = "media/artwork/" + artworkFileName;
             }
             
             // Create Track object

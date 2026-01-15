@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%-- Disable EL in script sections by using backslash escape --%>
 <!-- Hidden Audio Element -->
 <audio id="audioPlayer" preload="metadata"></audio>

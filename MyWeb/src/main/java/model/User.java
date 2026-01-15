@@ -14,6 +14,7 @@ public class User {
     private String fullName;
     private String profileImage;
     private String bio;
+    private String role; // 'user' or 'admin'
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
@@ -110,6 +111,18 @@ public class User {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean isAdmin() {
+        return "admin".equalsIgnoreCase(this.role);
     }
 
     @Override

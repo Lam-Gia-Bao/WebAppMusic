@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,15 +27,11 @@
 			<h2>Đăng nhập BeatFlow</h2>
 
 			<!-- HIỂN THỊ LỖI -->
-			<%
-			if (request.getAttribute("error") != null) {
-			%>
+			<c:if test="${not empty error}">
 			<div class="error-box">
-				<%=request.getAttribute("error")%>
+				${error}
 			</div>
-			<%
-			}
-			%>
+			</c:if>
 
 			<input type="text" name="username" placeholder="Tên đăng nhập"
 				required> <input type="password" name="password"

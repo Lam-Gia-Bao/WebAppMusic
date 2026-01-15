@@ -1,18 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="jakarta.servlet.http.HttpSession"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%-- Kiểm tra đăng nhập - redirect nếu chưa login --%>
 <%
-// Kiểm tra phiên đăng nhập
-HttpSession sess = request.getSession(false);
-String username = null;
-if (sess != null) {
-	username = (String) sess.getAttribute("user");
-}
-if (username == null) {
-	response.sendRedirect("login");
-	return;
-}
+    if (session.getAttribute("user") == null) {
+        response.sendRedirect("login");
+        return;
+    }
+    String currentUser = (String) session.getAttribute("user");
+    Boolean isAdminSession = (Boolean) session.getAttribute("isAdmin");
+    boolean isAdmin = (isAdminSession != null && isAdminSession) || 
+                      (currentUser != null && currentUser.equalsIgnoreCase("admin"));
+    if (isAdmin && isAdminSession == null) {
+        session.setAttribute("isAdmin", true);
+    }
+    request.setAttribute("isAdmin", isAdmin);
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,37 +41,67 @@ if (username == null) {
 </head>
 <body>
 	<%@ include file="header.jsp"%>
+	
+	<!-- Admin Quick Access Button (chỉ hiển thị cho admin) -->
+	<% if (isAdmin) { %>
+	<a href="admin.jsp" class="admin-floating-btn" title="Trang quản trị">
+		<i class="bi bi-shield-lock-fill"></i>
+		<span>Admin</span>
+	</a>
+	<style>
+		.admin-floating-btn {
+			position: fixed;
+			bottom: 100px;
+			right: 30px;
+			background: linear-gradient(135deg, #ff6a00, #ee0979);
+			color: white;
+			padding: 12px 20px;
+			border-radius: 50px;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-weight: 600;
+			font-size: 14px;
+			box-shadow: 0 4px 15px rgba(255, 106, 0, 0.4);
+			z-index: 9999;
+			transition: all 0.3s ease;
+		}
+		.admin-floating-btn:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 6px 20px rgba(255, 106, 0, 0.6);
+			color: white;
+		}
+		.admin-floating-btn i {
+			font-size: 18px;
+		}
+	</style>
+	<% } %>
 
 	<div class="container home-wrapper">
 		<div class="row">
 			<!-- Left Column: playlists -->
 			<div class="col-lg-8">
 				<!-- Thông báo khi thành công -->
-				<%
-				if (request.getAttribute("successMessage") != null) {
-				%>
+				<% String successMessage = (String) request.getAttribute("successMessage");
+				   if (successMessage != null && !successMessage.isEmpty()) { %>
 				<div class="alert alert-success alert-dismissible fade show"
 					role="alert">
-					<%=request.getAttribute("successMessage")%>
+					<%= successMessage %>
 					<button type="button" class="btn-close" data-bs-dismiss="alert"
 						aria-label="Close"></button>
 				</div>
-				<%
-				}
-				%>
+				<% } %>
 				<!-- Thông báo lỗi -->
-				<%
-				if (request.getAttribute("errorMessage") != null) {
-				%>
+				<% String errorMessage = (String) request.getAttribute("errorMessage");
+				   if (errorMessage != null && !errorMessage.isEmpty()) { %>
 				<div class="alert alert-danger alert-dismissible fade show"
 					role="alert">
-					<%=request.getAttribute("errorMessage")%>
+					<%= errorMessage %>
 					<button type="button" class="btn-close" data-bs-dismiss="alert"
 						aria-label="Close"></button>
 				</div>
-				<%
-				}
-				%>
+				<% } %>
 
 				<h2 class="section-title">Khám phá các bản nhạc và danh sách
 					phát</h2>
@@ -729,12 +765,11 @@ if (username == null) {
 		function showPlaylistMenu(button) {
 			const menu = document.createElement('div');
 			menu.className = 'playlist-menu';
-			menu.innerHTML = `
-				<a href="#" class="menu-item">Thêm vào playlist</a>
-				<a href="#" class="menu-item">Chia sẻ</a>
-				<a href="#" class="menu-item">Sao chép liên kết</a>
-				<a href="#" class="menu-item">Báo cáo</a>
-			`;
+			menu.innerHTML = 
+				'<a href="#" class="menu-item">Thêm vào playlist</a>' +
+				'<a href="#" class="menu-item">Chia sẻ</a>' +
+				'<a href="#" class="menu-item">Sao chép liên kết</a>' +
+				'<a href="#" class="menu-item">Báo cáo</a>';
 			// Có thể sử dụng Bootstrap dropdown hoặc custom context menu
 		}
 

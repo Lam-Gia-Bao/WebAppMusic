@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Timestamp;
+
 public class Playlist {
     private long id;
     private String name;
@@ -8,6 +10,9 @@ public class Playlist {
     private String imagePath;
     private boolean isPublic;
     private int trackCount;
+    private long userId;
+    private String ownerUsername;
+    private Timestamp createdAt;
 
     public Playlist() {}
 
@@ -28,6 +33,9 @@ public class Playlist {
     public String getImagePath() { return imagePath; }
     public boolean isPublic() { return isPublic; }
     public int getTrackCount() { return trackCount; }
+    public long getUserId() { return userId; }
+    public String getOwnerUsername() { return ownerUsername; }
+    public Timestamp getCreatedAt() { return createdAt; }
 
     public void setId(long id) { this.id = id; }
     public void setName(String name) { this.name = name; }
@@ -42,4 +50,7 @@ public class Playlist {
     }
     public void setPublic(boolean aPublic) { isPublic = aPublic; }
     public void setTrackCount(int trackCount) { this.trackCount = trackCount; }
+    public void setUserId(long userId) { this.userId = userId; }
+    public void setOwnerUsername(String ownerUsername) { this.ownerUsername = ownerUsername; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 }

@@ -1,5 +1,4 @@
 <%-- Right Column: Trending Artists and Listening History --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="col-lg-4">
     <h2 class="section-title artist-section-title">Các nghệ sĩ thịnh hành</h2>
     <button class="btn-refresh-artists mb-3">

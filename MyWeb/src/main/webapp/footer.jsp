@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- Footer -->
 <footer class="py-4" style="background: #0d0d0d; color: #bbb; font-size: 0.9rem;">
 	<div class="container text-center">

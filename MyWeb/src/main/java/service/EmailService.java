@@ -1,5 +1,9 @@
 package service;
 
+import java.io.InputStream;
+import java.util.Optional;
+import java.util.Properties;
+
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -8,10 +12,6 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-
-import java.io.InputStream;
-import java.util.Optional;
-import java.util.Properties;
 
 /**
  * Lightweight email sender for registration flow.
@@ -32,11 +32,33 @@ public class EmailService {
 
     private void loadProperties() {
         // Load from classpath mail.properties if present
-        try (InputStream in = EmailService.class.getClassLoader().getResourceAsStream("mail.properties")) {
+        InputStream in = null;
+        try {
+            // Try multiple classloaders
+            in = Thread.currentThread().getContextClassLoader().getResourceAsStream("mail.properties");
+            if (in == null) {
+                in = EmailService.class.getClassLoader().getResourceAsStream("mail.properties");
+            }
+            if (in == null) {
+                in = EmailService.class.getResourceAsStream("/mail.properties");
+            }
+            
             if (in != null) {
                 props.load(in);
+                System.out.println("EmailService: mail.properties loaded successfully");
+                System.out.println("EmailService: mail.enabled=" + props.getProperty("mail.enabled"));
+                System.out.println("EmailService: mail.smtp.host=" + props.getProperty("mail.smtp.host"));
+                System.out.println("EmailService: mail.smtp.user=" + props.getProperty("mail.smtp.user"));
+            } else {
+                System.err.println("EmailService: mail.properties NOT FOUND in classpath!");
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            System.err.println("EmailService: Error loading mail.properties: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try { in.close(); } catch (Exception ignored) {}
+            }
         }
         // Env overrides (if provided)
         putIfPresent("mail.enabled", System.getenv("MAIL_ENABLED"));

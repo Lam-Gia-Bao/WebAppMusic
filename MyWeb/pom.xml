@@ -43,18 +43,18 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSTL 3.0 for Jakarta EE 9+/Tomcat 10+ -->
+        <!-- JSTL 2.0 for Jakarta EE 9+/Tomcat 10+ (supports old URI http://java.sun.com/jsp/jstl/core) -->
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-            <version>3.0.0</version>
+            <version>2.0.0</version>
         </dependency>
 
         <!-- JSTL Implementation -->
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-            <version>3.0.1</version>
+            <version>2.0.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>jakarta.servlet.jsp.jstl</groupId>

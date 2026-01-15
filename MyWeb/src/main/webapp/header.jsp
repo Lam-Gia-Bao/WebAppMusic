@@ -1,18 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="jakarta.servlet.http.HttpSession" %>
-<%
-	// Lấy thông tin người dùng từ session (header)
-	HttpSession headerSess = request.getSession(false);
-	String headerUsername = null;
-	String headerUserAvatar = null;
-	if (headerSess != null) {
-		headerUsername = (String) headerSess.getAttribute("user");
-		headerUserAvatar = (String) headerSess.getAttribute("avatar");
-	}
-	if (headerUserAvatar == null) {
-		headerUserAvatar = "assets/img/profile_avatar.jpg";
-	}
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%-- Set default avatar nếu chưa có --%>
+<c:set var="headerUserAvatar" value="${not empty sessionScope.avatar ? sessionScope.avatar : 'assets/img/profile_avatar.jpg'}" />
+<c:set var="headerUsername" value="${sessionScope.user}" />
+<c:set var="headerIsAdmin" value="${sessionScope.isAdmin}" />
+
+<%-- Fallback: nếu username là 'admin' thì coi như admin --%>
+<c:if test="${empty headerIsAdmin and not empty headerUsername and fn:toLowerCase(headerUsername) eq 'admin'}">
+	<c:set var="headerIsAdmin" value="true" />
+</c:if>
+
 <!-- NAVBAR -->
 <nav class="site-nav">
 	<div class="container d-flex align-items-center justify-content-between">
@@ -25,6 +23,9 @@
 				<li class="nav-item"><a class="nav-link active" href="login_home.jsp">Trang chủ</a></li>
 				<li class="nav-item"><a class="nav-link" href="feed.jsp">Tin tức</a></li>
 				<li class="nav-item"><a class="nav-link" href="library">Thư viện</a></li>
+				<c:if test="${headerIsAdmin}">
+				<li class="nav-item"><a class="nav-link" href="admin.jsp" style="color: #ff6a00; font-weight: 600;"><i class="bi bi-shield-lock me-1"></i>Quản lý</a></li>
+				</c:if>
 			</ul>
 		</div>
 		<div class="flex-grow-1 px-4">
@@ -37,7 +38,7 @@
 			<a href="profile" class="nav-function-link">Dành cho nghệ sĩ</a>
 			<a href="upload.jsp" class="nav-function-link">Đăng tải</a>
 			<button class="btn-icon-nav" onclick="window.location.href='profile'" title="Trang cá nhân">
-				<img src="<%= headerUserAvatar %>" alt="Profile" class="profile-avatar-small" onerror="this.src='assets/img/profile_avatar.jpg'">
+				<img src="${headerUserAvatar}" alt="Profile" class="profile-avatar-small" onerror="this.src='assets/img/profile_avatar.jpg'">
 			</button>
 			<!-- User Menu Dropdown -->
 			<div class="dropdown-container">
@@ -47,8 +48,18 @@
 				<!-- Dropdown Menu -->
 				<div class="dropdown-menu-custom" id="dropdownMenu" role="menu">
 					<div style="padding: 10px 15px; border-bottom: 1px solid #e0e0e0; font-weight: 500;">
-						<span id="userDisplayName"><%= headerUsername != null ? headerUsername : "Người dùng" %></span>
+						<span id="userDisplayName"><c:out value="${not empty headerUsername ? headerUsername : 'Người dùng'}" /></span>
+						<c:if test="${headerIsAdmin}">
+						<span class="badge bg-danger ms-2" style="font-size: 10px;">Admin</span>
+						</c:if>
 					</div>
+					<c:if test="${headerIsAdmin}">
+						<a href="admin.jsp" class="dropdown-item-custom" style="background: rgba(255, 106, 0, 0.1);">
+						<i class="bi bi-shield-lock" style="color: #ff6a00;"></i>
+						<span style="color: #ff6a00; font-weight: 600;">Trang quản trị</span>
+					</a>
+					<hr style="margin: 5px 0;">
+					</c:if>
 					<a href="profile" class="dropdown-item-custom">
 						<i class="bi bi-person"></i>
 						<span>Trang cá nhân</span>
@@ -163,7 +174,7 @@
 		// Close menus when clicking outside
 		document.addEventListener('click', function(e) {
 			if (!e.target.closest('.dropdown-container')) {
-				document.querySelectorAll('.dropdown-menu-custom, .messages-dropdown').forEach(menu => {
+				document.querySelectorAll('.dropdown-menu-custom, .messages-dropdown').forEach(function(menu) {
 					menu.style.display = 'none';
 				});
 			}
@@ -189,8 +200,8 @@
 			},
 			credentials: 'include'
 		})
-		.then(response => response.json())
-		.then(data => {
+		.then(function(response) { return response.json(); })
+		.then(function(data) {
 			const badge = document.getElementById('notificationBadge');
 			const body = document.getElementById('notificationsBody');
 			
@@ -207,7 +218,7 @@
 				}).join('');
 			}
 		})
-		.catch(error => console.error('Error loading notifications:', error));
+		.catch(function(error) { console.error('Error loading notifications:', error); });
 	}
 
 	// Load messages từ database
@@ -219,8 +230,8 @@
 			},
 			credentials: 'include'
 		})
-		.then(response => response.json())
-		.then(data => {
+		.then(function(response) { return response.json(); })
+		.then(function(data) {
 			const badge = document.getElementById('messageBadge');
 			const body = document.getElementById('messagesBody');
 			
@@ -237,7 +248,7 @@
 				}).join('');
 			}
 		})
-		.catch(error => console.error('Error loading messages:', error));
+		.catch(function(error) { console.error('Error loading messages:', error); });
 	}
 
 	// Search functionality
@@ -249,21 +260,22 @@
 		searchInput.addEventListener('input', function(e) {
 			clearTimeout(debounceTimer);
 			if (this.value.length < 2) return;
+			var self = this;
 
-			debounceTimer = setTimeout(() => {
-				fetch('api/search/suggestions?q=' + encodeURIComponent(this.value), {
+			debounceTimer = setTimeout(function() {
+				fetch('api/search/suggestions?q=' + encodeURIComponent(self.value), {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json'
 					},
 					credentials: 'include'
 				})
-				.then(response => response.json())
-				.then(data => {
+				.then(function(response) { return response.json(); })
+				.then(function(data) {
 					// Có thể hiển thị suggestions dưới search input
 					console.log('Search suggestions:', data);
 				})
-				.catch(error => console.error('Error fetching suggestions:', error));
+				.catch(function(error) { console.error('Error fetching suggestions:', error); });
 			}, 300);
 		});
 	}
@@ -286,12 +298,12 @@
 				},
 				credentials: 'include'
 			})
-			.then(response => {
+			.then(function(response) {
 				if (response.ok) {
 					window.location.href = 'login';
 				}
 			})
-			.catch(error => {
+			.catch(function(error) {
 				console.error('Error logging out:', error);
 				// Force logout anyway
 				window.location.href = 'login';
@@ -314,7 +326,7 @@
 	}
 
 	// Refresh notifications and messages periodically
-	setInterval(() => {
+	setInterval(function() {
 		loadNotifications();
 		loadMessages();
 	}, 30000); // Every 30 seconds

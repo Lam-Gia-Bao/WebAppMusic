@@ -25,6 +25,7 @@ controller\PlaylistAPIServlet.class
 service\EmailService$1.class
 model\Artist.class
 dao\CommentDAO$CommentView.class
+controller\ProfileAPIServlet.class
 dao\PlaylistDAO.class
 dao\HistoryDAO.class
 util\DatabaseConnection.class

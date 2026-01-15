@@ -168,4 +168,79 @@ public class PlaylistDAO {
 				0
 		);
 	}
+
+	/**
+	 * Delete a playlist by ID (only owner can delete)
+	 */
+	public boolean deletePlaylist(long playlistId, long userId) {
+		// First delete all tracks from playlist
+		String deleteTracksSQL = "DELETE FROM playlist_tracks WHERE playlist_id = ?";
+		String deletePlaylistSQL = "DELETE FROM playlists WHERE playlist_id = ? AND user_id = ?";
+		
+		try (Connection c = Database.getConnection()) {
+			// Delete tracks first
+			try (PreparedStatement ps = c.prepareStatement(deleteTracksSQL)) {
+				ps.setLong(1, playlistId);
+				ps.executeUpdate();
+			}
+			// Delete playlist
+			try (PreparedStatement ps = c.prepareStatement(deletePlaylistSQL)) {
+				ps.setLong(1, playlistId);
+				ps.setLong(2, userId);
+				return ps.executeUpdate() > 0;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Lỗi xóa playlist: " + e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Remove a track from playlist
+	 */
+	public boolean removeTrackFromPlaylist(long playlistId, long trackId) {
+		String sql = "DELETE FROM playlist_tracks WHERE playlist_id = ? AND track_id = ?";
+		try (Connection c = Database.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setLong(1, playlistId);
+			ps.setLong(2, trackId);
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new RuntimeException("Lỗi xóa track khỏi playlist: " + e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Update playlist info
+	 */
+	public boolean updatePlaylist(long playlistId, long userId, String name, String description, boolean isPublic, String artworkUrl) {
+		String sql = "UPDATE playlists SET name = ?, description = ?, is_public = ?, artwork_url = ? WHERE playlist_id = ? AND user_id = ?";
+		try (Connection c = Database.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, name);
+			ps.setString(2, description);
+			ps.setBoolean(3, isPublic);
+			ps.setString(4, artworkUrl);
+			ps.setLong(5, playlistId);
+			ps.setLong(6, userId);
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new RuntimeException("Lỗi cập nhật playlist: " + e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Get playlist owner ID
+	 */
+	public long getPlaylistOwnerId(long playlistId) {
+		String sql = "SELECT user_id FROM playlists WHERE playlist_id = ?";
+		try (Connection c = Database.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setLong(1, playlistId);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return rs.getLong("user_id");
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return -1;
+	}
 }

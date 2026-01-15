@@ -66,4 +66,32 @@ public class PlaylistService {
 		// TODO: Implement search in DAO
 		return new ArrayList<>();
 	}
+
+	/**
+	 * Delete a playlist (only owner can delete)
+	 */
+	public boolean deletePlaylist(long playlistId, long userId) {
+		return dao.deletePlaylist(playlistId, userId);
+	}
+
+	/**
+	 * Remove a track from playlist
+	 */
+	public boolean removeTrackFromPlaylist(long playlistId, long trackId) {
+		return dao.removeTrackFromPlaylist(playlistId, trackId);
+	}
+
+	/**
+	 * Update playlist info
+	 */
+	public boolean updatePlaylist(long playlistId, long userId, String name, String description, boolean isPublic, String artworkUrl) {
+		return dao.updatePlaylist(playlistId, userId, name, description, isPublic, artworkUrl);
+	}
+
+	/**
+	 * Check if user owns the playlist
+	 */
+	public boolean isOwner(long playlistId, long userId) {
+		return dao.getPlaylistOwnerId(playlistId) == userId;
+	}
 }

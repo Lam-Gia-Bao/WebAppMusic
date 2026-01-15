@@ -33,6 +33,14 @@ public class LoginServlet extends HttpServlet {
       if (userService.authenticate(user, pass)) {
          HttpSession session = request.getSession(true);
          session.setAttribute("user", user);
+         
+         // Lưu avatar vào session
+         long userId = userService.getUserIdByUsername(user);
+         String avatarUrl = userService.getAvatarUrl(userId);
+         if (avatarUrl != null && !avatarUrl.isEmpty()) {
+            session.setAttribute("avatar", avatarUrl);
+         }
+         
          // Điều hướng sau đăng nhập: về trang home đã đăng nhập
          response.sendRedirect("login_home.jsp");
       } else {

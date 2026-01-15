@@ -73,4 +73,82 @@ public class UserDAO {
 			throw new RuntimeException("Lỗi tìm user ID: " + e.getMessage(), e);
 		}
 	}
+
+	/**
+	 * Get user avatar URL
+	 */
+	public Optional<String> getAvatarUrl(long userId) {
+		String sql = "SELECT profile_image FROM users WHERE user_id = ?";
+		try (Connection c = Database.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setLong(1, userId);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return Optional.ofNullable(rs.getString("profile_image"));
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Lỗi lấy avatar: " + e.getMessage(), e);
+		}
+		return Optional.empty();
+	}
+
+	/**
+	 * Update user avatar URL
+	 */
+	public boolean updateAvatarUrl(long userId, String avatarUrl) {
+		String sql = "UPDATE users SET profile_image = ? WHERE user_id = ?";
+		try (Connection c = Database.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, avatarUrl);
+			ps.setLong(2, userId);
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new RuntimeException("Lỗi cập nhật avatar: " + e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Update user email
+	 */
+	public boolean updateEmail(long userId, String newEmail) {
+		String sql = "UPDATE users SET email = ? WHERE user_id = ?";
+		try (Connection c = Database.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, newEmail);
+			ps.setLong(2, userId);
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new RuntimeException("Lỗi cập nhật email: " + e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Update user password
+	 */
+	public boolean updatePassword(long userId, String newPasswordHash) {
+		String sql = "UPDATE users SET password = ? WHERE user_id = ?";
+		try (Connection c = Database.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setString(1, newPasswordHash);
+			ps.setLong(2, userId);
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			throw new RuntimeException("Lỗi cập nhật mật khẩu: " + e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Get user email by ID
+	 */
+	public Optional<String> getEmailById(long userId) {
+		String sql = "SELECT email FROM users WHERE user_id = ?";
+		try (Connection c = Database.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+			ps.setLong(1, userId);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return Optional.ofNullable(rs.getString("email"));
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Lỗi lấy email: " + e.getMessage(), e);
+		}
+		return Optional.empty();
+	}
 }

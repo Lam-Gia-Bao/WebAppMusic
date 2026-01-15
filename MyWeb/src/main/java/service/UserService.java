@@ -38,4 +38,57 @@ public class UserService {
 				})
 				.orElse(false);
 	}
+
+	/**
+	 * Update user avatar
+	 */
+	public boolean updateAvatar(long userId, String avatarUrl) {
+		return dao.updateAvatarUrl(userId, avatarUrl);
+	}
+
+	/**
+	 * Update user email
+	 */
+	public boolean updateEmail(long userId, String newEmail) {
+		if (newEmail == null || newEmail.isBlank()) {
+			throw new IllegalArgumentException("Email không hợp lệ");
+		}
+		return dao.updateEmail(userId, newEmail.trim());
+	}
+
+	/**
+	 * Update user password
+	 */
+	public boolean updatePassword(long userId, String currentPassword, String newPassword, String username) {
+		if (newPassword == null || newPassword.length() < 6) {
+			throw new IllegalArgumentException("Mật khẩu mới phải từ 6 ký tự");
+		}
+		// Verify current password
+		if (!authenticate(username, currentPassword)) {
+			throw new IllegalArgumentException("Mật khẩu hiện tại không đúng");
+		}
+		String hash = HashUtil.sha256(newPassword);
+		return dao.updatePassword(userId, hash);
+	}
+
+	/**
+	 * Get user avatar URL
+	 */
+	public String getAvatarUrl(long userId) {
+		return dao.getAvatarUrl(userId).orElse(null);
+	}
+
+	/**
+	 * Get user email
+	 */
+	public String getEmail(long userId) {
+		return dao.getEmailById(userId).orElse(null);
+	}
+
+	/**
+	 * Get user ID by username
+	 */
+	public long getUserIdByUsername(String username) {
+		return dao.findUserIdByUsername(username).orElse(-1L);
+	}
 }

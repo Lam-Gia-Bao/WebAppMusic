@@ -146,7 +146,9 @@
                 <div class="charts-row">
                     <div class="chart-container">
                         <h4>Lượt nghe theo ngày (30 ngày gần nhất)</h4>
-                        <canvas id="playStatsChart"></canvas>
+                        <div class="chart-wrapper">
+                            <canvas id="playStatsChart"></canvas>
+                        </div>
                     </div>
                 </div>
 
@@ -309,7 +311,9 @@
                                     <option value="20">Top 20</option>
                                 </select>
                             </div>
-                            <canvas id="topTracksChart"></canvas>
+                            <div class="chart-wrapper">
+                                <canvas id="topTracksChart"></canvas>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
@@ -322,7 +326,9 @@
                                     <option value="20">Top 20</option>
                                 </select>
                             </div>
-                            <canvas id="activeUsersChart"></canvas>
+                            <div class="chart-wrapper">
+                                <canvas id="activeUsersChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -338,7 +344,9 @@
                                     <option value="90">90 ngày</option>
                                 </select>
                             </div>
-                            <canvas id="playStatsDetailChart"></canvas>
+                            <div class="chart-wrapper">
+                                <canvas id="playStatsDetailChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>

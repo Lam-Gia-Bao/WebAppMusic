@@ -13,6 +13,25 @@ var topTracksChart = null;
 var activeUsersChart = null;
 var playStatsDetailChart = null;
 
+// Configure Chart.js defaults to prevent continuous animation loop
+if (typeof Chart !== 'undefined') {
+    // Tắt hoàn toàn animation
+    Chart.defaults.animation = false;
+    Chart.defaults.animations = false;
+    Chart.defaults.transitions = {
+        active: {
+            animation: {
+                duration: 0
+            }
+        },
+        resize: {
+            animation: {
+                duration: 0
+            }
+        }
+    };
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     initializeSidebar();
@@ -177,7 +196,7 @@ function loadActiveUsersTable() {
                 html += '<td>' + (i + 1) + '</td>';
                 html += '<td>';
                 html += '<div class="d-flex align-items-center gap-2">';
-                html += '<img src="' + profileImg + '" alt="' + escapeHtml(user.username) + '" class="table-avatar" onerror="this.src=\'assets/img/profile_avatar.jpg\'">';
+                html += '<img src="' + profileImg + '" alt="' + escapeHtml(user.username) + '" class="table-avatar" onerror="this.onerror=null;this.src=\'assets/img/profile_avatar.jpg\'">';
                 html += escapeHtml(user.username);
                 html += '</div>';
                 html += '</td>';
@@ -226,6 +245,7 @@ function loadPlayStatsChart() {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: false,
                     plugins: {
                         legend: {
                             display: false
@@ -291,7 +311,7 @@ function renderUsersTable(users) {
         
         html += '<tr>';
         html += '<td>' + user.userId + '</td>';
-        html += '<td><img src="' + profileImg + '" alt="' + escapeHtml(user.username) + '" class="table-avatar" onerror="this.src=\'assets/img/profile_avatar.jpg\'"></td>';
+        html += '<td><img src="' + profileImg + '" alt="' + escapeHtml(user.username) + '" class="table-avatar" onerror="this.onerror=null;this.src=\'assets/img/profile_avatar.jpg\'"></td>';
         html += '<td>' + escapeHtml(user.username) + '</td>';
         html += '<td>' + escapeHtml(user.email) + '</td>';
         html += '<td>' + escapeHtml(user.fullName || 'N/A') + '</td>';
@@ -333,7 +353,7 @@ function viewUser(userId) {
             
             var html = '';
             html += '<div class="detail-header">';
-            html += '<img src="' + profileImg + '" alt="' + escapeHtml(user.username) + '" class="detail-avatar" onerror="this.src=\'assets/img/profile_avatar.jpg\'">';
+            html += '<img src="' + profileImg + '" alt="' + escapeHtml(user.username) + '" class="detail-avatar" onerror="this.onerror=null;this.src=\'assets/img/profile_avatar.jpg\'">';
             html += '<div class="detail-info">';
             html += '<h3>' + escapeHtml(user.username) + '</h3>';
             html += '<p><i class="bi bi-envelope me-2"></i>' + escapeHtml(user.email) + '</p>';
@@ -496,11 +516,11 @@ function renderTracksTable(tracks) {
     var html = '';
     for (var i = 0; i < tracks.length; i++) {
         var track = tracks[i];
-        var artworkUrl = track.artworkUrl || 'assets/img/default_artwork.jpg';
+        var artworkUrl = track.artworkUrl || 'assets/img/default-track.jpg';
         
         html += '<tr>';
         html += '<td>' + track.trackId + '</td>';
-        html += '<td><img src="' + artworkUrl + '" alt="' + escapeHtml(track.title) + '" class="table-artwork" onerror="this.src=\'assets/img/default_artwork.jpg\'"></td>';
+        html += '<td><img src="' + artworkUrl + '" alt="' + escapeHtml(track.title) + '" class="table-artwork" onerror="this.onerror=null;this.src=\'assets/img/default-track.jpg\'"></td>';
         html += '<td>' + escapeHtml(track.title) + '</td>';
         html += '<td>' + escapeHtml(track.artist || 'N/A') + '</td>';
         html += '<td>' + escapeHtml(track.genre || 'N/A') + '</td>';
@@ -537,11 +557,11 @@ function viewTrack(trackId) {
     fetch('admin/api/track/' + trackId)
         .then(function(response) { return response.json(); })
         .then(function(track) {
-            var artworkUrl = track.artworkUrl || 'assets/img/default_artwork.jpg';
+            var artworkUrl = track.artworkUrl || 'assets/img/default-track.jpg';
             
             var html = '';
             html += '<div class="detail-header">';
-            html += '<img src="' + artworkUrl + '" alt="' + escapeHtml(track.title) + '" class="detail-avatar" onerror="this.src=\'assets/img/default_artwork.jpg\'">';
+            html += '<img src="' + artworkUrl + '" alt="' + escapeHtml(track.title) + '" class="detail-avatar" onerror="this.onerror=null;this.src=\'assets/img/default-track.jpg\'">';
             html += '<div class="detail-info">';
             html += '<h3>' + escapeHtml(track.title) + '</h3>';
             html += '<p><i class="bi bi-person me-2"></i>' + escapeHtml(track.artist || 'N/A') + '</p>';
@@ -676,13 +696,13 @@ function renderPlaylistsTable(playlists) {
     var html = '';
     for (var i = 0; i < playlists.length; i++) {
         var playlist = playlists[i];
-        var artworkUrl = playlist.artworkUrl || 'assets/img/default_playlist.jpg';
+        var artworkUrl = playlist.artworkUrl || 'assets/img/default-playlist.jpg';
         var privacyClass = playlist.public ? 'badge-public' : 'badge-private';
         var privacyText = playlist.public ? 'Công khai' : 'Riêng tư';
         
         html += '<tr>';
         html += '<td>' + playlist.id + '</td>';
-        html += '<td><img src="' + artworkUrl + '" alt="' + escapeHtml(playlist.name) + '" class="table-artwork" onerror="this.src=\'assets/img/default_playlist.jpg\'"></td>';
+        html += '<td><img src="' + artworkUrl + '" alt="' + escapeHtml(playlist.name) + '" class="table-artwork" onerror="this.onerror=null;this.src=\'assets/img/default-playlist.jpg\'"></td>';
         html += '<td>' + escapeHtml(playlist.name) + '</td>';
         html += '<td>' + escapeHtml(playlist.ownerUsername || 'N/A') + '</td>';
         html += '<td>' + playlist.trackCount + '</td>';
@@ -717,13 +737,13 @@ function viewPlaylist(playlistId) {
     fetch('admin/api/playlist/' + playlistId)
         .then(function(response) { return response.json(); })
         .then(function(playlist) {
-            var artworkUrl = playlist.artworkUrl || 'assets/img/default_playlist.jpg';
+            var artworkUrl = playlist.artworkUrl || 'assets/img/default-playlist.jpg';
             var privacyClass = playlist.public ? 'badge-public' : 'badge-private';
             var privacyText = playlist.public ? 'Công khai' : 'Riêng tư';
             
             var html = '';
             html += '<div class="detail-header">';
-            html += '<img src="' + artworkUrl + '" alt="' + escapeHtml(playlist.name) + '" class="detail-avatar" onerror="this.src=\'assets/img/default_playlist.jpg\'">';
+            html += '<img src="' + artworkUrl + '" alt="' + escapeHtml(playlist.name) + '" class="detail-avatar" onerror="this.onerror=null;this.src=\'assets/img/default-playlist.jpg\'">';
             html += '<div class="detail-info">';
             html += '<h3>' + escapeHtml(playlist.name) + '</h3>';
             html += '<p><i class="bi bi-person me-2"></i>' + escapeHtml(playlist.ownerUsername || 'N/A') + '</p>';
@@ -867,6 +887,7 @@ function loadTopTracksChart() {
                     indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: false,
                     plugins: {
                         legend: {
                             display: false
@@ -935,6 +956,7 @@ function loadActiveUsersChart() {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: false,
                     plugins: {
                         legend: {
                             position: 'right',
@@ -998,6 +1020,7 @@ function loadPlayStatsDetailChart() {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: false,
                     plugins: {
                         legend: {
                             display: false

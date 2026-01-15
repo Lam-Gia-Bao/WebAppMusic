@@ -320,6 +320,7 @@ body {
 .admin-table {
     color: var(--admin-text);
     margin: 0;
+    background: var(--admin-card-bg);
 }
 
 .admin-table thead th {
@@ -334,10 +335,19 @@ body {
     white-space: nowrap;
 }
 
+.admin-table tbody {
+    background: var(--admin-card-bg);
+}
+
+.admin-table tbody tr {
+    background: var(--admin-card-bg);
+}
+
 .admin-table tbody td {
     padding: 12px;
     border-bottom: 1px solid var(--admin-border);
     vertical-align: middle;
+    background: var(--admin-card-bg);
 }
 
 .admin-table tbody tr:hover {
@@ -458,6 +468,25 @@ body {
     border-radius: 12px;
     padding: 20px;
     border: 1px solid var(--admin-border);
+}
+
+.chart-container canvas {
+    max-height: 300px;
+}
+
+/* Chart wrapper với chiều cao cố định */
+.chart-wrapper {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+.chart-wrapper canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .chart-container h4 {
@@ -675,4 +704,21 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #3a3a45;
+}
+
+/* ==================== BOOTSTRAP TABLE OVERRIDE ==================== */
+.table {
+    --bs-table-bg: var(--admin-card-bg);
+    --bs-table-color: var(--admin-text);
+    --bs-table-border-color: var(--admin-border);
+    --bs-table-striped-bg: var(--admin-card-bg);
+    --bs-table-striped-color: var(--admin-text);
+    --bs-table-hover-bg: rgba(255, 106, 0, 0.05);
+    --bs-table-hover-color: var(--admin-text);
+}
+
+.table > :not(caption) > * > * {
+    background-color: var(--admin-card-bg);
+    border-bottom-color: var(--admin-border);
+    color: var(--admin-text);
 }

@@ -137,10 +137,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<!-- Right Column extracted to separate JSP -->
-		<%@ include file="right_column.jsp"%>
+			<!-- Right Column extracted to separate JSP -->
+			<%@ include file="right_column.jsp"%>
+		</div>
 	</div>
 
 	<%@ include file="player.jsp"%>

@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Track Info</title>
+<title>Thông tin bài hát</title>
 
 <!-- Bootstrap 5 -->
 <link
@@ -21,7 +21,7 @@
 <body>
 
 	<!-- Close button top-right -->
-	<div class="close-circle" title="Close" onclick="window.location.href='upload.jsp'">
+	<div class="close-circle" title="Đóng" onclick="window.location.href='upload.jsp'">
 		<i class="bi bi-x"></i>
 	</div>
 
@@ -30,7 +30,7 @@
 		<div class="container-fluid">
 			<div class="brand">
 				<img src="assets/img/logo.png" alt="logo"> 
-				<span style="margin-left: 6px; font-weight: 700;">Track info</span>
+				<span style="margin-left: 6px; font-weight: 700;">Thông tin bài hát</span>
 			</div>
 		</div>
 	</div>
@@ -46,14 +46,14 @@
 					<input type="file" id="artworkInput" name="artwork" accept="image/*" style="display: none;">
 					<label for="artworkInput" class="artwork-label">
 						<i class="bi bi-image"></i>
-						<div class="artwork-text">Add new artwork</div>
+						<div class="artwork-text">Thêm ảnh bìa</div>
 					</label>
 				</div>
 				
 				<!-- Audio File Upload -->
 				<div class="audio-file-section" style="margin-top: 20px;">
 					<label class="track-label" style="color: #999; font-size: 14px;">
-						<i class="bi bi-music-note-beamed"></i> Audio File <span class="required">*</span>
+						<i class="bi bi-music-note-beamed"></i> File âm thanh <span class="required">*</span>
 					</label>
 					<input type="file" id="audioFileInput" name="audioFile" accept="audio/*" 
 						class="form-control" style="background: #1a1a1a; border: 1px solid #333; color: #fff; margin-top: 8px;" required>
@@ -65,40 +65,40 @@
 					<div class="advanced-header" onclick="toggleAdvanced()">
 						<div class="advanced-title">
 							<i class="bi bi-file-text"></i>
-							<span>Advanced details</span>
+							<span>Thông tin nâng cao</span>
 						</div>
 						<i id="advancedArrow" class="bi bi-chevron-down"></i>
 					</div>
-					<div class="advanced-subtitle">Buy link, record label, release date, publisher...</div>
+					<div class="advanced-subtitle">Link mua, hãng thu, ngày phát hành, nhà xuất bản...</div>
 					
 					<div id="advancedPanel" class="advanced-panel">
 						<hr class="advanced-divider">
 						
 						<!-- Buy/Download link -->
 						<div class="form-group-track">
-							<label class="track-label">Buy/Download link</label>
+							<label class="track-label">Link mua/tải về</label>
 							<input type="text" name="buyLink" class="track-input" 
 								placeholder="https://">
 						</div>
 
 						<!-- Release Date -->
 						<div class="form-group-track">
-							<label class="track-label">Release Date</label>
+							<label class="track-label">Ngày phát hành</label>
 							<input type="date" name="releaseDate" class="track-input">
 						</div>
 
 						<!-- Record Label -->
 						<div class="form-group-track">
-							<label class="track-label">Record Label</label>
+							<label class="track-label">Hãng thu âm</label>
 							<input type="text" name="recordLabel" class="track-input" 
-								placeholder="Enter label name">
+								placeholder="Nhập tên hãng thu">
 						</div>
 
 						<!-- Publisher -->
 						<div class="form-group-track">
-							<label class="track-label">Publisher</label>
+							<label class="track-label">Nhà xuất bản</label>
 							<input type="text" name="publisher" class="track-input" 
-								placeholder="Enter publisher">
+								placeholder="Nhập tên nhà xuất bản">
 						</div>
 					</div>
 				</div>
@@ -110,38 +110,38 @@
 				<!-- Track Title -->
 				<div class="form-group-track">
 					<label class="track-label">
-						Track title <span class="required">*</span>
+						Tên bài hát <span class="required">*</span>
 					</label>
 					<input type="text" name="trackTitle" class="track-input" 
-						placeholder="Name your track" required>
+						placeholder="Đặt tên cho bài hát của bạn" required>
 				</div>
 
 				<!-- Track Link -->
 				<div class="form-group-track">
-					<label class="track-label">Track link</label>
+					<label class="track-label">Đường dẫn bài hát</label>
 					<div class="track-link-wrapper">
-						<span class="track-link-prefix">https://soundcloud.com/hamza-shahid-</span>
+						<span class="track-link-prefix">https://beatflow.com/track/</span>
 						<input type="text" name="trackLink" class="track-link-input" 
-							placeholder="714730142">
+							placeholder="ten-bai-hat">
 					</div>
 				</div>
 
 				<!-- Main Artist -->
 				<div class="form-group-track">
 					<label class="track-label">
-						Main Artist(s) <i class="bi bi-question-circle help-icon"></i>
+						Nghệ sĩ chính <i class="bi bi-question-circle help-icon"></i>
 					</label>
 					<input type="text" name="mainArtist" class="track-input" 
-						placeholder="Add artists">
-					<div class="artist-hint">Tip: Use commas to add multiple artist names.</div>
+						placeholder="Thêm nghệ sĩ">
+					<div class="artist-hint">Mẹo: Dùng dấu phẩy để thêm nhiều nghệ sĩ.</div>
 				</div>
 
 				<!-- Genre -->
 				<div class="form-group-track">
-					<label class="track-label">Genre</label>
+					<label class="track-label">Thể loại</label>
 					<div class="dropdown-wrapper">
 						<input type="text" name="genre" class="track-input dropdown-input" 
-							placeholder="Add or search for genre" readonly>
+							placeholder="Thêm hoặc tìm thể loại" readonly>
 						<i class="bi bi-chevron-down dropdown-arrow"></i>
 					</div>
 				</div>
@@ -149,51 +149,51 @@
 				<!-- Tags -->
 				<div class="form-group-track">
 					<label class="track-label">
-						Tags <i class="bi bi-question-circle help-icon"></i>
+						Thẻ tag <i class="bi bi-question-circle help-icon"></i>
 					</label>
 					<input type="text" name="tags" class="track-input" 
-						placeholder="Add styles, moods, tempo...">
+						placeholder="Thêm phong cách, tâm trạng, nhịp độ...">
 				</div>
 
 				<!-- Description -->
 				<div class="form-group-track">
-					<label class="track-label">Description</label>
+					<label class="track-label">Mô tả</label>
 					<textarea name="description" class="track-textarea" rows="3"
-						placeholder="Describe your track"></textarea>
-					<div class="description-hint">Tracks with descriptions tend to get more plays and engagements.</div>
+						placeholder="Mô tả bài hát của bạn"></textarea>
+					<div class="description-hint">Bài hát có mô tả thường được nghe và tương tác nhiều hơn.</div>
 				</div>
 
 				<!-- Track Privacy -->
 				<div class="form-group-track">
-					<label class="track-label">Track Privacy</label>
+					<label class="track-label">Quyền riêng tư</label>
 					<div class="privacy-options">
 						<label class="privacy-option">
 							<input type="radio" name="privacy" value="public" checked>
 							<span class="privacy-radio"></span>
-							<span class="privacy-label-text">Public</span>
+							<span class="privacy-label-text">Công khai</span>
 						</label>
 						<label class="privacy-option">
 							<input type="radio" name="privacy" value="private">
 							<span class="privacy-radio"></span>
-							<span class="privacy-label-text">Private</span>
+							<span class="privacy-label-text">Riêng tư</span>
 						</label>
 						<label class="privacy-option">
 							<input type="radio" name="privacy" value="schedule">
 							<span class="privacy-radio"></span>
-							<span class="privacy-label-text">Schedule</span>
+							<span class="privacy-label-text">Lên lịch</span>
 						</label>
 					</div>
 				</div>
 
 				<!-- Upload Button -->
 				<div class="upload-button-wrapper">
-					<button type="submit" class="upload-submit-btn">Upload</button>
+					<button type="submit" class="upload-submit-btn">Tải lên</button>
 				</div>
 
 				<!-- Terms -->
 				<div class="terms-text">
-					By uploading, you confirm that your sounds comply with our 
-					<a href="#" class="terms-link">Terms of Use</a> and you don't infringe anyone else's rights.
+					Khi tải lên, bạn xác nhận rằng âm thanh của bạn tuân thủ 
+					<a href="#" class="terms-link">Điều khoản sử dụng</a> và không vi phạm quyền của người khác.
 				</div>
 
 			</div>
@@ -242,7 +242,7 @@
 			// Get the audio file from sessionStorage file name and validate
 			const submitBtn = this.querySelector('.upload-submit-btn');
 			submitBtn.disabled = true;
-			submitBtn.textContent = 'Uploading...';
+			submitBtn.textContent = 'Đang tải lên...';
 			
 			// Let form submit naturally to the server
 			// Do NOT call e.preventDefault() - we want the form to submit

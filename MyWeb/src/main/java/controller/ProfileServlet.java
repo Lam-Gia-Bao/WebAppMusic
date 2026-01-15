@@ -19,6 +19,7 @@ import service.HistoryService;
 import service.PlaylistService;
 import service.TrackService;
 import service.UploadService;
+import service.UserService;
 
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
@@ -29,6 +30,7 @@ public class ProfileServlet extends HttpServlet {
     private UploadService uploadService;
     private HistoryService historyService;
     private UserDAO userDAO;
+    private UserService userService;
 
     @Override
     public void init() throws ServletException {
@@ -38,6 +40,7 @@ public class ProfileServlet extends HttpServlet {
         this.uploadService = new UploadService();
         this.historyService = new HistoryService();
         this.userDAO = new UserDAO();
+        this.userService = new UserService();
     }
 
     @Override
@@ -111,6 +114,12 @@ public class ProfileServlet extends HttpServlet {
         request.setAttribute("tab", tab);
         request.setAttribute("username", username);
         request.setAttribute("userId", userId);
+
+        // Avatar và Email
+        String avatarUrl = userService.getAvatarUrl(userId);
+        String email = userService.getEmail(userId);
+        request.setAttribute("avatarUrl", avatarUrl);
+        request.setAttribute("email", email);
 
         request.setAttribute("followers", followers);
         request.setAttribute("following", following);

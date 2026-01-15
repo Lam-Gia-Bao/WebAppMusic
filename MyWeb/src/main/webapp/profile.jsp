@@ -245,7 +245,7 @@
             <c:forEach var="playlist" items="${playlists}">
               <div class="fav-card" data-playlist-id="${playlist.id}">
                 <div class="fav-img-wrap">
-                  <img src="${not empty playlist.imagePath ? playlist.imagePath : 'assets/img/playlist.jpg'}" alt="${playlist.name}">
+                  <img src="${not empty playlist.artworkUrl ? playlist.artworkUrl : (not empty playlist.imagePath ? playlist.imagePath : 'assets/img/playlist.jpg')}" alt="${playlist.name}">
                   <div class="fav-overlay">
                     <button class="fav-play" data-playlist-id="${playlist.id}" title="Phát playlist">
                       <i class="bi bi-play-fill"></i>

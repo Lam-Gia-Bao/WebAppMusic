@@ -1,3 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <%-- Right Column: Trending Artists and Listening History --%>
 <div class="col-lg-4">
     <h2 class="section-title artist-section-title">Các nghệ sĩ thịnh hành</h2>
